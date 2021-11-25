@@ -1,0 +1,65 @@
+\NeedsTeXFormat{LaTeX2e}
+%
+%\documentclass[aps,pra,showpacs,amsmath,amssymb,superscriptaddress,nofootinbib]{revtex4}
+\documentclass[]{article}
+\usepackage{graphicx}% Include figure files
+\usepackage{bm}% bold math
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{soul}
+\usepackage{nopageno}
+\usepackage{tikz}
+\usepackage{multirow}
+%%
+
+\begin{document}  
+
+\thispagestyle{empty}
+
+% figure created using https://www.mathcha.io/editor#
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  put here figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[]
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+%\multicolumn{1}{l}{Config} & x-ray photon energy & pos last focusing (m) & target beamsize (um) & use CRL finite opening and   absorption & direction & slit openening (um) & focal length (m) & lens radius (um) & focal length (m) & lens radius (um) & beamsize (fwhm) \\
+\multicolumn{1}{l}{n} & keV & p2 (m) & target & real & h/v & slit (um) & F1 (m) & R1 (um) & F2 (m) & R2 (um) & fwhm \\
+                           &                     &                       &                      &                                         &           &                     &                  &                  &                  &                  &                 \\
+\hline
+\multirow{2}{*}{1}         & \multirow{20}{*}{7} & \multirow{12}{*}{170} & \multirow{4}{*}{20}  & \multirow{2}{*}{N}                      & h         & 40.0                & 41.10            & None             & 26.21            & None             & 20.0            \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 49.14            & None             & 41.39            & None             & 20.0            \\
+\multirow{2}{*}{2}         &                     &                       &                      & \multirow{2}{*}{Y}                      & h         & 40.0                & 41.69            & 580.3            & 26.15            & 364.0            & 20.0            \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 49.73            & 692.1            & 39.72            & 552.9            & 20.0            \\
+\multirow{2}{*}{3}         &                     &                       & \multirow{4}{*}{30}  & \multirow{2}{*}{N}                      & h         & 40.0                & 29.93            & None             & 24.44            & None             & 30.0            \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 45.51            & None             & 62.72            & None             & 29.9            \\
+\multirow{2}{*}{4}         &                     &                       &                      & \multirow{2}{*}{Y}                      & h         & 40.0                & 29.73            & 413.9            & 24.27            & 337.9            & 30.0            \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 45.71            & 636.2            & 57.82            & 804.9            & 30.1            \\
+\multirow{2}{*}{5}         &                     &                       & \multirow{4}{*}{7}   & \multirow{2}{*}{N}                      & h         & 40.0                & 100.00           & None             & 25.17            & None             & 10.8            \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 87.06            & None             & 27.65            & None             & 7.0             \\
+\multirow{2}{*}{6}         &                     &                       &                      & \multirow{2}{*}{Y}                      & h         & 40.0                & 100.00           & 1391.9           & 25.16            & 350.2            & 11.5            \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 100.00           & 1391.9           & 27.16            & 378.0            & 7.5             \\
+\hline
+\multirow{2}{*}{7}         &                     & \multirow{8}{*}{192}  & \multirow{4}{*}{7}   & \multirow{2}{*}{N}                      & h         & 40.0                & 29.64            & None             & 7.53             & None             & 6.8             \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 45.61            & None             & 9.51             & None             & 11.9            \\
+\multirow{2}{*}{8}         &                     &                       &                      & \multirow{2}{*}{Y}                      & h         & 40.0                & 29.64            & 412.5            & 7.53             & 104.8            & 7.0             \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 45.61            & 634.9            & 9.28             & 129.2            & 12.0            \\
+\multirow{2}{*}{9}         &                     &                       & \multirow{4}{*}{3}   & \multirow{2}{*}{N}                      & h         & 40.0                & 68.93            & None             & 7.67             & None             & 3.0             \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 60.90            & None             & 8.06             & None             & 3.0             \\
+\multirow{2}{*}{10}        &                     &                       &                      & \multirow{2}{*}{Y}                      & h         & 40.0                & 100.00           & 1391.9           & 7.66             & 106.6            & 3.2             \\
+                           &                     &                       &                      &                                         & v         & 206.8               & 71.48            & 995.0            & 7.92             & 110.2            & 3.0            
+\end{tabular}
+\end{table}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  end put here figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
