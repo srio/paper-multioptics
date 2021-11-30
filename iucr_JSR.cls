@@ -1474,7 +1474,7 @@
           \hbox to \textwidth{%
             \ifc@pyright%
               \fontsize{7}{12pt}\sffamily \copyright\ %
-              \j@urnalyear\ ESRF - The European Synchrotron%
+              \j@urnalyear\ International Union of Crystallography%
               \kern3pt$\cdot$\kern3pt %
             \fi%
             \fontsize{7}{12pt}\sffamily Printed
@@ -1494,7 +1494,7 @@
             {\fontsize{12}{12pt}\sffamily\bfseries\thepage\quad}%
             \ifc@pyright%
               \fontsize{7}{12pt}\sffamily \copyright\ %
-              \j@urnalyear\ ESRF - The European Synchrotron%
+              \j@urnalyear\ International Union of Crystallography%
               \kern3pt$\cdot$\kern3pt %
             \fi%
             \fontsize{7}{12pt}\sffamily Printed
@@ -1964,7 +1964,7 @@
                \fontsize{7}{10pt}\sffamily%
                \ifc@pyright%
                  \hbox{\copyright\  \j@urnalyear\
-                 ESRF - The European Synchrotron}\par
+                 International Union of Crystallography}\par
                \fi%
                \if\j@urnalcode\@D@{Printed in Denmark -- all rights reserved}\fi
              }}%
@@ -2337,7 +2337,7 @@
                \fontsize{7}{10pt}\sffamily%
                \ifc@pyright%
                  \hbox{\copyright\  \j@urnalyear\
-                 ESRF - The European Synchrotron}\par
+                 International Union of Crystallography}\par
                \fi%
                \if\j@urnalcode\@D@{Printed in Denmark -- all rights reserved}\fi
              }}%
@@ -2414,7 +2414,7 @@
           \hbox to \textwidth{%
             \ifc@pyright%
               \fontsize{7}{12pt}\sffamily \copyright\ %
-              \j@urnalyear\ ESRF - The European Synchrotron%
+              \j@urnalyear\ International Union of Crystallography%
               \kern3pt$\cdot$\kern3pt %
             \fi%
             \fontsize{7}{11pt}\sffamily Printed
@@ -2433,7 +2433,7 @@
             {\fontsize{12}{12pt}\sffamily\bfseries\thepage\quad}%
             \ifc@pyright%
               \fontsize{7}{12pt}\sffamily \copyright\ %
-              \j@urnalyear\ ESRF - The European Synchrotron%
+              \j@urnalyear\ International Union of Crystallography%
               \kern3pt$\cdot$\kern3pt %
             \fi%
             \fontsize{7}{11pt}\sffamily Printed
@@ -2637,7 +2637,7 @@
           \hbox to \textwidth{%
             \ifc@pyright%
               \fontsize{8}{12pt}\sffamily \copyright\ %
-              \j@urnalyear\ ESRF - The European Synchrotron%
+              \j@urnalyear\ International Union of Crystallography%
               \hfill%
             \fi%
             {\quad\fontsize{12}{12pt}\sffamily\bfseries\thepage}%
@@ -2653,7 +2653,7 @@
             {\fontsize{12}{12pt}\sffamily\bfseries\thepage\quad}%
             \ifc@pyright%
               \fontsize{8}{12pt}\sffamily \copyright\ %
-              \j@urnalyear\ ESRF - The European Synchrotron%
+              \j@urnalyear\ International Union of Crystallography%
               \hfill%
             \fi%
           }%
@@ -4255,7 +4255,7 @@
 \def\j@urnalcode{\relax}                         % Some defaults in case the
 \def\j@urnaltitle{\relax}                        %  relevant items are not
 \def\j@urnalfullname{\relax}                     %  declared in the source
-\def\j@urnalyear{2021}                           %  file
+\def\j@urnalyear{0000}                           %  file
 \def\v@lume{00}                                  %
 \def\issn{\relax}
 
@@ -4423,10 +4423,10 @@
        \noindent\j@urnalname}
   }\fi
   \if\j@urnalcode\@S@{%
-     \gdef\j@urnalname{X-ray Optics, Simulations \& Synchr. Rad.}
-     \gdef\j@urnalfullname{X-ray Optics, Simulations \& Synchr. Rad.}
+     \gdef\j@urnalname{J. Synchrotron Rad.}
+     \gdef\j@urnalfullname{Journal of Synchrotron Radiation}
      \gdef\j@urnaltitle{}
-     \gdef\issn{0000-0000}
+     \gdef\issn{0909-0495}
      \ifXstyl@%
      \global\setbox\c@tchline=\hbox{\normalfont\sffamily\itshape%
        \noindent\j@urnalname}
@@ -4901,18 +4901,18 @@
       \fontsize{7}{10pt}\sffamily%
       \ifc@pyright%
         \hbox{\copyright\  \j@urnalyear\
-        ESRF - The European Synchrotron%
+        International Union of Crystallography%
         }\par%
       \fi%
-      \if\j@urnalcode\@A@{\noindent Printed in Grenoble -- all rights reserved}\fi%
-      \if\j@urnalcode\@B@{\noindent Printed in Grenoble -- all rights reserved}\fi%
-      \if\j@urnalcode\@C@{\noindent Printed in Grenoble -- all rights reserved}\fi%
-      \if\j@urnalcode\@D@{\noindent Printed in Grenoble -- all rights reserved}\fi%
-      \if\j@urnalcode\@E@{\noindent Printed in Grenoble -- all rights reserved}\fi%
-      \if\j@urnalcode\@F@{\noindent Printed in Grenoble -- all rights reserved}\fi%
-      \if\j@urnalcode\@J@{\noindent Printed in Grenoble -- all rights reserved}\fi%
+      \if\j@urnalcode\@A@{\noindent Printed in Singapore -- all rights reserved}\fi%
+      \if\j@urnalcode\@B@{\noindent Printed in Singapore -- all rights reserved}\fi%
+      \if\j@urnalcode\@C@{\noindent Printed in Singapore -- all rights reserved}\fi%
+      \if\j@urnalcode\@D@{\noindent Printed in Singaport -- all rights reserved}\fi%
+      \if\j@urnalcode\@E@{\noindent Printed in Singapore -- all rights reserved}\fi%
+      \if\j@urnalcode\@F@{\noindent Printed in Singapore -- all rights reserved}\fi%
+      \if\j@urnalcode\@J@{\noindent Printed in Singapore -- all rights reserved}\fi%
       \if\j@urnalcode\@J@{\noindent \relax}\fi%
-      \if\j@urnalcode\@S@{\noindent Printed in Grenoble -- all rights reserved}\fi%
+      \if\j@urnalcode\@S@{\noindent Printed in Singapore -- all rights reserved}\fi%
       \par$\phantom{(}$%                         % hack to balance boxes
       }}
     \mkttltrue
@@ -5002,17 +5002,17 @@
           \fontsize{7}{10pt}\sffamily%
           \ifc@pyright%
             \hbox{\copyright\  \j@urnalyear\
-            ESRF - The European Synchrotron}\par
+            International Union of Crystallography}\par
           \fi%
-          \if\j@urnalcode\@A@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@B@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@C@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@D@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@E@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@F@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@J@{Printed in Grenoble -- all rights reserved}\fi
+          \if\j@urnalcode\@A@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@B@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@C@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@D@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@E@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@F@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@J@{Printed in Singapore -- all rights reserved}\fi
           \if\j@urnalcode\@M@{\relax}\fi
-          \if\j@urnalcode\@S@{Printed in Grenoble -- all rights reserved}\fi
+          \if\j@urnalcode\@S@{Printed in Singapore -- all rights reserved}\fi
         }%
 %
         \hskip 96mm\hbox{%
@@ -5155,17 +5155,17 @@
           \fontsize{7}{10pt}\sffamily%
           \ifc@pyright%
             \hbox{\copyright\  \j@urnalyear\
-            ESRF - The European Synchrotron}\par
+            International Union of Crystallography}\par
           \fi%
-          \if\j@urnalcode\@A@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@B@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@C@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@D@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@E@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@F@{Printed in Grenoble -- all rights reserved}\fi
-          \if\j@urnalcode\@J@{Printed in Grenoble -- all rights reserved}\fi
+          \if\j@urnalcode\@A@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@B@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@C@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@D@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@E@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@F@{Printed in Singapore -- all rights reserved}\fi
+          \if\j@urnalcode\@J@{Printed in Singapore -- all rights reserved}\fi
           \if\j@urnalcode\@M@{\relax}\fi
-          \if\j@urnalcode\@S@{Printed in Grenoble -- all rights reserved}\fi
+          \if\j@urnalcode\@S@{Printed in Singapore -- all rights reserved}\fi
         }%
 %
         \hskip 96mm\hbox{%
@@ -7515,8 +7515,8 @@
 % set up requires that it be instantiated in some hidden way like this:
 % undoubtedly a subtle bug, but this provides a workaround for current
 % dictionaries
-\gdef\RHUBARB{\smash{$\phantom{\_}$}}%
-  %\RHUBARB% % hack - see above
+% \gdef\RHUBARB{\smash{$\phantom{\_}$}}%
+%   \RHUBARB% % hack - see above
 \def\DATA#1{%
   \baselineskip10pt%
   \ckeytrue%

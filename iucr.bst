@@ -332,7 +332,7 @@ MACRO {toois} {"ACM Transactions on Office Information Systems"}
 MACRO {toplas} {"ACM Transactions on Programming Languages and Systems"}
 MACRO {tcs} {"Theoretical Computer Science"}
 
-FUNCTION {write.url}    #RC210901 - omits URL for a cleaner bibliography
+FUNCTION {write.url}
 {}
 %{ URL empty$
 %    { skip$ }
@@ -1160,6 +1160,22 @@ FUNCTION {misc}
   fin.entry
   write.url
 }
+
+FUNCTION {patent}
+{ output.bibitem
+  format.authors output
+  author format.key output
+  format.date "year" output.check
+  date.block
+  format.title output
+  new.block
+  howpublished output
+  new.block
+  format.note output
+  fin.entry
+  write.url
+}
+
 
 FUNCTION {phdthesis}
 { output.bibitem
