@@ -194,9 +194,12 @@ W'(x_1,x_2;\omega) = \sum_{n=0}^{\infty} \lambda_n(\omega) \phi'^{*}_n(x_1;\omeg
 \end{equation}
 Note that the propagated wavefronts $\phi'$ are in general not orthonormal therefore there are not coherence modes. A new CMD of $W'$ must be done to calculate new eigenvalues and eigenvectors (modes) and the propagated CF. The propagated wavefronts in (equation~\ref{eq:propagatedCSD}) are orthonormal only in the cases of free propagation in vacuum and ideal focusing. Any element that crop the beam or include absorption imply that propagated wavefronts $\phi'_n$ are not longer orthonormal.  
 
-\subsection{Propagation of wavefronts along the beamline}
+\todo{may be is interesting to explain here how to obtain 2D data by outer product of H and V profiles, something that is used later on}
 
-% \subsubsection{Wavefront propagation in free-space}
+
+\section{Propagation of wavefronts along the beamline}
+
+\subsection{Wavefront propagation in free-space (Drift spaces)}
 
 The wavefront evolves when transported in free space from two different positions along the optical axis. Integral propagators are to calculate the wavefront in a given point starting from the wavefront in a previous position. 
 
@@ -204,7 +207,7 @@ The wavefront evolves when transported in free space from two different position
 A propagator based on \cite{schmidt} is implemented in WOFRY (both 1D and 2D versions) to calculate the transported field in a ``zoomed'' window. Wofry 1D also implements an ``integral" propagator based on the direct numerical integration of the  Rayleigh-Sommerfeld integral \cite{srioLBL}
 
 
-% \subsubsection{Wavefront modification by apertures}
+\subsection{Wavefront cropping (apertures)}
 % \label{sec:gaussianslit}
 
 A generic aperture is a mask that transmits a part of the wavefront complex amplitude in a range $[x_{min},x_{max}]$ and absorbs the rest. It can be
@@ -221,7 +224,7 @@ A,  & \mbox{~~if~~} x_{min} \le x \le x_{max}
 When the element is a slit, then $A=1$. If it is a beamstop, then $A=0$. In the following simulations we will use an aperture of finite length $a$ centered with the beam, therefore $x_{min}=-a/2$ and $x_{max}=a/2$.
 
 
-% \subsubsection{Wavefront modification by lenses: thin object approximation}
+\subsection{Wavefront focusing (lenses)}
 
 A refractor made by a material with refraction index $n(\omega)=1-\delta(\omega)+i\beta(\omega)$ 
 and thickness profile $z(x)$ adds a phase to the wavefront $-\lambda \delta(\omega) z(x)$ and reduce its amplitude by $\exp(-\mu z(x)/2)$, where $\mu=(4 \pi/\lambda) \delta(\omega)$ is the (intensity) attenuation coefficient. These expressions can be applied to any transmission object of profile $x(z)$ assuming valid the thin object approximation. 
@@ -233,6 +236,10 @@ The changes induced by a real lens in the wavefront can be calculated using the 
 \end{align}
 
 A Compound Refractive Lens is a pile of $N$ identical lenses. If we neglect the beam propagation in the inter-lens space, the effect of the $N$ lenses is identical of a single lens with profile $x_N(z)=N z(x)$. If one is interested in assessing the effect of the inter-lens space (e.g. for studying the adiabatic focusing \cite{Schroer_adiabatic}) the CRL must be calculated as $N$ independent lenses, applying the free-space propagator in between two consecutive lenses. For a transfocator (a transfocator is a pile of CRLs) the same concept apply: it is possible to compute the accumulated lens profile and use it as a single lens, or calculate lens by lens (or CRL by CRL) if the effect of inter-lens or inter-CRL spaces are to be taken into account.
+
+\todo{a possible new section describing the coherent parameters (CF, coherent length, etc) and the way to obtan them via rediagonalization...}
+
+
 
 \section{Description of the optical system}
 \label{sec:beamline}
@@ -311,7 +318,19 @@ The first case is selected to obtain a small spot (about \SI{5}{\micro\meter}) a
 \section{Results of multi-optics simulations}
 \label{sec:complete-beamline}
 
-Calculations are done using different methodologies, implemented in four different software codes. The results of intensity distribution at the sample plane are display in Figs.~\ref{fig:hybrid}-\ref{fig:2DWofry1D}, for results using hybrid, SRW, COMSYL and WOFRY1D codes, respectively.  Beam dimensions are obtained by calculating the full width at half maximum (FWHM) from the intensity distrubution at one direction, resulting by integrating the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
+Calculations are done using different methodologies, implemented in four different software codes. 
+
+We first calculated the illumination at the entrance slit plane. The beam at this position comes from the free propagation of the undulator emission, therefore it has the same coherence fraction as the source. The intensity distribution is shown in Fig.~\ref{fig:intensityat36m}, where the horizontal and vertical profiles calculated by Wofry1D and SRW-ME are compared. The effect of the partial coherence is important: a coherent beam would give very different values \todo{add numbers? repeat the simulations here}. \todo{may be comment 1) that the coherent illumination if different for SRW (zero emittance) than for Wofry1D (zeroth mode), and 2) we could calculate precisely the FWHM values of the profiles and compare with the typical analytical convolution calculation.}   
+
+\begin{figure}
+    \label{fig:intensityat36m}
+    \includegraphics[width=0.99\textwidth]{figures/a-intensity-b-CSDx-and-c-CSDy-of-the-secondary-source_W640.jpg}
+    (d) \includegraphics[width=0.75\textwidth]{figures/profiles_at_36m.png}
+    \caption{Intensity (a) and CSD in 1D for H (b) and V (c) directions calculated by \todo{Wofry1D and} SRW-ME  (d) comparison of the central intensity profiles. \todo{redo the figure...}}
+\end{figure}
+
+
+The results of intensity distribution at the sample plane are display in Figs.~\ref{fig:hybrid}-\ref{fig:2DWofry1D}, for results using hybrid, SRW, COMSYL and WOFRY1D codes, respectively.  Beam dimensions are obtained by calculating the full width at half maximum (FWHM) from the intensity distrubution at one direction, resulting by integrating the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
 The results for case 1 shows an horizontal profile mostly triangular with shoulders that evidence small diffraction fringes. The fringes are more resolved in the vertical direction. Case 2  presents in horizontal a soft Gaussian-like profile, but in vertical important symmetric shoulders are remarked. Case 3 shows a smooth Gaussian profile in horizontal and a small shoulder with fringes in vertical. Case 4 shows a conventional smooth profile in horizontal but an original three-lobe plateau in vertical. This variety of profile distribution demonstrates how relevant the diffraction effects are, which modulate the beam shape in a non-trivial way.  
 
 \newpage
@@ -448,6 +467,20 @@ There is good agreement in focal size FWHM values in all methods (see Table~\ref
 
 Regarding computer resources, the Wofry1D code can be run in a few seconds in a laptop, whereas the simulation of the full CMD with COMSYL required about 1h (for 1691 x 563 pixels, 174 modes) using 1 node of 28 cores. This source is then reused for propagating the different configurations. Each configuration required a full SRW-ME with 5000 electrons run in also about 1h in a similar configuration. 
 
+\todo{a possible paragraph discussing surface errors. Just to show it as a proof of concept: FEM at the white mirror, slope error at the mirros, FEM at the monochromator... Cons: it will be done with only Wofry1D (too much work for the full collection of codes); the results will not change what we have}
+
+
+\todo{A possible discussion of the Gaussian Shell-model. I am not much in favor of including the GSM here, but it can be done. Main points for the discussion:
+
+\begin{itemize}
+\item Discuss how to match the GSM with undulator parameters: there are several possibilities... I prefer matching the size and CF. 
+\item Compare Hermite-Gaussian modes with numerical modes. There are similar nut not identical. For incoherent sources the GSM may be a good approximation, for pretty coherent sources not. 
+\item Show that propagation of GSM modes is very different than propagating undulator modes. Indeed, because $\sigma \sigma' = \lambda / (4 \pi)$ in GSM and with $2\pi$ in undulator either the size at the source or the propagated size is wrong with GSM.
+\item Analytical propagation of the modes (as described by Vartanyants et al.) only works for ideal elements, and Gaussian slits. They fail in simulating structures like those that we obtain, because they are originated by the slit, which is non-Gaussian.
+\end{itemize}
+
+}
+
 % \subsection{Hybrid ray-tracing}
 
 % The simulation results for the four cases studied using the hybrid method indicate that, although this method does not reproduce exactly the intensity distibution given by full partial coherent optics, the numerical values are approaching the good ones, but with two exceptions: the case 
@@ -471,7 +504,7 @@ Regarding computer resources, the Wofry1D code can be run in a few seconds in a 
 
 The simulations presented, motivated by the ID18 project, use a simplified optical layout. A more complete study including the other optical elements, other transfocator configurations will be presented elsewhere, also for different energies and implementing the effect of surface errors due to thermal load and surface finish. 
 
-We have also calculated the beam evolution in the neighbourhood of the sample position for the four cases studied (see Fig.~\ref{fig:caustic}). From these plots one can obtain the position of the best focus and the depth of focus. The depth of focus (measured as the distance where the peak value is reduced by 15\%) is larger than two meters (except for the cases 1v, 3v). \todo{redo these plots and compare with SRW... otherwise supress?}
+% We have also calculated the beam evolution in the neighbourhood of the sample position for the four cases studied (see Fig.~\ref{fig:caustic}). From these plots one can obtain the position of the best focus and the depth of focus. The depth of focus (measured as the distance where the peak value is reduced by 15\%) is larger than two meters (except for the cases 1v, 3v). \todo{redo these plots and compare with SRW... otherwise supress?}
 
 % In some cases there is a mismatch between the position of the best focus and its expected position (the sample position, at the zero abscissas). This effect, certainly due to an error in setting $f_2$, may have several origins. 
 
@@ -486,14 +519,14 @@ We have also calculated the beam evolution in the neighbourhood of the sample po
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{figure}\label{fig:caustic}
-\centering
+% \begin{figure}\label{fig:caustic}
+% \centering
 
-\includegraphics[width=0.99\textwidth]{figures/fig_caustic.pdf}
+% \includegraphics[width=0.99\textwidth]{figures/fig_caustic.pdf}
 
-\caption{Evolution of the beam size in the around the sample position for the cases listed in Table~\ref{table:2Dusercases}. The top and side graphs correspond to the profiles passing by (0,0).
-}
-\end{figure}
+% \caption{Evolution of the beam size in the around the sample position for the cases listed in Table~\ref{table:2Dusercases}. The top and side graphs correspond to the profiles passing by (0,0).
+% }
+% \end{figure}
 
 
 
