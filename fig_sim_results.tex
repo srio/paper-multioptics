@@ -1,0 +1,21 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{subfig}
+\usepackage{amsmath}
+
+\usepackage{graphicx}
+\usepackage[legalpaper, portrait, margin=0.5cm]{geometry}
+% \renewcommand{\thesubfigure}{\roman{subfigure}}
+
+\thispagestyle{empty}
+\begin{document}
+
+\begin{figure}[h]
+    \centering
+        \subfloat[Hybrid ray-tracing]{\includegraphics[height=10cm]{figures/fig_hybrid_bis.pdf}}\hspace{1cm}
+        \subfloat[SRW]{\includegraphics[height=10cm]{figures/fig_srw_bis.pdf}}\\
+        \vspace{1cm}
+        \subfloat[COMSYL]{\includegraphics[height=10cm]{figures/fig_comsyl_bis.pdf}}\hspace{1cm}
+        \subfloat[WOFRY 1D]{\includegraphics[height=10cm]{figures/fig_srw_bis.pdf}}
+\end{figure}
+\end{document}
