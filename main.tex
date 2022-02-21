@@ -587,7 +587,7 @@ A generic aperture (slit, pin-holes and beam-stop) is represented by a binary op
 \mathrm{T}_{\text{BL}}(\textbf{r}) =
 \left\{
 \begin{matrix}
-T,  & \mbox{~~if~~}  \textbf{r}  in \textbf{A}
+T,  & \mbox{~~if~~}  \textbf{r}~\text{inside}~ \textbf{A}
 \\ 
 1 - T, & \mbox{~~elsewhere}
 \end{matrix}
@@ -718,10 +718,10 @@ Calculations are done using different methodologies, implemented in four differe
 
 We first calculated the illumination at the entrance slit plane. The beam at this position comes from the free propagation of the undulator emission, therefore it has the same coherence fraction as the source. The intensity distribution is shown in Fig.~\ref{fig:intensityat36m}, where the horizontal and vertical profiles calculated by Wofry1D and SRW-ME are compared. The effect of the partial coherence is important: a coherent beam would give very different values \todo{add numbers? repeat the simulations here}. \todo{may be comment 1) that the coherent illumination if different for SRW (zero emittance) than for Wofry1D (zeroth mode), and 2) we could calculate precisely the FWHM values of the profiles and compare with the typical analytical convolution calculation.}   
 
-\todo{Look at the comparison... they have significant differences... Questions: 
+\todo{Look at the comparison... they have significant differences... Questions/Comments: 
 \begin{itemize}
-    \item Are the profiles really profiles or sometimes ``histograms"?
-    \item The division by the intensity for getting DoC adds a lot of noise when the intensity is small. Can we compare CSD((x1+x2)/2,(x1-x2)/2)? 
+    \item  In Figs 2 and 3 I added the SRW profiles (extracted in OASYS with SRW ME output files) they are small differences... In Fig 3 I also added the DoC SRW (not in Fig. 2 as I do not have the .1 and .2 files). The Doc and 1st harmonoc are very different... to be discussed! 
+    \item The division by the intensity for getting DoC adds a lot of noise when the intensity is small. Can we compare CSD((x1+x2)/2,(x1-x2)/2) instead? 
     \item I always have doubts if my factor ()/2 is correctly set.
 \end{itemize}
 }
@@ -732,18 +732,29 @@ We first calculated the illumination at the entrance slit plane. The beam at thi
 \begin{figure}
     \label{fig:CSD_SRW_vs_I_source}
     \includegraphics[width=0.75\textwidth]{CSD_SRW_vs_I_source.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_source_h.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_source_v.pdf}
-    \caption{Calculations @source. Top: SRW, bottom: WOFRY1D}
+    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_source_h.png}
+    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_source_v.png}
+    \caption{Calculations @source. Top: SRW, bottom: WOFRY1D.
+SRW (top): Horizontal FWHM: 73.08 [um]. 
+Vertical FWHM: 18.28 [um]
+Coherence length H: 6.13 [um]. 
+Coherence length V: 8.53 [um].
+    }
 \end{figure}
 
 \begin{figure}
     \label{fig:CSD_SRW_vs_I_36m}
     \includegraphics[width=0.75\textwidth]{CSD_SRW_vs_I_36m.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_36m_h.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_36m_v.pdf}
+    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_36m_h.png}
+    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_36m_v.png}
     
-    \caption{Calculations @36m. Top: SRW, bottom: WOFRY1D}
+    \caption{Calculations @36m. Top: SRW, bottom: WOFRY1D.
+    
+    SRW (top): 
+    Horizontal FWHM: 649.53 [um].
+    Vertical FWHM: 569.21 [um].   Coherence length H: 44.74 [um].
+    Coherence length V: 206.90 [um].
+    }
 \end{figure}
 
 \twocolumn
@@ -784,28 +795,27 @@ We first calculated the illumination at the entrance slit plane. The beam at thi
 \end{figure}
 
 \newpage
-\inred{Info on Figs~\ref{fig:CSD_SRW_source} and \ref{fig:CSD_SRW_vs_I_source}:}
-INFO: >>> intensity bis7.0keV intensity.dat
-INFO: Horizontal FWHM: 73.08 [um]
-INFO: Vertical FWHM: 18.28 [um]
-INFO: >>> CSDx7.0keV 15k ME intensity.dat
-INFO: Coherence length: 6.13 [um]
-INFO: >>> CSDy7.0keV 15k ME intensity.dat
-INFO: Coherence length: 8.53 [um]
+
+% \inred{Info on Figs~\ref{fig:CSD_SRW_source} and \ref{fig:CSD_SRW_vs_I_source}:}
+% INFO: >>> intensity bis7.0keV intensity.dat
+% INFO: Horizontal FWHM: 73.08 [um]
+% INFO: Vertical FWHM: 18.28 [um]
+% INFO: >>> CSDx7.0keV 15k ME intensity.dat
+% INFO: Coherence length: 6.13 [um]
+% INFO: >>> CSDy7.0keV 15k ME intensity.dat
+% INFO: Coherence length: 8.53 [um]
 
 
+% \inred{Info on Figs~\ref{fig:CSD_SRW_36m} and \ref{fig:CSD_SRW_vs_I_36m}:}
+% INFO: >>> intensity bis7.0keV intensity.dat
+% INFO: Horizontal FWHM: 649.53 [um]
+% INFO: Vertical FWHM: 569.21 [um]
+% INFO: >>> CSDx7.0keV 15k ME intensity.dat
+% INFO: Coherence length: 44.74 [um]
+% INFO: >>> CSDy7.0keV 15k ME intensity.dat
+% INFO: Coherence length: 206.90 [um]
 
-
-
-\inred{Info on Figs~\ref{fig:CSD_SRW_36m} and \ref{fig:CSD_SRW_vs_I_36m}:}
-INFO: >>> intensity bis7.0keV intensity.dat
-INFO: Horizontal FWHM: 649.53 [um]
-INFO: Vertical FWHM: 569.21 [um]
-INFO: >>> CSDx7.0keV 15k ME intensity.dat
-INFO: Coherence length: 44.74 [um]
-INFO: >>> CSDy7.0keV 15k ME intensity.dat
-INFO: Coherence length: 206.90 [um]
-
+\subsection{Image at sample position}
 
 The results of intensity distribution at the sample plane are display in Figs.~\ref{fig:sim_results}(a)-(d), for results using hybrid, SRW, COMSYL and WOFRY1D codes, respectively.  Beam dimensions are obtained by calculating the full width at half maximum (FWHM) from the intensity distrubution at one direction, resulting by integrating the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
 The results for case 1 shows an horizontal profile mostly triangular with shoulders that evidence small diffraction fringes. The fringes are more resolved in the vertical direction. Case 2  presents in horizontal a soft Gaussian-like profile, but in vertical important symmetric shoulders are remarked. Case 3 shows a smooth Gaussian profile in horizontal and a small shoulder with fringes in vertical. Case 4 shows a conventional smooth profile in horizontal but an original three-lobe plateau in vertical. This variety of profile distribution demonstrates how relevant the diffraction effects are, which modulate the beam shape in a non-trivial way.  
