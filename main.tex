@@ -344,9 +344,9 @@ The eigenvalue in Eq.~\ref{fredholm_equation} can be written:
 \begin{equation}
 A_{W_{2D}}[\Phi_i] = \Lambda_i \Phi_i,
 \end{equation}
-where we define the Hermitian operator as:
+where we define the Hermitian operator for a generic function $g$ as:
 \begin{equation}\label{eq:Hermitian}
-A_{W_{2D}}[f](\textbf{r})  = \int W_{2D}(\tilde{\textbf{r}},\textbf{r};\omega) f(\tilde{\textbf{r}})~ \text{d}\tilde{\textbf{r}}.
+A_{W_{2D}}[g](\textbf{r})  = \int W_{2D}(\tilde{\textbf{r}},\textbf{r};\omega) g(\tilde{\textbf{r}})~ \text{d}\tilde{\textbf{r}}.
 \end{equation}
 
 We concentrate now in methods for efficiently obtaining $W_{2D}$. A first look at the CSD expression (see Eq.~\ref{eq:CSDallaChubar}) is enough to get an impression of how it is resource-intensive calculating and storing this 6D function. For synchrotron beams it is useful to decouple the longitudinal coordinate (along the optical axis in a beamline - see Fig.~\ref{fig:coordinates}) so that $W_{2D}$ reduces to 4D. Knowing the CSD at a given position $z$, that is, $W_{2D}(x_1,y_1,x_2,y_2; \omega, z)$ it is possible (although not simple) to propagate it to another position $z'$ and even at the origin of the optical axis (the source position).
@@ -575,7 +575,7 @@ Optical elements will interact with the wavefront by manipulating its amplitude 
  \begin{equation}\label{eq:trans_el}
 T_\omega(\textbf{r})=\sqrt{\mathrm{T}_\mathrm{BL}(\textbf{r})}\exp{\big[ i\varphi(\textbf{r})\big]},
 \end{equation}
-which is applied to the electric field $E_\omega(\textbf{r})$ as a multiplicative factor. This thin element approximation can be expanded to represent thick optical elements by applying the multi-slicing method, that represents an optical element as an intercalation of several thin-elements (slices) and free-space propagation between them \cite{paganin_book, Li2017, Munro2019} - see Appendix~\ref{sec:appendixTransmissionElements}. 
+which is applied to the electric field $E_\omega(\textbf{r})$ as a multiplicative factor \cite{Cloetens_1996}. This thin element approximation can be expanded to represent thick optical elements by applying the multi-slicing method, that represents an optical element as an intercalation of several thin-elements (slices) and free-space propagation between them \cite{paganin_book, Li2017, Munro2019} - see Appendix~\ref{sec:appendixTransmissionElements}. 
 
 A generic aperture (slit, pin-holes and beam-stop) is represented by a binary opaque object: it masks part of the wavefront:
 
@@ -1088,7 +1088,7 @@ This method is available in the Wofry add-on of the OASYS suite \cite{codeOASYS}
    &=\exp{(ikL)}\mathcal{F}^{-1}\big\{\mathcal{F}\{E_\omega(\textbf{r})\}\exp\big[-i\pi\lambda L\big(f_x^2+f_y^2\big)\big]\},
 \end{split}
 \end{equation}
-where $\mathcal{F}\{\bullet\}$ is the two-dimensional Fourier transform (FT) and $\mathcal{F}^{-1}\{\bullet\}$ denotes inverse FT. This second approach is efficiently implemented in SRW using only two fast Fourier transforms (FFTs) because the kernel $h(\textbf{r}')$ has an analytical Fourier transform. Downsides to the FFT-based implementation include the heavy sampling needed to avoid aliasing and also necessary in order to resolve small features in the propagated wavefront $ E_\omega(\textbf{r}')$, since the application of Eq.~\ref{eq:FresnelConv} limits the range and sampling in the output plane to those of the input plane $ E_\omega(\textbf{r})$ \cite{Kelly2014}.
+where $\mathcal{F}\{\bullet\}$ is the two-dimensional Fourier transform (FT) and $\mathcal{F}^{-1}\{\bullet\}$ denotes inverse FT. This second approach is efficiently implemented in SRW using only two fast Fourier transforms (FFTs) because the kernel $h(\textbf{r}')$ has an analytical Fourier transform. Downsides to the FFT-based implementation include the heavy sampling needed to avoid aliasing and also necessary in order to resolve small features in the propagated wavefront $ E_\omega(\textbf{r}')$, since the application of Eq.~\ref{eq:FresnelConv} limits the range and sampling in the output plane to those of the input plane $ E_\omega(\textbf{r})$ \cite{Kelly2014}. The interest in having a direct- and a reciprocal-space implementation of Eq.~\ref{eq:Fresnel} is summarised in Fig.~1 from \cite{Li2015}.
 
 A second family of propagators is obtained by the analytical treatment of the quadratic radiation phase term in Eq.~\ref{eq:Fresnel}, which allows for considerable economy of memory and CPU resources as compared to the standard Fresnel free-space propagator \cite{ChubarCelestre}. Without losing generality, we assume that the electric field $E_\omega(\textbf{r})$ has a quadratic phase term defined by the wavefront curvature radii $(R_x, R_y)$ centred at $(x_0,y_0)$:
  \begin{equation}\label{eq:E_analytical}
@@ -1193,7 +1193,7 @@ Consider an arbitrary-shaped scattering volume as shown in Fig.~\ref{fig:project
 \begin{equation}\label{eq:transmission_n}
     E_\omega(x,y,z_1)\approx\exp\Bigg\{-\frac{ik}{2}\int\limits_{z=z_0}^{z=z_1}{\big[1-n_\omega^2(x,y,z)\big]~\mathrm{d}z}\Bigg\}E_\omega(x,y,z_0).
 \end{equation}{}
-Eq.~\ref{eq:transmission_n} shows that the effect of a weak scatterer can be accounted by a multiplicative complex transmission element represented by the complex exponential. In the X-ray regime the index of refraction is typically very close to unity and often expressed as $n_\omega=1-\delta_\omega+i\cdot\beta_\omega$, which allows for the approximation $1-n_\omega(x,y,z)^2\approx2\big[\delta_\omega(x,y,z)+i\cdot\beta_\omega(x,y,z)\big]$ that can be substituted in Eq.~\ref{eq:transmission_n}. The $z-$dependence of $\delta_\omega$ and $\beta_\omega$ is abandoned in the projection approximation, hence the complex transmission element in Eq.~\ref{eq:transmission_n} can be reduced to:
+Eq.~\ref{eq:transmission_n} shows that the effect of a weak scatterer can be accounted by a multiplicative complex transmission element represented by the complex exponential. In the X-ray regime the index of refraction is typically very close to unity and often expressed as $n_\omega=1-\delta_\omega+i\cdot\beta_\omega$, which allows for the approximation $1-n_\omega(x,y,z)^2\approx2\big[\delta_\omega(x,y,z)-i\cdot\beta_\omega(x,y,z)\big]$ that can be substituted in Eq.~\ref{eq:transmission_n}. The $z-$dependence of $\delta_\omega$ and $\beta_\omega$ is abandoned in the projection approximation, hence the complex transmission element in Eq.~\ref{eq:transmission_n} can be reduced to:
 \begin{align}\label{eq:transmission}
 \mathrm{T}(x,y,z) &=\exp\Bigg\{-ik\int\limits_{z=z_0}^{z=z_1}{\big[\delta_\omega(x,y)+i\cdot\beta_\omega(x,y)\big]~\mathrm{d}z}\Bigg\}\nonumber\\
          &=\exp\Bigg\{-ik\big[\delta_\omega(x,y)+i\cdot\beta_\omega(x,y)\big]\Delta_z(x,y)\Bigg\}.
