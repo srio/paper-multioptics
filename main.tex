@@ -18,6 +18,11 @@
 \usepackage{enumitem}
 \usepackage[normalem]{ulem}
 
+% srio..........
+\usepackage{multicol}
+\usepackage{graphicx}
+
+
 \newcommand{\todo}[1]{{\color{red}[TODO: "#1'']}}
 \newcommand{\remove}[1]{ {\color{blue} \sout{#1}}}
 \newcommand{\inblue}[1]{{\color{blue}#1}}
@@ -164,7 +169,7 @@ $\mathcal{S}= (x_\text{e},\theta_{x_\text{e}},y_\text{e},   \theta_{y_\text{e}},
 f(\mathcal{S}) = \frac{1}{(2 \pi)^{5/2} \sqrt{\text{det}(M^{-1})}} \exp
         \left( -\frac{1}{2} \mathcal{S}^\text{T} M \mathcal{S} \right),
 \end{equation}
-with $M$ as the inverse of the generalized variance 5$\times$5 matrix. A common assumption is that the variables are correlated only if they are in the same plane ($x$ or $y$). In some particular points $s$ where the covariance between spatial and angle terms is zero, only the diagonal terms in $M$ are non-zero: ($1/\sigma_x^2,1/\sigma_{\theta_x}^2,1/\sigma_y^2,1/\sigma_{\theta_y}^2,1/\delta_\mathcal{E}^2)$. This usually the case at the center of the straight sections, where the undulators are placed.  We also assume that the electron bunch has a Gaussian distribution with $\sigma_z$ along the longitudinal direction, as most particle beams do (cf. \S8. in \cite{Wiedemann2015}).
+with $M$ as the inverse of the generalized variance 5$\times$5 matrix. A common assumption is that the variables are correlated only if they are in the same plane ($x$ or $y$). In some particular points $s$ where the covariance between spatial and angle terms is zero, only the diagonal terms in $M$ are non-zero: ($1/\sigma_x^2,1/\sigma_{\theta_x}^2,1/\sigma_y^2,1/\sigma_{\theta_y}^2,1/\delta_\mathcal{E}^2)$. This usually the case at the center of the straight sections, where the undulators are placed.  We also assume that the electron bunch has a Gaussian distribution with $\sigma_z$ along the longitudinal direction, as most particle beams do [cf. \S8. in \cite{Wiedemann2015}].
 %\todo{discuss longitudinal direction $\sigma_z$?}
 
 % $f(\textbf{S}_\text{e})$. , with given r.m.s spatial ($\sigma_x$, $\sigma_y$, $\sigma_z$), angular ($\sigma_{x'}$,$\sigma_{y'}$), and energy $\delta$ values. Correlation terms are, in general, different from zero only for the horizontal ($\sigma_{x x'}$) and vertical ($\sigma_{y y'}$). 
@@ -284,12 +289,12 @@ The CSD in Eq.~\ref{eq:CSD_2D} is used to define the spectral density\footnote{W
 \begin{equation}\label{eq:intensity}
     \mathcal{I}(\textbf{r};\omega)=W(\textbf{r},\textbf{r};\omega),
 \end{equation}
-for the case where $\textbf{r}=\textbf{r}_1=\textbf{r}_2$. We also define the normalised cross-spectral density function or spectral degree of coherence (\inblue{DoC}) as:
+for the case where $\textbf{r}=\textbf{r}_1=\textbf{r}_2$. We also define the normalised cross-spectral density function or spectral degree of coherence\footnote{It is sometimes called complex spatial (or spectral) degree of coherence, see §4.3.2 in \cite{mandel_wolf}}, \inblue{hereafter referred as DoC}, as:
 \begin{equation}
 \mu(\textbf{r}_1,\textbf{r}_2;\omega) = \frac{W(\textbf{r}_1,\textbf{r}_2;\omega)}{\sqrt{\mathcal{I}(\textbf{r}_1;\omega) \mathcal{I}(\textbf{r}_2;\omega)}}.
 \label{eq:DTC}
 \end{equation}
-The absolute value of Eq.~\ref{eq:DTC} is limited to $0\leq|\mu(\textbf{r}_1,\textbf{r}_2;\omega)|\leq 1$, where $|\mu|=0$ means total uncorrelation and $|\mu|=1$ denotes full correlation of the fluctuations at positions $\textbf{r}_1$ and $\textbf{r}_2$.
+The modulus value of Eq.~\ref{eq:DTC} is limited to $0\leq|\mu(\textbf{r}_1,\textbf{r}_2;\omega)|\leq 1$, where $|\mu|=0$ means total uncorrelation and $|\mu|=1$ denotes full correlation of the fluctuations at positions $\textbf{r}_1$ and $\textbf{r}_2$.
 
 A well known result from coherence theory is the coherent mode representation of partially coherent fields in free-space (see §4.7.1 in \cite{mandel_wolf}). It is possible to decompose the CSD in a infinite sum of orthonormal coherent modes:
 \begin{equation}\label{eq:W2DCMD}
@@ -401,7 +406,7 @@ W_\text{2D}(\textbf{r}_1,\textbf{r}_2;\omega,s_0) &= W_\text{2D}(\textbf{r}_1,\t
 \end{equation}
 The CMD for each direction is:
 \begin{equation}\begin{split}
-W_\text{1D}(r_1,r_2;\omega,s_0) &= \big\langle E^*_{\omega,s_0}(r_1) E_{\omega}(r_2)\big\rangle \\&=  \sum_{n=0}^{\infty} \lambda_n(\omega,s_0) \phi_n^*(r_1;\omega) \phi_n(r_2;\omega,s_0) 
+W_\text{1D}(r_1,r_2;\omega,s_0) &= \big\langle E^*_{\omega,s_0}(r_1) E_{\omega}(r_2)\big\rangle \\&=  \sum_{n=0}^{\infty} \lambda_n(\omega,s_0) \phi_n^*(r_1;\omega,s_0) \phi_n(r_2;\omega,s_0) 
 \end{split}\label{eq:CMD1D}
 \end{equation}
 with $\lambda_n$ the eigenvalues (scalars) and $\phi_n$ the 1D eigenfunctions. The CSD described in Eq.~\ref{eq:CMD1D} is now a 2D function. This reduction in dimension is very welcome as it becomes very easy to store, manipulate and diagonalize the CSD using common tools (e.g. the python numpy and scipy libraries). Much like what was presented in \S\ref{sec:COMSYL} for the COMSYL software,  we calculate the 1D undulator emission at an arbitrary plane located at $z$ from the origin using pySRU \cite{pySRU}, and back-propagate this field  to the center of the undulator using WOFRY's zoom propagator (see Appendix~\ref{sec:appendixWOFRYpropagators}). The $W_{1D}(x_1,x_2;\omega,0)$ is then obtained using Kim's brightness convolution theorem, which is effectively constructed using equation 3.51 in \cite{glass2017}.
@@ -414,7 +419,19 @@ This recipe is implemented in the WOFRY wavefront propagation add-on in OASYS. F
 % \label{eq:propagatedCSD}
 % \end{equation}
 
-The factorisation in Eq.~\ref{eq:CSD_2D_bis} has been discussed §3.1 from \cite{geloni2008} (see Eq.~56 ibid); where it is stated that this rearranging of Eq.~\ref{eq:CSD_2D} is only valid for quasi-homogeneous sources (see \S\ref{sec:validity}). In the context of the Wigner distribution, this separation in horizontal and vertical components has been discussed by various authors and is believed to work well for photon energies not far from the undulator resonance and for non-round beams \cite{Bazarov2012,tanaka2014,nash2021}. A discussion of round beams is given by \citeasnoun{Agarwal2000} and \S2.2.1 in \cite{Gasbarro2014}. \remove{The CSD and the Wigner distribution being related by a Fourier transform - cf. \S III in \cite{Bazarov2012}}.
+
+The undulator radiation from a single
+electron at a given frequency near the resonance of odd
+harmonics is very nearly symmetric a
+
+
+
+\inblue{
+The factorisation in equation~(\ref{eq:CSD_2D_bis}) has been discussed by \citeasnoun{geloni2008} [see §3.1 , equation~(56)] where it is stated that this rearranging of equation~(\ref{eq:CSD_2D}) is only valid for quasi-homogeneous sources (see \S\ref{sec:validity}). In the context of the Wigner distribution, this separation in horizontal and vertical components has been discussed by various authors and is believed to work well for undulator radiation with photon energies near the resonance of odd
+harmonics \cite{Bazarov2012,tanaka2014,nash2021}. 
+The cartesian factorisation in equation~(\ref{eq:CSD_2D_bis}) is supposed to work well when the electron beam parameteres in horizontal are different from the vertical ones. The cartesian separation does not work for rotationally symmetric sources (round beams). However, the Wigner function in this case (and therefore the CSD, being related by a Fourier transform) can be treated as 1D problem, as suggested by \citeasnoun{Agarwal2000} and developed by \cite{Gasbarro2014}. It would be interesting for future 4$^\text{th}$ generation sources that will create round beams to develop a CMD tool using polar coordinates, also including wave propagators like those discussed in \cite{LiJacobsen}. 
+}
+% The CSD and the Wigner distribution being related by a Fourier transform - cf. \S III in \cite{Bazarov2012}}.
 
 
 % -----------------------------------------------------------------
@@ -423,7 +440,7 @@ The factorisation in Eq.~\ref{eq:CSD_2D_bis} has been discussed §3.1 from \cite
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 
-Ray-tracing-based methods are simpler and faster than wave-optics-based methods and more often than not, offer useful insight when studying and designing a synchrotron beamline \cite{hierarchical}. However, the use of pure ray-tracing methods based in geometrical optics are not very adequate when analyzing optical systems dealing with (partially- or fully-) coherent beams subjected to strong diffraction effects - eg. beam clipping by either physical acceptance of an optical element or by slits; and optical errors. To the geometric methods, it is possible to add diffraction effects by convolution of the beam divergence profiles calculated by ray-tracing and by applying the diffraction integrals, then proceeding with classical ray-tracing methods for treating optical elements and free-space propagation. Building on that hybrid concept, an extension to the ray-tracing code SHADOW \cite{codeSHADOW} has been proposed by \citeasnoun{codeHYBRID}, which is fully integrated in the ShadowOUI \cite{codeSHADOWOUI} add-on in OASYS. Since its release, this hybrid ray-tracing implementation has been successfully used as an efficient and fast tool to design beamlines also including coherence effects \cite{Shi2017,Luca2020, Lordano2022}.
+Ray-tracing-based methods are simpler and faster than wave-optics-based methods and more often than not, offer useful insight when studying and designing a synchrotron beamline \cite{hierarchical}. However, the use of pure ray-tracing methods based in geometrical optics are not very adequate when analyzing optical systems dealing with (partially- or fully-) coherent beams subjected to strong diffraction effects (e.g. beam clipping by either physical acceptance of an optical element or by slits and optical errors). It is possible to add diffraction effects to the geometric methods, by convolution of the beam divergence profiles calculated by ray-tracing with those resulting from the diffraction integrals, for then proceeding with classical ray-tracing methods. This hybrid concept \cite{codeHYBRID} is implemented as an extension to the ray-tracing code SHADOW \cite{codeSHADOW} available in the ShadowOUI \cite{codeSHADOWOUI} add-on in OASYS. Since its release, this hybrid ray-tracing implementation has been successfully used as an efficient and fast tool to design beamlines also including coherence effects \cite{Shi2017,Luca2020, Lordano2022}.
 
 % \onecolumn
 \begin{figure}\label{fig:sim_meth}
@@ -462,7 +479,7 @@ Eq.~\ref{eq:Huygens-Fresnel} is the first Rayleigh-Sommerfeld diffraction equati
 \end{equation}
 This approximation is know as the Fresnel diffraction integral and strategies for its numerical calculation are plenty: \cite{Kelly2014,Goodman2017} see also \cite{Rees87, Stern2004, Zhang2020} for other practical considerations.
 
-The different wave-optics packages in use have different implementation of these propagators. The selection of the propagator, and its parametrization (sampling, padding, interpolation, etc.) is done depending on the particular characteristics of the optical element and propagation distances. SRW uses four different propagators, summarized in Appendix~\ref{sec:appendixSRWpropagators}. WOFRY basically uses two different propagaors (Appendix~\ref{sec:appendixWOFRYpropagators}).   
+The different wave-optics packages in use have different implementation of these propagators. The selection of the propagator, and its parametrization (sampling, padding, interpolation, etc.) is done depending on the particular characteristics of the optical element and propagation distances. SRW uses four different propagators, summarized in Appendix~\ref{sec:appendixSRWpropagators}. WOFRY basically uses two different propagators (Appendix~\ref{sec:appendixWOFRYpropagators}).   
 
 % % -----------------------------------------------------------------
 % % -----------------------------------------------------------------
@@ -607,7 +624,18 @@ Absorption filters, test patterns, x-ray refractive lenses, refractive corrector
 $\Delta_z$ is the projected thickness of an optical element along the $z-$axis. We define the index of refraction as $n_\omega=1-\delta_\omega+i\cdot\beta_\omega$. Optical errors can be simulated in a similar way \cite{Laundy2014,Celestre:mo5214,srioLBL}.
 
 %\todo{REMOVE THIS PARAGRAPH? }
-Reflective optics can also be reasonably well approximated by transmission elements with more complex calculations eg. stationary-phase methods (application of Eq.~\ref{eq:Huygens-Fresnel} over the mirror surface), geometric ray-tracing calculation of the optical path difference \cite{Canestrari2014} or even multi-slicing \cite{Li2017}. Crystal optics, however, often need a dedicated propagator for accurate representation of the manipulations to the electric field \cite{Sutter2014, Sutter2020}.
+Reflective optics can also be reasonably well approximated by transmission elements with more complex calculations eg. stationary-phase methods (application of Eq.~\ref{eq:Huygens-Fresnel} over the mirror surface), geometric ray-tracing calculation of the optical path difference \cite{Canestrari2014} or even multi-slicing \cite{Li2017}. 
+\inblue{Moreover, 1D wavefronts can be easily propagated in grazing incidence mirrors and gratings calculating directly the numeric integral in equation~(\ref{eq:Huygens-Fresnel}) \cite{wiser2015,srioLBL}. }
+
+\remove{Crystal optics, however, often need a dedicated propagator for accurate representation of the manipulations to the electric field \cite{Sutter2014, Sutter2020}.}
+
+\inblue{Refractive systems, like the lenses used in this work, are calculated using the thin object approximation with the lens described by its profile and refraction index (material). Usually, a single lens has a parabolic interface $z=x^2/(4R)$ with $R$ the radius at the apex. A lens has two parabolic interfaces (front and back) separated by a lens thickness $d$. The interfaces are flat outside the lens aperture $L$. Therefore, the lens profile is:
+\begin{align}
+    z(x) &= \frac{1}{2R} x^2 + d; & |x| < L/2\\ \nonumber
+    z(x) &= \frac{1}{2R} (L/2)^2 + d; & |x| \ge L/2.
+\end{align}
+}
+
 
 % A generic aperture is a mask that transmits a part of the wavefront complex amplitude in a range $[x_{min},x_{max}]$ and absorbs the rest. It can be
 % \begin{equation}
@@ -709,7 +737,7 @@ The first case is selected to obtain a small spot (about \SI{5}{\micro\meter}) a
 \end{table}
 
 
-\section{Results of multi-optics simulations}
+\section{Results and discussion of multi-optics simulations}
 \label{sec:complete-beamline}
 
 Calculations are done using different methodologies, implemented in four different software codes. 
@@ -717,162 +745,86 @@ Calculations are done using different methodologies, implemented in four differe
 \subsection{Source propagated up to the entrance slit}
 \label{sec:results36m}
 
-We first calculated the illumination at the entrance slit plane. The beam at this position comes from the free propagation of the undulator emission, therefore it has the same coherence fraction as the source. The intensity distribution is shown in Fig.~\ref{fig:intensityat36m}, where the horizontal and vertical profiles calculated by Wofry1D and SRW-ME are compared. The effect of the partial coherence is important: a coherent beam would give very different values \todo{add numbers? repeat the simulations here}. \todo{may be comment 1) that the coherent illumination if different for SRW (zero emittance) than for Wofry1D (zeroth mode), and 2) we could calculate precisely the FWHM values of the profiles and compare with the typical analytical convolution calculation.}   
+We first calculated the illumination at the entrance slit plane.
+The spectral density calculated with the different codes is shown in Fig.~\ref{fig:plot_2D_spectral_density_36m}. The distributions calculated by the different methods are close with differences in FWHM less than 10\%.   
+The CDS can be calculated as well using wave optics codes. A comparison of the horizontal and vertical cuts of the modulus of the CSD at the source position obtained with SRW-ME is compared with the CDSs calculated with WOFRY1D with good agreement. 
 
-\todo{Look at the comparison... they have significant differences... Questions/Comments: 
-\begin{itemize}
-    \item  In Figs 2 and 3 I added the SRW profiles (extracted in OASYS with SRW ME output files) they are small differences... In Fig 3 I also added the DoC SRW (not in Fig. 2 as I do not have the .1 and .2 files). The Doc and 1st harmonoc are very different... to be discussed! 
-    \item The division by the intensity for getting DoC adds a lot of noise when the intensity is small. Can we compare CSD((x1+x2)/2,(x1-x2)/2) instead? 
-    \item I always have doubts if my factor ()/2 is correctly set.
-\end{itemize}
-}
-
-
-\newpage
-\onecolumn
 \begin{figure}
-    \label{fig:CSD_SRW_vs_I_source}
-    \includegraphics[width=0.75\textwidth]{CSD_SRW_vs_I_source.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_source_h.png}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_source_v.png}
-    \caption{Calculations @source. Top: SRW, bottom: WOFRY1D.
-SRW (top): Horizontal FWHM: 73.08 [um]. 
-Vertical FWHM: 18.28 [um]
-Coherence length H: 6.13 [um]. 
-Coherence length V: 8.53 [um].
+    \label{fig:plot_2D_spectral_density_36m}
+    \includegraphics[width=0.95\textwidth]{figures/plot_2D_spectral_density_36m.png}
+    \caption{Spectral density at the slit plane (36 m from source) calculated by the four codes in use. The profiles correspond to the lines passing through (0,0).
+    }
+\end{figure}
+
+
+Figure~\ref{fig:plot_CSD_at_source} shows the horizontal and vertical $W_{1D}$ at the source plane calculated with SRW-ME and WOFRY1D. Again, an excellent agreement is found, with the similar FWHM of the profiles crossing the (0,0) (9 $\mu$m for both codes in H and 12 $\mu$m in V).
+Figure~\ref{fig:plot_DoC_at_36m} shows the horizontal and vertical DoC at the slit plane expressed in the new coordinates $(\bar{x},\Delta_x)$= $(x_1+x_2)/2, x_2-x_1)$ (for horizontal, similarly with $y$ for vertical). The interest of using these coordinates is to redress the plot of the CSD that lies on a diagonal (see Fig. ~\ref{fig:plot_CSD_at_source}) and obtain the ``coherent length" (CL) as a ``width" of the DoC versus $\Delta_x$ at $\bar{x}=0$. If using the FWHM, we obtain horizontal CL of 76~$\mu$m with WOFRY1D and 80~$\mu$m with SRW-ME, and vertical CL of
+444~$\mu$m with WOFRY1D and 402~$\mu$m with SRW-ME. A naive application of the van Cittert-Zernike theorem for a source with Gaussian intensity profile permits to calculate the coherence length (the FWHM of the Fourier Transform of the source intensity profile) as CL=0.88$\lambda D/S$, with $D$ the distance source-observation plane, and $S$ the source FWHM. In our case ($D=36~m$, source FWHM 70.6 $\mu$m (H) and 15.0~$\mu$, (V) and $\lambda$=1.77~$\times$~10$^{-10}$~m) it gives CL=79~$\mu$m in H and CL=374~$\mu$m in V. The (rough) agreement of the values from the van Cittert-Zernike theorem (corresponding to a fully incoherent source) with our numerical values (for the partial coherent beam) is justified by the fact that $D$ is large enough to lie in the $z$-range where the CL is linear [see discussion and Fig.~17 in \cite{geloni2008}].
+
+
+
+\begin{figure}
+    \label{fig:plot_CSD_at_source}
+    \includegraphics[width=0.95\textwidth]{figures/plot_CSD_at_source.png}
+    \caption{Cross Spectral Density at source plane calculated by WOFRY1D and SRW-ME.
+    The profiles correspond to the lines passing through (0,0).
     }
 \end{figure}
 
 \begin{figure}
-    \label{fig:CSD_SRW_vs_I_36m}
-    \includegraphics[width=0.75\textwidth]{CSD_SRW_vs_I_36m.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_36m_h.png}
-    \includegraphics[width=0.35\textwidth]{figures/CSD_WOFRY1D_vs_I_36m_v.png}
-    
-    \caption{Calculations @36m. Top: SRW, bottom: WOFRY1D.
-    
-    SRW (top): 
-    Horizontal FWHM: 649.53 [um].
-    Vertical FWHM: 569.21 [um].   Coherence length H: 44.74 [um].
-    Coherence length V: 206.90 [um].
+    \label{fig:plot_DoC_at_36m}
+    \includegraphics[width=0.95\textwidth]{figures/plot_DoC_at_36m.png}
+    \caption{Modulus of the spectral degree of coherence at the slit plane ($z$=36 m) calculated by WOFRY1D and SRW-ME.
+    The profiles correspond to the lines passing through (0,0).
     }
 \end{figure}
 
-\twocolumn
+It is worth mentioning that the modulus of the DoC (and therefore the CL) is obtained experimentally by measuring the interference of the two beams originated by a double-slit \cite{ThompsonWolf1957}. Examples of this type of experiment with SR are in \cite{Chang2000, Paterson2001, Leitenberger2003}. We performed simulations with WOFRY1D placing a two slits of 2.5~$\mu$m with separated by $s$ in the plane with $z=36$~m and propagating the resulting two beams to $z=46$~m. The results are in Fig.~\ref{fig:doubleslit}a, where it can be appreciated that the visibility of the fringes decrease when increasing $s$. For a given $s$, the intensity profile (e.g. Fig.~\ref{fig:doubleslit}) is used to compute the visibility $\mathcal{V}=<\mathcal{I}_{\text{max}}-\mathcal{I}_{\text{min}}>/<\mathcal{I}_{\text{max}}+\mathcal{I}_{\text{min}}>$ which is equal to the modulus of the DoC. We then obtained the DoC versus the slit separation that gives (as expected) the same values as the DoC in Fig.~\ref{fig:plot_2D_spectral_density_36m} (see Fig.~\ref{fig:doubleslit}c). 
 
-
-\newpage
-\begin{figure}
-    \label{fig:CSD_SRW_source}
-    \includegraphics[width=0.99\textwidth]{SRW_CSD_source.pdf}
-    \caption{SRW calculations @source}
-\end{figure}
 
 \begin{figure}
-    \label{fig:CSD_SRW_source}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD_source_h.png}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD2_source_h.png}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD_source_v.png}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD2_source_v.png}
-    \caption{WOFRY1 calculations @source}
+    \label{fig:doubleslit}
+    \begin{multicols}{2}
+    \includegraphics[width=0.49\textwidth]{figures/doubleslit_scan.pdf}
+    \newpage
+    \vspace*{1cm}
+    \includegraphics[width=0.49\textwidth]{figures/doubleslit_profile.pdf}
+    \includegraphics[width=0.49\textwidth]{figures/doubleslit_DoC.pdf}
+    \end{multicols}
+    \caption{Results for the simulations of the double-slit:  a) pattern intensity $\mathcal{I}(x)$ at $z$=46~m versus the separation $s$ between the slits. b) Intensity profile $\mathcal{I}(x;z=36~\text{m})$ c) Modulus of the degree of coherence calculated from the profiles of Fig.~\ref{fig:plot_DoC_at_36m}a and b, compared with the value obtained from the visibility extracted from a). 
+    }
 \end{figure}
 
 
-\newpage
+The principal role of the slit placed at this plane is control the beam coherent fraction. Closing the slit will increase the CF. The slit gap necessary to get a ``good" coherence is somehow related to the CL, but quantitative values can be calculated representing the CF vesus the slit gap. Within the CMD theory this requires to calculate coherent modes after the slit, what can be easily done with WOFRY1D (see Fig.~\ref{fig:CFvsGap}). From this plot the values of the gaps to match CF of 90\% or 70\% are selected (see Table~\ref{table:2Dusercases}).
 
 \begin{figure}
-    \label{fig:CSD_SRW_36m}
-    \includegraphics[width=0.99\textwidth]{SRW_CSD_36m.pdf}
-    \caption{SRW calculations @36m}
+    \label{fig:CFvsGap}
+    \includegraphics[width=0.95\textwidth]{figures/CFvsGap.pdf}
+    \caption{Coherent fraction versus gap aperture for the horizontal and vertical directions calculated using WOFRY1D.
+    }
 \end{figure}
-
-\begin{figure}
-    \label{fig:CSD_SRW_source}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD_36m_h.png}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD2_36m_h.png}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD_36m_v.png}
-    \includegraphics[width=0.49\textwidth]{figures/WOFRY1_CSD2_36m_v.png}
-    \caption{WOFRY1 calculations @36m}
-\end{figure}
-
-\newpage
-
-% \inred{Info on Figs~\ref{fig:CSD_SRW_source} and \ref{fig:CSD_SRW_vs_I_source}:}
-% INFO: >>> intensity bis7.0keV intensity.dat
-% INFO: Horizontal FWHM: 73.08 [um]
-% INFO: Vertical FWHM: 18.28 [um]
-% INFO: >>> CSDx7.0keV 15k ME intensity.dat
-% INFO: Coherence length: 6.13 [um]
-% INFO: >>> CSDy7.0keV 15k ME intensity.dat
-% INFO: Coherence length: 8.53 [um]
-
-
-% \inred{Info on Figs~\ref{fig:CSD_SRW_36m} and \ref{fig:CSD_SRW_vs_I_36m}:}
-% INFO: >>> intensity bis7.0keV intensity.dat
-% INFO: Horizontal FWHM: 649.53 [um]
-% INFO: Vertical FWHM: 569.21 [um]
-% INFO: >>> CSDx7.0keV 15k ME intensity.dat
-% INFO: Coherence length: 44.74 [um]
-% INFO: >>> CSDy7.0keV 15k ME intensity.dat
-% INFO: Coherence length: 206.90 [um]
 
 \subsection{Image at sample position}
 
-The results of intensity distribution at the sample plane are display in Figs.~\ref{fig:sim_results}(a)-(d), for results using hybrid, SRW, COMSYL and WOFRY1D codes, respectively.  Beam dimensions are obtained by calculating the full width at half maximum (FWHM) from the intensity distribution at one direction, resulting by integrating the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
+The intensity distribution at the sample plane is display in Figs.~\ref{fig:sim_results}(a)-(d), for results using WOFRY1D, COMSYL, SRW-ME and HYBRID codes, respectively.  Beam dimensions are obtained by calculating FWHM from the intensity distribution at one direction, resulting by integrating the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
 The results for case 1 shows an horizontal profile mostly triangular with shoulders that evidence small diffraction fringes. The fringes are more resolved in the vertical direction. Case 2  presents in horizontal a soft Gaussian-like profile, but in vertical important symmetric shoulders are remarked. Case 3 shows a smooth Gaussian profile in horizontal and a small shoulder with fringes in vertical. Case 4 shows a conventional smooth profile in horizontal but an original three-lobe plateau in vertical. This variety of profile distribution demonstrates how relevant the diffraction effects are, which modulate the beam shape in a non-trivial way.  
 
-\newpage
-\onecolumn
 
-\begin{figure}
-    \label{fig:sim_results}
-    \includegraphics[width=0.85\textwidth]{figures/fig_sim_results.pdf}
-    \caption{Calculations of the intensity distribution at the focal plane for the cases listed in Table~\ref{table:2Dusercases}.}
-\end{figure}
-
-
-% \begin{figure}
-%     \label{fig:hybrid}
-%     \includegraphics[width=0.99\textwidth]{figures/fig_hybrid.pdf}
-%     \caption{Hybrid ray-tracing calculations of the intensity distribution at the focal plane for the cases listed in Table~\ref{table:2Dusercases}.}
-% \end{figure}
-
-% \begin{figure}\label{fig:srw}
-%     \includegraphics[width=0.99\textwidth]{figures/fig_srw.pdf}
-%     \caption{Multi-electron SRW calculations of the intensity distribution at the focal plane for the cases listed in Table~\ref{table:2Dusercases}.}
-% \end{figure}
-
-
-% \begin{figure}\label{fig:comsyl}
-%     \includegraphics[width=0.99\textwidth]{figures/fig_comsyl.pdf}
-%     \caption{COMSYL calculations of the intensity distribution at the focal plane for the cases listed in Table~\ref{table:2Dusercases}.
-%     }
-% \end{figure}
-
-
-% \begin{figure}\label{fig:2DWofry1D}
-%     \includegraphics[width=0.99\textwidth]{figures/fig_wofry.pdf}
-%     \caption{2D intensity distribution at the focal plane. It has been constructed from the Wofry1D calculations.
-%     }
-% \end{figure}
-
-\newpage
-
-\twocolumn
 
 
 \begin{table}[]
     \label{table:comparison}
     \caption{Comparison of sizes (FWHM, in \SI{}{\micro\meter}) calculated with different methods for the cases defined in Table~\ref{table:2Dusercases}.
-    In brackets, the values for the fully coherent beam (single electron with SRW, first coherent mode with COMSYL/WOFRY), and zero emittance with Hybrid). \todo{flip columns}
+    In brackets, the values for the fully coherent beam (single electron with SRW, first coherent mode with COMSYL/WOFRY), and zero emittance with Hybrid). 
     }
     \centering
     \begin{tabular}{p{0.05\textwidth}|c|c|c|c|c}
          case h/v &
          Wofry1D&
          COMSYL&
-         SRW&
-         Hybrid \\
+         SRW-ME&
+         HYBRID \\
          \hline
 1 h  & 8.5(8.1)    & 10.0 (9.9)  & 8.6 (7.5)   & 17.3 (17.5) \\
 1 v  & 4.8(4.8)    & 4.7 (5.1)   & 4.6 (4.6)   & 3.3 (3.1) \\
@@ -888,35 +840,45 @@ The results for case 1 shows an horizontal profile mostly triangular with should
     \end{tabular}
 \end{table}
 
-Hybrid ray-tracing for the four cases defined in Table~\ref{table:2Dusercases} are shown in  Fig.~\ref{fig:sim_results}(a). One can observe that the intensity distributions as not as structured as for the wave-optics methods (e.g. the three-lobe plateau in case 4v is not reproduced). Values of FWHM are in consonance with full wave-optics calculations for most cases (with the exception of two particular cases:
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\onecolumn
+
+\begin{figure}
+    \label{fig:sim_results}
+    \includegraphics[width=0.85\textwidth]{figures/fig_sim_results.pdf}
+    \caption{Calculations of the intensity distribution at the focal plane for the cases listed in Table~\ref{table:2Dusercases}.}
+\end{figure}
+
+
+\newpage
+\twocolumn
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The WOFRY1D results are shown in Fig.~\ref{fig:sim_results}(a). The 1D intensity profile for each direction is obtained from the summation of several modes. High modes have very low eigenvalues. It is sufficient to consider only 10 modes for reproducing more that 99\% of the spectral density. The 2D intensity distribution shown in Fig.~\ref{fig:sim_results}(a) is obtained combining the calculated horizontal and vertical 1D profiles via the outer product. 
+We can observe in the intensity distributions the same structures due to the diffraction effects than those observed with the other calculation methods.
+The beam profiles calculated obtained with COMSYL and WOFRY [see Fig.~\ref{fig:sim_results}(b)] are a bit noisy, and could be improved by increasing the source sampling and further optimizing the propagation parameters. 
+SRW-ME results are shown in Fig.~\ref{fig:sim_results}(c). The good convergence of the values displayed is guarantee by a convergence analysis described in Appendix~\ref{appendix:srw}.
+Hybrid ray-tracing for the four cases defined in Table~\ref{table:2Dusercases} are in  Fig.~\ref{fig:sim_results}(d). The obtained intensity distributions are less structured than those calculated with the other wave-optics methods (e.g. the three-lobe plateau in case 4v is not reproduced). However, the FWHM values are in consonance with full wave-optics calculations for most cases (with the exception of two particular cases:
 1h (hybrid \SI{16.5}{\micro\meter} Wofry1D \SI{8.5}{\micro\meter}),
 2v (\SI{71.2}{\micro\meter} Wofry1D \SI{32.4}{\micro\meter}). They will be discussed in the next section.
 
+% It was used to determine the minimum number of electrons that produce accurate results. The SRW-ME simulations for the cases analyzed converge with only a few thousands electrons, that can be run in less than one hour in a node with 28 CPUs totalizing 256 GB. The reason is that the beam after the slit has a relatively high CF. 
 
-SRW-ME results for the four cases are shown in Fig.~\ref{fig:sim_results}(b). The good convergence of the values displayed is guarantee by a convergence analysis described in Appendix~\ref{appendix:srw}.
-It was used to determine the minimum number of electrons that produce accurate results. The SRW-ME simulations for the cases analyzed converge with only a few thousands electrons, that can be run in less than one hour in a node with 28 CPUs totalizing 256 GB. The reason is that the beam after the slit has a relatively high CF. 
+The agreement between the results of WOFRY1D in Fig.~\ref{fig:sim_results}(a) with SRW-ME [Fig.~\ref{fig:sim_results}(a)] is striking. All intensity distributions reproduce exactly the same features, and the differences in FWHM values are less than 12\%, a value that is compatible with the errors of the simulations. 
+% (discussed in section~\ref{sec:discussion}).
+This results validates the 1D CMD method proposed here, whose requirements in computer power are extremely low (it runs very fast in an averaged laptop). 
 
-
-COMSYL requires high performance computing (HPC) to perform full CMD of undulator beam, by
-solving the Friedholm problem and obtain the full 2D eigenfunctions (coherent modes) and eigenvalues.
-Simulation of the source with COMSYL took 55 min using 28 x 3.30 GHz CPUs of 251.82 GB RAM, for getting 174 modes of 1691 $\times$ 563 pixels.
-The modes calculated by COMSYL are loaded in the OASYS environment \cite{codeOASYS} to propagate the modes along the beamline.
-The propagation uses 2D zoom propagator and the optical elements available in WOFRY. Results are shown in Fig.~\ref{fig:sim_results}(c). 
-The beam profiles calculated with COMSYL are a bit noisy, which could be improved by increasing the source sampling and further optimizing the propagation parameters. 
-
-
-WOFRY 1D results are shown in Fig.~\ref{fig:sim_results}(d). The 1D intensity profile for one direction is obtained from the summation of several modes. High modes have very low eigenvalue and it is enough to consider only 10 modes for reproducing more that 99\% of the spectral density. The 2D intensity distribution shown in Fig.~\ref{fig:sim_results}(d) is obtained combining the calculated horizontal and vertical 1D profiles via the outer product. We can observe in the intensity distributions the same structures due to the diffraction effects than were observed with the other calculation methods. 
-The agreement between the results of Wofry1D in Fig.~\ref{fig:sim_results}(d) with SRW - Fig.~\ref{fig:sim_results}(b) - is striking. All intensity distributions reproduce exactly the same features, and the FWHM values are different in less than 12\%, a value that is compatible with the errors of the simulations (discussed in section~\ref{sec:discussion}). This results validates the 1D CMD method proposed here, whose requirements in computer power are extremely low (it runs very fast in an averaged laptop).  
-
-The specific numeric value for sizes calculated with the different methods (Table~\ref{table:comparison}) depends not only on the code itself, but also on the particular specific parameters in each method (number of pixels for sampling wavefronts, propagation parameters, etc.). To estimate the calculation error in the final size numbers, we vary randomly these specific parameters in a reasonable range (e.g., 10\%). The evaluation of the mean size and the dispersion (standard deviation) of the sizes obtained give an good estimation of the error in this parameter. This exercise would take a considerable computational effort using 2D methods, but it can be easily done with Wofry1D. We run 200 cases with 10\% random variation in the values in number of pixels and magnification factor in drift spaces. The obtained sizes (horizontal $\times$ vertical) are  
+The numeric value for sizes calculated with the different methods (Table~\ref{table:comparison}) depends not only on the code itself, but also on the particular specific parameters in each method (number of pixels for sampling wavefronts, propagation parameters, etc.). To estimate the calculation error in the final size numbers, we vary randomly these specific parameters in a reasonable range (e.g., 10\%). The evaluation of the mean size and the dispersion (standard deviation) of the sizes obtained give an good estimation of the error in this parameter. This exercise would take a considerable computational effort using 2D methods, but it can be easily done with WOFRY1D. We run 200 cases with 10\% random variation in the values in number of pixels and magnification factor in drift spaces. The obtained sizes (horizontal $\times$ vertical) are  
 8.49 $\pm$ 0.60 $\times$ 4.97 $\pm$ 0.37 \SI{}{\micro\meter}$^2$ (case 1),
 39.94 $\pm$ 2.98 $\times$ 32.77 $\pm$ 2.69 \SI{}{\micro\meter}$^2$ (case 2),
 36.39 $\pm$ 2.89 $\times$ 6.12 $\pm$ 0.51 \SI{}{\micro\meter}$^2$ (case 3), and
 24.18 $\pm$ 1.80 $\times$ 133.44 $\pm$ 10.06 \SI{}{\micro\meter}$^2$ (case 4). We confirmed that the values given in Fig.~\ref{fig:sim_results}(d) are within these error intervals.
 
-
 The calculated beam sizes should be completed with flux. At \SI{7}{keV}, the undulator in the configuration selected emits a flux of 1.5 10$^{15}$ photons/s/0.1\%bw. Each of the three elements studied (slit, lens -1 and lens-2) absorb part of the flux. The estimation of the absorption by the slit can be done using simple geometrical arguments, and the absorption by the slits depend on the average Be thickness presented to the beam. The linear attenuation coefficient of Be at 7 keV is $\mu=$~\SI{3}{\centi\meter}$^{-1}$, giving 1.45\% attenuation for a \SI{50}{\micro\meter} thick layer (like lens thickness used in simulations\footnote{In the simulations the horizontal and vertical focusing are separated in two lenses, with accumulated thickness \SI{100}{\micro\meter} thus absorption 3\%}). For the case 1 simulations we extracted the absorption for the different absorbing elements (slit, lens-1 and lens-2) in the case of partial coherence and also for full coherence (see Table~\ref{table:absorption}).
-There is excellent agreement for partial coherence. For full coherence, the Wofry1D results are different than the SRW+Hybrid, because the geometry of the 1st coherent mode used to represent the full coherent beam is not the same as the geometry of the filament beam (used in SRW and Hybrid). We note a high absorption in lens-2, due to the fact that in this case the lens-2 is overilluminated, therefore the \SI{1}{\milli\meter} physical aperture absorbs considerably the beam.
+There is excellent agreement for partial coherence. For full coherence, the WOFRY1D results are different than the SRW-ME and HYBRID, because the geometry of the first coherent mode (used to represent the fully coherent beam) is not the same as the geometry of the filament beam (used in SRW-ME and HYBRID). We note a high absorption in lens-2, due to the fact that in this case the lens-2 is over-illuminated, therefore the \SI{1}{\milli\meter} physical aperture absorbs considerably the beam.
 
 \begin{table}[]
     \label{table:absorption}
@@ -924,6 +886,7 @@ There is excellent agreement for partial coherence. For full coherence, the Wofr
     % coherent beam (first coherent mode in Wofry1D, filament beam in SRW, zero emittance in Hybrid) and for the partial coherent beam,
     for the four cases studied.
     The Wofry1D data shown here comes after combining the horizontal and vertical wavefronts using the outer product. 
+    Each profile corresponds to the intensity integrated along its perpendicular direction. 
     }
     \centering
 \begin{tabular}{l|lll|lll|lll}
@@ -946,9 +909,24 @@ case & \multicolumn{3}{c|}{slit} & \multicolumn{3}{c|}{lens-1} & \multicolumn{3}
 \end{tabular}
 \end{table}
 
+
+\subsection{Computer resources}
+
+
+COMSYL requires high performance computing (HPC) to perform full CMD of undulator beam, by
+solving the Friedholm problem and obtain the full 2D eigenfunctions (coherent modes) and eigenvalues.
+The simulation of the source with COMSYL used to calculate Fig.~\ref{fig:sim_results}(b) took 55 min using 28 $\times$ 3.30 GHz CPUs of 251.82 GB RAM, for getting 174 modes of 1691 $\times$ 563 pixels. The modes calculated by COMSYL were propagated in the OASYS environment \cite{codeOASYS}. The propagation uses 2D zoom propagator and the optical elements available in WOFRY. 
+
+The good convergence of SRW-ME results in Fig.~\ref{fig:sim_results}(c) is guarantee by a convergence analysis described in Appendix~\ref{appendix:srw}. It was used to determine the minimum number of electrons that produce accurate results. The SRW-ME simulations for the cases analyzed converge with only a few thousands electrons, that can be run in less than one hour in a node with 28 CPUs totalizing 256 GB. The reason is that the beam after the slit has a relatively high CF. 
+
+Concerning running times, the simulations with the new WOFRY1D code run in a few seconds in a laptop.
+HYBRID also requires light computer resources and also runs in a laptop. 
+The simulation of the full CMD with COMSYL required about 1h with 28 cores. The source is then reused for propagating the different configurations. SRW-ME required a full source simulation for each configuration that also run in about 1h with 5000 electrons in a similar cluster. 
+
+
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
-\section{Discussion}
+\subsection{Further simulations}
 \label{sec:discussion}
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
@@ -956,23 +934,14 @@ case & \multicolumn{3}{c|}{slit} & \multicolumn{3}{c|}{lens-1} & \multicolumn{3}
 % Our discussion follows a hierarchical approach, as discussed in \citeasnoun{hierarchical}, with the idea of balancing accuracy and computational effort, to subsequently select and use the most advantageous method for the analyzed problem. 
 % This multi-method analysis will also help to validate the new 1D CMD method introduced in this work. The results of the Wofry1D results are compared with other well-known simulation packages. 
 
+The comparison of the results obtained with WOFRY1D with the other three methods permitted to validate our new method.
+There is a good matching of the beam sizes (FWHM values) for all methods (see Table~\ref{table:comparison}), and also in the shape of intensity distributions, in particular for the wave optics methods [Figs.~\ref{fig:sim_results}(a)-(c)]. 
+A remarkable agreement is found, as well, between WOFRY1D and SRW-ME for the functions that describe partial coherence (CDS, DoC and CL) (see Figs.~\ref{fig:plot_2D_spectral_density_36m} and \ref{fig:plot_DoC_at_36m}).
 
-There is good agreement in focal size FWHM values in all methods (see Table~\ref{table:comparison}), but also in the shape of intensity distributions, in particular for the wave optics methods - compare Figs.~\ref{fig:sim_results}(b)-(d). 
-
-Regarding computer resources, the Wofry1D code can be run in a few seconds in a laptop, whereas the simulation of the full CMD with COMSYL required about 1h (for 1691 x 563 pixels, 174 modes) using 1 node of 28 cores. This source is then reused for propagating the different configurations. Each configuration required a full SRW-ME with 5000 electrons run in also about 1h in a similar configuration. 
-
-\todo{a possible paragraph discussing surface errors. Just to show it as a proof of concept: FEM at the white mirror, slope error at the mirros, FEM at the monochromator... Cons: it will be done with only Wofry1D (too much work for the full collection of codes); the results will not change what we have}
+The simulations presented, motivated by the ID18 project, use a simplified optical layout. They are used to validate the WOFRY1D tool. 
+A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamline also including other optical elements not considered here and multiple transfocator configurations. It is important to match correctly the two transfocators to guarantee that the focal point is located at the sample plane. Heat load deformation must be controlled at the white beam mirrors and also at the monochromator. For that, the deformations calculated by finite element methods are used in WOFRY1 for assessing the optical impact \cite{srioLBL}. It is mandatory to study the effect of mirror slope errors and surface errors at the lenses. These results will be described elsewhere.
 
 
-\todo{A possible discussion of the Gaussian Shell-model. I am not much in favor of including the GSM here, but it can be done. Main points for the discussion:
-
-\begin{itemize}
-\item Discuss how to match the GSM with undulator parameters: there are several possibilities... I prefer matching the size and CF. 
-\item Compare Hermite-Gaussian modes with numerical modes. There are similar nut not identical. For incoherent sources the GSM may be a good approximation, for pretty coherent sources not. 
-\item Show that propagation of GSM modes is very different than propagating undulator modes. Indeed, because $\sigma \sigma' = \lambda / (4 \pi)$ in GSM and with $2\pi$ in undulator either the size at the source or the propagated size is wrong with GSM.
-\item Analytical propagation of the modes (as described by Vartanyants et al.) only works for ideal elements, and Gaussian slits. They fail in simulating structures like those that we obtain, because they are originated by the slit, which is non-Gaussian.
-\end{itemize}
-}
 
 
 % \subsection{Hybrid ray-tracing}
@@ -996,7 +965,7 @@ Regarding computer resources, the Wofry1D code can be run in a few seconds in a 
 
 % \subsection{Further simulations}
 
-The simulations presented, motivated by the ID18 project, use a simplified optical layout. A more complete study including the other optical elements, other transfocator configurations will be presented elsewhere, also for different energies and implementing the effect of surface errors due to thermal load and surface finish. 
+
 
 % We have also calculated the beam evolution in the neighbourhood of the sample position for the four cases studied (see Fig.~\ref{fig:caustic}). From these plots one can obtain the position of the best focus and the depth of focus. The depth of focus (measured as the distance where the peak value is reduced by 15\%) is larger than two meters (except for the cases 1v, 3v). \todo{redo these plots and compare with SRW... otherwise supress?}
 
