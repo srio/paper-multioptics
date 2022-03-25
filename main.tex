@@ -77,10 +77,7 @@ It is based in separating the horizontal and vertical directions in a treatment 
 This approximation is discussed. The simulations use low computer resources, and run interactively in a laptop. 
 We study the focusing with lenses of the radiation emitted by an undulator in a fourth-generation storage ring (EBS-ESRF).
 Results are compared against multiple optics packages implementing a variety of methods for dealing with partial coherence: full 2D coherent mode decomposition, Monte-Carlo combination of wavefronts from electrons entering the undulator with different initial conditions, and hybrid ray-tracing hybrid correcting geometrical optics with wave optics. 
-% cuts \inred{and recombining them to produce a 2D wavefront}.
-% Benchmarking shows that its results compared well against multiple optics packages implementing a variety of methods for dealing with partial coherence: full 2D coherent mode decomposition, Monte-Carlo combination of wavefronts from electrons entering the undulator with different initial conditions, and hybrid ray-tracing correcting geometrical optics with wave optics. 
 
-%The new code gives comparable results to the other codes for an undulator and four different setups of an optical system composed by a slit and two transfocators.
 \end{abstract}
 
 % -----------------------------------------------------------------
@@ -97,26 +94,16 @@ The improved coherence in in 4$^{\text{th}}$ generation sources has an enormous 
 
 In this paper we propose a new method for dealing with partial coherence of undulator beams. The key point is to reduce the dimensionality of the problem to deal with one-dimensional (1D) wavefronts cuts (i.e. separating horizontal and vertical directions). A full treatment of CMD with two-dimensional (2D) wavefronts was implemented a few years ago in the COMSYL package \cite{codeCOMSYL}. This method requires the use of high-performance computer (HPC) resources that are not always at a hand. The problem is to manipulate and diagonalize a huge stack representing the CSD, that is a 4D entity when using 2D wavefronts. Since then, different techniques have been applied to deal with the magnitude of the problem, for example using Single-Value-Decomposition for diagonalization \cite{SVDHanXu}, or analytical treatment of the quadratic phase \cite{ChubarCMD2022}, but none of them get rid of using HPC. In this paper we demonstrate that whenever this proposed 1D simplification can be used, like in many cases of practical interest, the results of are comparable to the other 2D methods but require much less resources, thus allowing simulations in a common laptop. 
 
-% with gaining many orders of magnitude in computer resources, thus allowing simulations in a simple laptop. 
 The new code, referred here as WOFRY1D, is benchmarked against other existing codes that are available in OASYS simulation ecosystem \cite{codeOASYS}. The optical system used here derives from the project for the new ID18 beamline at the upgraded EBS-ESRF storage ring. We have compared results for different setups implementing two refractive systems (transfocators), plus a slit placed upstream from the transfocators. The beam intensity at the sample position produced by four different transfocator configuratiuons is studied in detail using four packages: i) the novel 1D CMD, implemented in the code WOFRY1D, ii) full CMD in 2D with COMSYL \cite{codeCOMSYL}, iii) multi-electron simulations as implemented in SRW \cite{codeSRW}, and iv) hybrid ray-tracing as described by \citeasnoun{codeHYBRID} and implemented in ShadowOUI \cite{codeSHADOWOUI}.
-
-
-% Simulation of the source include coherent mode decomposition (CMD) using COMSYL \cite{codeCOMSYL}, or Monte-Carlo multi-electron propagation with SRW \cite{codeSRW}. It is also found that ray-tracing simulations using the ``hybrid" method \cite{codeHYBRID} give good approximations to the correct results for these systems. A simplified algorithm for CMD in 1D is available in WOFRY. It is very fast allowing parametric simulations in a common laptop, with results in good agreement with the other methods that require a computing cluster.
-
-% The paper is organized as follows. Section~\ref{sec:theory} summarizes the methodology used for 1D coherent mode decomposition of undulator beams and their transport along the beamline. Section~\ref{sec:onelens} analyzes the focusing of partially-coherent beams with a single refractive system (lens). Section~\ref{sec:twolenses} discusses the pairing of two refractive systems. Section~\ref{sec:complete-beamline} shows simulations for the full beamline and compares different methodologies for a selected case. We finish with a general discussion in Section~\ref{sec:discussion} and  concluding remarks in Section~\ref{sec:summary}. 
 
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 \section{Methods for describing partial coherent beams from undulators in a storage ring}\label{sec:part_coh}
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
-% In this section we present four methods used for dealing with partially-coherent x-ray beams emitted by undulators in low-emittance storage rings. Three of those are already-established methods:  hybrid ray-tracing in ShadowOUI; Monte Carlo multi-electron simulations as implemented in SRW; and the 2D-CDM method implemented in COMSYL. Despite being independently maintained and distributed projects, these are conveniently grouped together within the OASYS suit \cite{codeOASYS} and hence their choice for benchmarking. The fourth approach is the proposed 1D-CMD method separating the horizontal- and vertical-directions implemented in WOFRY, which is also featured in OASYS.
 
 In this section we summarize the basic theory underneath partially coherent emission from electrons in storage rings. We start showing that a relativistic single electron emits fully coherent radiation when passing through an undulator magnetic field. We then move to the emission from relativistic electron bunches showing that an electron beam with non-negligible emittance will produce a partially coherent emission and that a higher coherent fraction is associated with a lower electron-beam emittance. Finally, we present the basic principles underlining the numeric calculations within the packages used.
 
-%We start showing how the partial coherence appears when a bunch of electrons travels along the insertion device. Although a single electron emits coherent radiation, a beam of electrons in a emits partially coherent light: high coherence is associated with low emittance. 
-
-% four methods used for dealing with partially-coherent x-ray beams emitted by undulators in low-emittance storage rings. Three of those are already-established methods: Monte Carlo multi-electron simulations as implemented in SRW; the 2D-CDM method implemented in COMSYL; and the hybrid ray-tracing in ShadowOUI. Despite being independently maintained and distributed projects, these are conveniently grouped together within the OASYS suit \cite{codeOASYS} and hence their choice for benchmarking. The fourth approach is the proposed 1D-CMD method separating the horizontal- and vertical-directions implemented in WOFRY, which is also featured in OASYS.
 
 % -----------------------------------------------------------------
 \subsection{Description of undulator emission}
@@ -140,11 +127,6 @@ where the subscript $\omega$ indicates the photon frequency, $e$ is the electron
 \remove{It has been pointed out by \citeasnoun{codeSRW} that Eq.~\ref{eq:undulator}, based on velocity and acceleration fields, is analytically equivalent to the approach based on retarded potentials applied in \cite{Chubar1995} for non-zero frequencies.}
 Equation~\ref{eq:undulator} describes a fully spatially-coherent field and has been conceptualised for a single electron. A common abstraction that derives from it is the "filament beam", where $N_e$ electrons overlap in space following same trajectory $\textbf{r}_{\textbf{e}}(t)$, which is useful to  represent an idealized zero-emittance storage ring. In this case, a multiplicative factor $N_e$ is applied to Eq.~\ref{eq:undulator}. Much like the single electron emission, the filament beam also radiates a fully transverse coherent wavefront.
 
-% where the retarded time $t'$ verifies $t=t'+R(t')$. 
-% This equation permits to calculate the wavefront at a given frequency and at a given plane of coordinates $(x,y)$ distant $z_0$ from the origin, that is at $\textbf{r}=(x,y,z_0)$. The origin is usually set at the center of the insertion device (ID). Full transverse coherence is obtained as $E_{\omega}$ is unique and well-defined (amplitude and phase) in space.
-
-% The previously discussed case is for a single electron, however if $N_e$ electrons followed exactly the same trajectory at the same time (an abstraction in that the electrons overlap in space) the intensity is $N_e$ times those obtained from Eq.~\ref{eq:undulator}. This abstraction is called "filament beam", and it is useful to represent an idealized zero-emittance ring. Much like the single electron emission, the filament beam also radiates a fully transverse coherent wavefront.
-
 Several codes are available in the synchrotron community to calculate the undulator emission characteristics in different cases. The codes URGENT \cite{codeURGENT} and US \cite{codeUS} compute undulator emission in the far-field for undulators with sinusoidal magnetic field. The codes SPECTRA \cite{Tanaka2001} and SRW \cite{codeSRW} are more generic as they calculate emission in the near and far-field for any electron trajectory (with different initial conditions) and submitted to an arbitrary magnetic field.
 
 \onecolumn
@@ -161,8 +143,6 @@ Several codes are available in the synchrotron community to calculate the undula
 \label{sec:electronbeam}
 % -----------------------------------------------------------------
 
-% The electron trajectory previously used $\textbf{r}_{\textbf{e}}(t)$ is completely determined by the map of the magnetic field of the ID and the initial conditions at the entrance of the ID. 
-
 At any position position $s$ in the storage ring, an electron can be described by 5 coordinates:
 $\mathcal{S}= (x_\text{e},\theta_{x_\text{e}},y_\text{e},   \theta_{y_\text{e}},\delta_\mathcal{E})$ representing the phase space coordinates and a term $\delta_\mathcal{E}$ expressing the relative deviation of the electron energy from main storage ring energy (also known as the energy spread). It follows that at any given $s$ the many-electrons in a bunch follow a 5D Gaussian distribution:
 \begin{equation}\label{eq:f-electrons}
@@ -170,16 +150,13 @@ f(\mathcal{S}) = \frac{1}{(2 \pi)^{5/2} \sqrt{\text{det}(M^{-1})}} \exp
         \left( -\frac{1}{2} \mathcal{S}^\text{T} M \mathcal{S} \right),
 \end{equation}
 with $M$ as the inverse of the generalized variance 5$\times$5 matrix. A common assumption is that the variables are correlated only if they are in the same plane ($x$ or $y$). In some particular points $s$ where the covariance between spatial and angle terms is zero, only the diagonal terms in $M$ are non-zero: ($1/\sigma_x^2,1/\sigma_{\theta_x}^2,1/\sigma_y^2,1/\sigma_{\theta_y}^2,1/\delta_\mathcal{E}^2)$. This usually the case at the center of the straight sections, where the undulators are placed.  We also assume that the electron bunch has a Gaussian distribution with $\sigma_z$ along the longitudinal direction, as most particle beams do [cf. \S8. in \cite{Wiedemann2015}].
-%\todo{discuss longitudinal direction $\sigma_z$?}
-
-% $f(\textbf{S}_\text{e})$. , with given r.m.s spatial ($\sigma_x$, $\sigma_y$, $\sigma_z$), angular ($\sigma_{x'}$,$\sigma_{y'}$), and energy $\delta$ values. Correlation terms are, in general, different from zero only for the horizontal ($\sigma_{x x'}$) and vertical ($\sigma_{y y'}$). 
  
 
 % -----------------------------------------------------------------
 \subsection{Emission from electron bunches}
 % -----------------------------------------------------------------
 
-Having summarized the coherent emission from a single electron in section \ref{sec:undulator} and how the electrons are statistically distributed in a bunch (section \ref{sec:electronbeam}), we now turn our attention to the emission from the electron bunch with finite emittance. %we to put them together to obtain the light emission from the electron bunch.
+Having summarized the coherent emission from a single electron in section \ref{sec:undulator} and how the electrons are statistically distributed in a bunch (section \ref{sec:electronbeam}), we now turn our attention to the emission from the electron bunch with finite emittance.
 
 The total electric field emitted from all $N_e$ electrons in a bunch circulating in a storage ring is given by: 
 \begin{equation}
@@ -195,10 +172,6 @@ In terms of intensity:
 \end{equation}
 The electric field $E_\omega(\textbf{r};\mathcal{S})$ is the emission by a single electron with trajectory defined by the undulator magnetic field and electron initial conditions $\mathcal{S}$ \remove{with $s=s_0$} at the observation point $\textbf{r}$ (see Eq.~\ref{eq:undulator}). The first term in Eq.~\ref{eq:SR} is a sum at $\textbf{r}$ of the intensity of every electron emission weighted by its probability $f$, which describes temporally incoherent SR. The second term stands for the enhancement of the intensity due to coherent superposition of the emission of the $N_e$ electrons, modelling temporally coherent SR. It follows that: $\text{I}_\text{~bunch} = \text{I}_\text{~iSR}+\text{I}_\text{~cSR}$. For emitted wavelengths shorter than the electron bunch length (closely packed electrons, i.e. when $\sigma_z < \lambda$, $\lambda$ being the photon wavelength), the power associated with the term $\text{I}_\text{~cSR}$ vanishes quickly \cite{CSR,Wiedemann2015}. Considering typical undulator radiation emission, i.e. x-ray energy ranges from a few hundred electron-volts to a few hundred keV, and typical electron bunch lengths in storage rings ($\sigma_{T}>30$~ps), $\text{I}_\text{~cSR}$ can be neglected when considering standard monochromatisation schemes in beamlines\footnote{\citeasnoun{geloni2008} provide a counter-example in Ref[15] ibid.}.
 
-
-% Typically, the second term in Eq.~\ref{eq:SR} is non negligible for closely packed electrons,i.e. when $\sigma_z < \lambda$ ($\lambda$ is the photon wavelength). In other words, the first term in the sum describes temporally incoherent SR and the second term models temporally coherent SR: $\text{I}_\text{~bunch} = \text{I}_\text{~iSR}+\text{I}_\text{~cSR}$. For emitted wavelengths shorter than the electron bunch length, the power associated with the term $\text{I}_\text{~cSR}$ vanishes quickly \cite{CSR,Wiedemann2015}.
-% Considering typical undulator radiation emission, i.e. x-ray energy ranges from a few hundred electron-volts to a few hundred keV, and typical electron bunch lengths in storage rings ($\sigma_{T}>30$~ps), $\text{I}_\text{~cSR}$ can be neglected when considering standard monochromatisation schemes in beamlines. %\todo{ I WOULD REMOVE THIS: A further simplification to Eq.~\ref{eq:SR} is done when considering that the intensity of the single-electron emission is not dependent on the initial electron position $z_\text{e}$. The integration of Eq.~\ref{eq:SR} can then be done in 5 dimensions.}
-
 In a similar way, the mutual correlation of the electric field between two observation points $\textbf{r}_1$ and $\textbf{r}_2$ is:
 \begin{equation}\label{eq:CSDallaChubar}
 \begin{split}
@@ -212,16 +185,6 @@ In a similar way, the mutual correlation of the electric field between two obser
 \end{split}
 \end{equation}
 where $\bullet^*$ indicates the complex conjugate, the brackets $\langle \bullet \rangle$ indicate sum over the bunches, $\textbf{r}_1=(x_1,y_1,z_1)$ and $\textbf{r}_2=(x_2,y_2,z_2)$ (see Fig.~\ref{fig:coordinates}). This equation is the cross-spectral density, that will be discussed later and rewritten in more manageable form.
-
-% This implies necessarily some mathematical tools, probably using convolution. 
-% Indeed, Kwang-Je Kim developed a propagation theory of synchrotron radiation using Wigner distribution \cite{KimConvolution}. He introduced the ``brightness convolution theorem" stating that the source brightness due to a collection of electrons randomly distributed in their phase space is calculated by a convolution of the source brightness due to a reference electron with the electron distribution function. 
-
-% where $E_{\omega\text{~bunch}}(\textbf{r})\equiv E_{\text{~bunch}}(x,y, z;\omega)$ is the resulting bunch emission; $E_\omega(\textbf{r})\equiv E(x,y, z;\omega)$ is the single-electron emission; 
-% $\textbf{s}_\text{e}=(x_\text{e},y_\text{e},z_\text{e})$ represents the electrons initial positions,
-
-% $\textbf{s}'_\text{e}=(x'_\text{e},y'_\text{e})$ gives the electrons initial directions and $\gamma_\text{e}$ is the electron-beam energy subjected to the energy spread $\delta \gamma_\text{e}$. These variables are uncorrelated and have Gaussian distribution in a 6-dimensional space \cite{codeSRW_CSR}. 
-
-% The single-electron emission $E_\omega(\textbf{r})$ is, by definition, fully coherent\footnote{A similar abstraction is the zero-emittance or filament beam, that also radiates a fully transverse coherent wavefront, but with an intensity proportional to $N_e$.}. 
 
 % -----------------------------------------------------------------
 \subsection{Multi-electron Monte Carlo (SRW-ME)}
@@ -252,9 +215,7 @@ The cross-spectral density, generally represented as:
 W(\textbf{r}_1,\textbf{r}_2;\omega) = \big\langle E^*_{\omega}(\textbf{r}_1)  E_{\omega}(\textbf{r}_2)\big\rangle,
 \label{eq:CSD_2D}
 \end{equation}
-expresses the correlation of the emitted radiation between any two spatial points $\textbf{r}_1$ and $\textbf{r}_2$. It is the fundamental object that we will use to describe all partially-coherent properties of the synchrotron beams. We justify first, in the context of existing literature, the conditions of its usage for synchrotron light. Then we present the CMD and its practical implementation in 2D (with COMSYL) and the proposed 1D algorithm (with WOFRY1D).   
-
-% expresses the correlation of the emitted radiation between any two spatial points $\textbf{r}_1$ and $\textbf{r}_2$. It is the fundamental object that we will use to describe all partial coherence properties of the synchrotron beams. It completely describes and quantified the ``partial coherence" of these beams. We justify first, in the context of existing literature, the conditions of its usage for synchrotron light. Then we present the CMD and its practical implementation in 2D (with COMSYL) and the new 1D algorithm (with WOFRY1D).   
+expresses the correlation of the emitted radiation between any two spatial points $\textbf{r}_1$ and $\textbf{r}_2$. It is the fundamental object that we will use to describe all partially-coherent properties of the synchrotron beams. We justify first, in the context of existing literature, the conditions of its usage for synchrotron light. Then we present the CMD and its practical implementation in 2D (with COMSYL) and the proposed 1D algorithm (with WOFRY1D).
 
 
 % -----------------------------------------------------------------
@@ -305,13 +266,6 @@ Some important characteristics of this coherent mode decomposition are:
 
 \begin{enumerate}[label=(\roman*)]
 \item the modes $\Phi$ are orthonormal in the integral sense;
-% \end{enumerate}
-% \begin{equation*}
-% \int W_\text{2D}(\textbf{r}_1,\textbf{r}_2;\omega)  \Phi_{n}(\textbf{r}_1;\omega)~ \text{d}\textbf{r}_1 = \Lambda_n(\omega) \Phi_{n}(\textbf{r}_2;\omega);
-% % \label{eq:orthonormal_modes}
-% \end{equation*}
-% \begin{enumerate}[label=(\roman*)]
-% \setcounter{enumi}{1}
 \item the modes maximize the CSD making the truncation optimal:
 \end{enumerate}
 \begin{equation*}
@@ -374,20 +328,6 @@ Kim's brightness convolution theorem is applied in a plane $(s_x,s_y)$ at $s_0=-
 \end{equation}
 where $\textbf{r}_e=(x_e,y_e)$, $\mathbf{\theta}_e=(\theta_{x_e},\theta_{y_e})$ and $\Delta\textbf{r}=\textbf{r}_2-\textbf{r}_1$. The electric field $E_\omega$ is calculated using SRW in an arbitrary plane at a distance $z$ and then backpropagated to $s_0$ with the standard Fresnel free-space propagator (see Apendix~\ref{sec:appendixSRWpropagators}).
 
-
-% \begin{equation}\label{eq:comsyl_W2D}
-%     W_\text{2D}(\textbf{r}_1,\textbf{r}_2;\omega) = \int     E_\omega^*(\textbf{r}_1-\textbf{r})
-%     E_\omega(\textbf{r}_2-\textbf{r})F(\textbf{r}, \Delta \textbf{r})~\text{d}\delta_\mathcal{E}\text{d}\textbf{r},
-% \end{equation}
-% where $\Delta\textbf{r}=\textbf{r}_2-\textbf{r}_1$ and: 
-% \begin{equation}
-% F(\textbf{r},\mathbf{\Delta}\textbf{r}) = \int d\textbf{r}' f(\textbf{r},\textbf{r'},\delta) \exp(i k \textbf{r}'\Delta\textbf{r}),
-% \end{equation}
-% and $f$ the 5D distribution of the electrons (equation \ref{eq:f-electrons}).
-% Note that this is a 4D function as the third coordinate is fixed to $z_e$, so  now $\textbf{r}=(x,y)$ and $\textbf{r}'=(x',y')$. 
-% $E_\omega$ is calculates using SRW in an arbitrary plane ($z_D$) and then backpropagated to $z_e$ with a Fresnel standard SRW propagator (see below).
-
- 
 COMSYL starts with a matrix method that discretizes the cross-spectral density operator $A_{W_{2D}}$ in a step function basis set [see Eq.~4.4 in \cite{glassThesis}]. The discretization is followed by an iterative diagonalization using SLEPc \cite{SLEPc}. The implementation uses parallel computation and requires the use of a HPC. The key point of COMSYL is to avoid storing the full representing matrix, because it requires a lot of memory and computational resources. It scales essentially with $N_x^2 \times N_y^2$ where $N_x$ and $N_y$ are the numbers of grid points in the $x$ and $y$ dimension, respectively. Typical sizes for $N_x$ and $N_y$ can easily reach a few hundred up to a few thousand. In the latter case the memory requirements would reach several thousand terabytes. To reduce the memory requirements of the matrix method, COMSYL uses a two-step method that first performs a coherent mode decomposition for a zero divergence electron beam and based on this decomposition performs a second decomposition that takes the divergence into account. The memory requirement for our undulator applications is drastically reduced to about $4 \times N_x \times N_y \times N_m$ where $N_m$ is the number of requested coherent modes. This allows the calculation of higher harmonics or higher emittance rings where $N_x \times N_y \gg N_m$. 
 
 The modes calculated with the just-described method can be propagated along the beamline and used to compute the spectral density and cross-spectral density at any point of the beamline. These modes can be conveniently propagated downstream a beamline with SRW or WOFRY using the OASYS environment (see \S\ref{sec:propagation}). However, due to modifications by optical elements (cropping/truncation and/or absorption), the propagated wavefronts generally lose their orthonormality. Thus, for computing the CF at a given point of the beamline, it is necessary to perform a new CMD with the propagated CSD. It is possible to apply the very same method used to compute the initial coherent modes, but COMSYL implements the action of the integral operator (equation \ref{eq:fredholm_equation}) directly to the the coherent modes, which is much more economic in terms of memory.
@@ -411,20 +351,11 @@ W_\text{1D}(r_1,r_2;\omega,s_0) &= \big\langle E^*_{\omega,s_0}(r_1) E_{\omega}(
 \end{equation}
 with $\lambda_n$ the eigenvalues (scalars) and $\phi_n$ the 1D eigenfunctions. The CSD described in Eq.~\ref{eq:CMD1D} is now a 2D function. This reduction in dimension is very welcome as it becomes very easy to store, manipulate and diagonalize the CSD using common tools (e.g. the python numpy and scipy libraries). Much like what was presented in \S\ref{sec:COMSYL} for the COMSYL software,  we calculate the 1D undulator emission at an arbitrary plane located at $z$ from the origin using pySRU \cite{pySRU}, and back-propagate this field  to the center of the undulator using WOFRY's zoom propagator (see Appendix~\ref{sec:appendixWOFRYpropagators}). The $W_{1D}(x_1,x_2;\omega,0)$ is then obtained using Kim's brightness convolution theorem, which is effectively constructed using equation 3.51 in \cite{glass2017}.
 
-This recipe is implemented in the WOFRY wavefront propagation add-on in OASYS. For a typical beamline, two calculations are done: one for the horizontal direction and another for the vertical. These two results can be combined to get the CSD $W_\text{2D}(\textbf{r}_1,\textbf{r}_2;\omega,z)=W_\text{1D}(x_1,x_2;\omega,z) W_\text{1D}(y_1,y_2;\omega,z)$, implying numerical tensor operations. Similarly, the 2D spectral density is retrieved as $\mathcal{I}(x,y)=\mathcal{I}(x) \mathcal{I}(y)$. This will be extensively used in later sections. Note that if intensity is stored in arrays, the product is indeed an outer product. Finally, this decomposition gives raise to two values of coherence fraction: CF$_x$ for the horizontal direction and CF$_y$ for the vertical direction. The 2D CF can be retrieved as $\text{CF}=\text{CF}_{x} $\times$ \text{CF}_{y}$. Like in COMSYL, the $\phi_n$ eigenfunctions can be are propagated to any position of the beamline like standard wavefronts. The propagated $W_{1D}$ can, again, be decomposed in coherent modes to obtain the CF after propagation. 
-
-% Calling $\phi'$ the wavefront originated by propagating the (source) mode $\phi$, we can construct the propagated CSD    
-% \begin{equation}
-% W'(x_1,x_2;\omega) = \sum_{n=0}^{\infty} \lambda_n(\omega) \phi'^{*}_n(x_1;\omega) \phi'_n(x_2;\omega).
-% \label{eq:propagatedCSD}
-% \end{equation}
-
+This recipe is implemented in the WOFRY wavefront propagation add-on in OASYS. For a typical beamline, two calculations are done: one for the horizontal direction and another for the vertical. These two results can be combined to get the CSD $W_\text{2D}(\textbf{r}_1,\textbf{r}_2;\omega,z)=W_\text{1D}(x_1,x_2;\omega,z) W_\text{1D}(y_1,y_2;\omega,z)$, implying numerical tensor operations. Similarly, the 2D spectral density is retrieved as $\mathcal{I}(x,y)=\mathcal{I}(x) \mathcal{I}(y)$. This will be extensively used in later sections. Note that if intensity is stored in arrays, the product is indeed an outer product. Finally, this decomposition gives raise to two values of coherence fraction: CF$_x$ for the horizontal direction and CF$_y$ for the vertical direction. The 2D CF can be retrieved as $\text{CF}=\text{CF}_{x} \times \text{CF}_{y}$. Like in COMSYL, the $\phi_n$ eigenfunctions can be are propagated to any position of the beamline like standard wavefronts. The propagated $W_{1D}$ can, again, be decomposed in coherent modes to obtain the CF after propagation. 
 
 The undulator radiation from a single
 electron at a given frequency near the resonance of odd
 harmonics is very nearly symmetric a
-
-
 
 \inblue{
 The factorisation in equation~(\ref{eq:CSD_2D_bis}) has been discussed by \citeasnoun{geloni2008} [see §3.1 , equation~(56)] where it is stated that this rearranging of equation~(\ref{eq:CSD_2D}) is only valid for quasi-homogeneous sources (see \S\ref{sec:validity}). In the context of the Wigner distribution, this separation in horizontal and vertical components has been discussed by various authors and is believed to work well for undulator radiation with photon energies near the resonance of odd
@@ -442,14 +373,12 @@ The cartesian factorisation in equation~(\ref{eq:CSD_2D_bis}) is supposed to wor
 
 Ray-tracing-based methods are simpler and faster than wave-optics-based methods and more often than not, offer useful insight when studying and designing a synchrotron beamline \cite{hierarchical}. However, the use of pure ray-tracing methods based in geometrical optics are not very adequate when analyzing optical systems dealing with (partially- or fully-) coherent beams subjected to strong diffraction effects (e.g. beam clipping by either physical acceptance of an optical element or by slits and optical errors). It is possible to add diffraction effects to the geometric methods, by convolution of the beam divergence profiles calculated by ray-tracing with those resulting from the diffraction integrals, for then proceeding with classical ray-tracing methods. This hybrid concept \cite{codeHYBRID} is implemented as an extension to the ray-tracing code SHADOW \cite{codeSHADOW} available in the ShadowOUI \cite{codeSHADOWOUI} add-on in OASYS. Since its release, this hybrid ray-tracing implementation has been successfully used as an efficient and fast tool to design beamlines also including coherence effects \cite{Shi2017,Luca2020, Lordano2022}.
 
-% \onecolumn
-\begin{figure}\label{fig:sim_meth}
-    \centering
-    \includegraphics[width=0.99\textwidth]{simulation_methods.pdf}
-    \caption{Simulation methods. The circular arrows in \textit{c)} indicate the hybrid algorithm application [see Fig.~1 in \cite{codeHYBRID}].}
-\end{figure}
-% \twocolumn
 
+% \begin{figure}\label{fig:sim_meth}
+%     \centering
+%     \includegraphics[width=0.99\textwidth]{simulation_methods.pdf}
+%     \caption{Simulation methods. The circular arrows in \textit{c)} indicate the hybrid algorithm application [see Fig.~1 in \cite{codeHYBRID}].}
+% \end{figure}
 
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
@@ -481,112 +410,6 @@ This approximation is know as the Fresnel diffraction integral and strategies fo
 
 The different wave-optics packages in use have different implementation of these propagators. The selection of the propagator, and its parametrization (sampling, padding, interpolation, etc.) is done depending on the particular characteristics of the optical element and propagation distances. SRW uses four different propagators, summarized in Appendix~\ref{sec:appendixSRWpropagators}. WOFRY basically uses two different propagators (Appendix~\ref{sec:appendixWOFRYpropagators}).   
 
-% % -----------------------------------------------------------------
-% % -----------------------------------------------------------------
-% \subsubsection{The SRW propagators}
-% % -----------------------------------------------------------------
-% % -----------------------------------------------------------------
-%  are grouped into three main methods for 2D wavefront propagation \cite{SRWgit}. The first main method lies under the ``standard Fresnel propagator'', which can be implemented as: (a) direct numerical calculation of the convolution integral in Eq.~\ref{eq:Fresnel} by means of nested Riemann summations; or (b) through the application of the convolution theorem:
-%  \begin{equation}\label{eq:FresnelConv}
-% \begin{split}
-%     E_\omega(\textbf{r}')&=\frac{k\exp{(ikL)}}{2\pi i L} E_\omega(\textbf{r}) * \exp{\bigg\{ \frac{ik}{2L}\big[ (x')^2 + (y')^2 \big]\bigg\}}\\
-%   &= \exp{(ikL)}\mathcal{F}^{-1}\big\{\mathcal{F}\{E_\omega(\textbf{r})\}\mathcal{F}\{h(\textbf{r}')\}\big]\}\\
-%   &=\exp{(ikL)}\mathcal{F}^{-1}\big\{\mathcal{F}\{E_\omega(\textbf{r})\}\exp\big[-i\pi\lambda L\big(f_x^2+f_y^2\big)\big]\},
-% \end{split}
-% \end{equation}
-% where $\mathcal{F}\{\bullet\}$ is the two-dimensional Fourier transform (FT) and $\mathcal{F}^{-1}\{\bullet\}$ denotes inverse FT. This second approach is efficiently implemented in SRW using only two fast Fourier transforms (FFTs) because the kernel $h(\textbf{r}')$ has an analytical Fourier transform. Downsides to the FFT-based implementation include the heavy sampling needed to avoid aliasing and also necessary in order to resolve small features in the propagated wavefront $ E_\omega(\textbf{r}')$ , since the application of Eq.~\ref{eq:FresnelConv} limits the range and sampling in the output plane to those of the input plane $ E_\omega(\textbf{r})$ \cite{Kelly2014}.
-
-% A second family of propagators is obtained by the analytical treatment of the quadratic radiation phase term in Eq.~\ref{eq:Fresnel}, which allows for considerable economy of memory and CPU resources as compared to
-% the standard Fresnel free-space propagator \cite{ChubarCelestre}. Without losing generality, we assume that the electric field $E_\omega(\textbf{r})$ has a quadratic phase term defined by the wavefront curvature radii $(R_x, R_y)$ centred at $(x_0,y_0)$:
-%  \begin{equation}\label{eq:E_analytical}
-% % \begin{split}
-%     E_\omega(\textbf{r}) = F_\omega(\textbf{r})\exp\bigg\{ \frac{ik}{2}\bigg[ \frac{(x-x_0)^2}{R_x} + \frac{(y-y_0)^2}{R_y} \bigg]\bigg\}.
-% % \end{split}
-% \end{equation}
-% Plugging Eq.~\ref{eq:E_analytical} into Eq.~\ref{eq:Fresnel} and collecting terms:
-% \begin{equation}\label{eq:Fresnel_analytical}
-% \begin{split}
-%     E_\omega(\textbf{r}') = \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\quad &\\
-%     \frac{k\exp{(ikL)}}{2\pi i L}\exp\bigg\{ \frac{ik}{2}\bigg[ \frac{(x'-x_0)^2}{R_x+L} + \frac{(y'-y_0)^2}{R_y+L} \bigg] \bigg\}\cdot \qquad\quad &\\
-%     \cdot\int\limits_{\Sigma}{F_\omega(\textbf{r})\exp{\bigg\{ \frac{ik}{2L}\bigg[ \frac{R_x+L}{R_x}\bigg(\frac{R_xx'+Lx_0}{R_x+L}-x\bigg)^2+}} \enspace\\
-%     \hfill+ \frac{R_y+L}{R_y}\bigg(\frac{R_yy'+Ly_0}{R_y+L}-y\bigg)^2\bigg] & \bigg\}~\mathrm{d}\textbf{s}.
-% \end{split}
-% \end{equation}
-% Much like Eq.~\ref{eq:Fresnel}, Eq.~\ref{eq:Fresnel_analytical} is a convolution type-integral that not only can be computed using the convolution theorem, but also has an analytical Fourier transform of its kernel. We draw attention to the fact that the convolution is done regarding scaled coordinates:
-% \begin{equation}\label{eq:coordinates}
-% \hat{\textbf{r}}=(\hat{x},\hat{y})=\bigg(\frac{R_xx'+Lx_0}{R_x+L}, \frac{R_yy'+Ly_0}{R_y+L}\bigg),
-% \end{equation}
-% Equation~\ref{eq:Fresnel_analytical} can, then, be calculated as:
-% \begin{equation}\label{eq:Fresnel_analyticalConv}
-% \begin{split}
-% % &\frac{\exp{(ikL)}}{\sqrt{m_xm_y}}\exp{\bigg\{i\frac{k}{2L}\bigg[\bigg(\frac{m_x-1}{m_x}\bigg)x'^2 +\bigg(\frac{m_y-1}{m_y}\bigg)y'^2\bigg]\bigg\}}\cdot\\
-% &E_\omega(\textbf{r}') =\exp{(ikL)}\cdot\\
-% &\cdot\exp\bigg\{ \frac{ik}{2}\bigg[ \frac{(x'-x_0)^2}{R_x+L} + \frac{(y'-y_0)^2}{R_y+L} \bigg] \bigg\}\sqrt{\frac{R_xR_y}{(R_x+L)(R_y+L)}}\cdot\\
-% &\cdot\mathcal{F}^{-1}\bigg\{\mathcal{F}\{F_\omega(\textbf{r})\}\exp\bigg[-i\pi\lambda L\bigg(\frac{R_x}{R_x+L}f_x^2 +\frac{R_y}{R_y+L}f_y^2\bigg)\bigg]\bigg\},
-% \end{split}
-% \end{equation}
-% which is of particular interest because the application of the convolution theorem implemented with FFTs yields in a natural rescaling of the ranges of the output plane - see Fig.~1 in \cite{ChubarCelestre}. Padding with zeros and resampling the input field in order to obtain reasonable results in the output plane are less often necessary then when dealing with the formulation in Eq.~\ref{eq:FresnelConv}. This propagator, by far the most versatile in SRW, is presented to the user as two separate methods that differ on the estimation of the wavefront curvature $R_x$ and $R_y$ and on the processing near the beam waist ($R_x\approx-L$ and $R_y\approx-L$). 
-
-% Two less general propagators form the third family of methods proposed by SRW. The first one is based on the Fraunhofer approximation of Eq.~\ref{eq:Fresnel} and is used for wavefront propagation over a very large distance:
-%  \begin{equation}\label{eq:Frauhofer}
-% \begin{split}
-%     E_\omega(\textbf{r}') = &\frac{k\exp{(ikL)}}{2\pi i L}\exp{\bigg[i\frac{k}{2L}(x'^2 + y'^2)\bigg]}\cdot \\
-%     &\enspace\qquad\cdot\int\limits_{\Sigma}{E_\omega(\textbf{r})\exp{\bigg[-i \frac{2\pi}{\lambda L}\big( x'x + y'y \big)\bigg]}~\mathrm{d}\textbf{s}}.
-% \end{split}
-% \end{equation}
-% The integral in Eq.~\ref{eq:Frauhofer} is a Fourier transform of the field $E_\omega(\textbf{r})$ with spatial frequencies given by $f_x=x'\big/\lambda L$ and $f_y=y'\big/\lambda L$. Its implementation in SRW is done using a single FFT. A second propagator based on a single FFT is implemented to cover the case of a focusing wavefront being propagated over some distance to the beam waist. A converging wavefront writen as $E_\omega(\textbf{r}) = F_\omega(\textbf{r})\cdot\exp{[-i\frac{k}{2q}(x^2 + y^2)]}$ plugged into Eq.~\ref{eq:Fresnel} yields:
-% \begin{equation}\label{eq:FocusingFresnel}
-% \begin{split}
-% E_\omega(\textbf{r}') = \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad &\\
-% \frac{k\exp{(ikL)}}{2\pi i L}\exp{\bigg[i\frac{k}{2L}(x'^2 + y'^2)\bigg]}\cdot \qquad\qquad\qquad\qquad\qquad\enspace &\\
-% \cdot\int\limits_{\Sigma}{F_\omega(\textbf{r})\exp{\bigg[-i \frac{2\pi}{\lambda L}\big( x'x + y'y \big) +}} \qquad\qquad\qquad\quad&\\
-% \hfill+i\frac{k}{2L}(x^2 + y^2) - i \frac{k}{2 q}\big(x^2+y^2) \bigg]~\mathrm{d}\textbf{s},&
-% %&\cdot\int\limits_{\Sigma}{\check E_\omega(\textbf{r})\exp{\bigg[-i\frac{k}{2q}(x^2 + y^2) + i \frac{k}{2 L}\big(-2x'x +x^2 + -2y'y+y^2 \big)\bigg]}~\mathrm{d}\textbf{s}},
-% \end{split}
-% \end{equation}
-% where $q$ is the distance from the input plane to the beam waist. When the wavefront is propagated to the the image plane, that is, $L=q$, the integral in Eq.~\ref{eq:FocusingFresnel} assumes the formalism of a Fourier transform with $f_x=x'\big/\lambda q$ and $f_y=y'\big/\lambda q$. 
-
-% % -----------------------------------------------------------------
-% % -----------------------------------------------------------------
-% \subsubsection{The WOFRY propagators}
-% % -----------------------------------------------------------------
-% % -----------------------------------------------------------------
-% can be used to propagate any arbitrary wavefront generated within this software and in particular, the 1D and 2D coherent modes described in \S\ref{sec:CMD}. 
-
-% Like SRW, WOFRY offers the standard Fresnel propagator using 2 FFTs (Eq.~\ref{eq:FresnelConv}) and the Fraunhofer approximation calculated with one FFT (Eq.~\ref{eq:Frauhofer}). Both propagators are available in 1D and 2D implementations. To overcome the issues with the output plane range when applying the convolution theorem for the Fresnel propagator, WOFRY offers a implementation based on works by \citeasnoun{schmidt} and \citeasnoun{pirro2017} that permits to scale the output plane range while retaining the possibility of calculation by means of the convolution theorem. Let $m_x$ and $m_y$ be magnification factors for the output plane range and:
-% \begin{equation}
-% \begin{split}
-%   (x'-x)^2 &= m_x\bigg(\frac{x'}{m_x}-x\bigg)^2+\bigg(\frac{m_x-1}{m_x}\bigg)x'^2+(1-m_x)x^2\\
-%   (y'-y)^2 &= m_y\bigg(\frac{y'}{m_y}-y\bigg)^2+\bigg(\frac{m_y-1}{m_y}\bigg)y'^2+(1-m_y)y^2,
-% \end{split}
-% \end{equation}
-% that we use in Eq.~\ref{eq:Fresnel}:
-% \begin{equation}\label{eq:ZoomFresnel}
-% \begin{split}
-% &E_\omega(\textbf{r}') =\\
-% &\frac{k\exp{(ikL)}}{2\pi i L}\exp{\bigg\{i\frac{k}{2L}\bigg[\bigg(\frac{m_x-1}{m_x}\bigg)x'^2 +\bigg(\frac{m_y-1}{m_y}\bigg)y'^2\bigg]\bigg\}}\\
-% &\int\limits_{\Sigma}{F_\omega(\textbf{r})\exp{\bigg\{-i \frac{k}{2 L}\bigg[m_x\bigg(\frac{x'}{m_x}-x\bigg)^2+ m_y\bigg(\frac{y'}{m_y}-y\bigg)^2\bigg]\bigg\}}~\mathrm{d}\textbf{s}
-% }
-% \end{split}
-% \end{equation}
-% with:
-% \begin{equation}\label{eq:E}
-% E_\omega(\textbf{r}) = F_\omega(\textbf{r}) \exp{\bigg\{i \frac{k}{2 L}\big[(1-m_x)x^2+(1-m_y)y^2 \big]\bigg\}}.
-% \end{equation}
-% Equation~\ref{eq:ZoomFresnel} is a convolution between $F_\omega(\textbf{r})$ and a kernel with reduced scaled $\hat{\textbf{r}}=(\hat{x},\hat{y})=\big(x'\big/m_x, y'\big/m_y\big)$. This kernel has analytical Fourier transform and the application of the convolution theorem with two FFTs is possible:
-% \begin{equation}\label{eq:ZoomFresnelConv}
-% \begin{split}
-% &E_\omega(\textbf{r}') =\\
-% &\frac{\exp{(ikL)}}{\sqrt{m_xm_y}}\exp{\bigg\{i\frac{k}{2L}\bigg[\bigg(\frac{m_x-1}{m_x}\bigg)x'^2 +\bigg(\frac{m_y-1}{m_y}\bigg)y'^2\bigg]\bigg\}}\cdot\\
-% &\qquad\qquad\quad\cdot\mathcal{F}^{-1}\bigg\{\mathcal{F}\{F_\omega(\textbf{r})\}\exp\bigg[-i\pi\lambda L\bigg(\frac{f_x^2}{m_x} +\frac{f_y^2}{m_y}\bigg)\bigg]\bigg\}.
-% \end{split}
-% \end{equation}
-% Note that when $m_x=1$ and $m_y=1$ we recover Eq.~\ref{eq:Fresnel} and Eq.~\ref{eq:FresnelConv}. A 1D version of this ``zoom'' propagator is also available in WOFRY.
-% %This implementation, as any implementation based on two FFTs, conserves the number of points in the array, which means that the magnification factors $m_x$ and $m_y$ are applied to the ranges of the input plane. 
-
-% For the cases where accuracy should be privileged over execution time, a 1D paraxial version of the Rayleigh-Sommerfeld integral where $\cos(\theta)=1$ is also implemented in WOFRY. Similarly to the direct numerical calculation of the Fresnel diffraction integral, the 1D version of Eq.~\ref{eq:Huygens-Fresnel} is implemented as a Riemann summation \cite{srioLBL}. 
-
-
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 \subsection{Optical elements}\label{sec:OE}
@@ -617,13 +440,11 @@ Absorption filters, test patterns, x-ray refractive lenses, refractive corrector
 \begin{subequations}
 \begin{align}   
     \mathrm{T}_{\text{BL}}(\textbf{r})&=\exp{\big[-2k\beta_\omega(\textbf{r})\Delta_z(\textbf{r})\big]}\label{eq:aux_funcs_transa}  \\
-    % &=\exp{\big[-\mu_\omega(\textbf{r})\Delta_z(\textbf{r})\big]},\nonumber\\
     \varphi(\textbf{r})&=-k\delta_\omega(\textbf{r})\Delta_z(\textbf{r}).\label{eq:aux_funcs_transb}
 \end{align}
 \end{subequations}
 $\Delta_z$ is the projected thickness of an optical element along the $z-$axis. We define the index of refraction as $n_\omega=1-\delta_\omega+i\cdot\beta_\omega$. Optical errors can be simulated in a similar way \cite{Laundy2014,Celestre:mo5214,srioLBL}.
 
-%\todo{REMOVE THIS PARAGRAPH? }
 Reflective optics can also be reasonably well approximated by transmission elements with more complex calculations eg. stationary-phase methods (application of Eq.~\ref{eq:Huygens-Fresnel} over the mirror surface), geometric ray-tracing calculation of the optical path difference \cite{Canestrari2014} or even multi-slicing \cite{Li2017}. 
 \inblue{Moreover, 1D wavefronts can be easily propagated in grazing incidence mirrors and gratings calculating directly the numeric integral in equation~(\ref{eq:Huygens-Fresnel}) \cite{wiser2015,srioLBL}. }
 
@@ -635,37 +456,6 @@ Reflective optics can also be reasonably well approximated by transmission eleme
     z(x) &= \frac{1}{2R} (L/2)^2 + d; & |x| \ge L/2.
 \end{align}
 }
-
-
-% A generic aperture is a mask that transmits a part of the wavefront complex amplitude in a range $[x_{min},x_{max}]$ and absorbs the rest. It can be
-% \begin{equation}
-% R(x;\omega) =
-% \left\{
-% \begin{matrix}
-% A,  & \mbox{~~if~~} x_{min} \le x \le x_{max}
-% \\ 
-% 1 - A, & \mbox{~~elsewhere}
-% \end{matrix}
-% \right.
-% \end{equation}
-% When the element is a slit, then $A=1$. If it is a beamstop, then $A=0$. In the following simulations we will use an aperture of finite length $a$ centered with the beam, therefore $x_{min}=-a/2$ and $x_{max}=a/2$.
-
-% % -----------------------------------------------------------------
-% % -----------------------------------------------------------------
-% \subsubsection{X-ray lenses}
-% % -----------------------------------------------------------------
-% % -----------------------------------------------------------------
-
-% A refractor made by a material with refraction index $n(\omega)=1-\delta(\omega)+i\beta(\omega)$ 
-% and thickness profile $z(x)$ adds a phase to the wavefront $-\lambda \delta(\omega) z(x)$ and reduce its amplitude by $\exp(-\mu z(x)/2)$, where $\mu=(4 \pi/\lambda) \delta(\omega)$ is the (intensity) attenuation coefficient. These expressions can be applied to any transmission object of profile $x(z)$ assuming valid the thin object approximation. 
-
-% The changes induced by a real lens in the wavefront can be calculated using the thin object approximation discussed below, using the lens profile. Usually, a single lens has a parabolic interface $z=x^2/(4R)$ with $R$ the radius at the apex. A lens has two parabolic interfaces (front and back) separated by a lens thickness $d$. The interfaces are flat outside the lens aperture $L$. Therefore, the lens profile is:
-% \begin{align}
-%     z(x) &= \frac{1}{2R} x^2 + d; & |x| < L/2\\ \nonumber
-%     z(x) &= \frac{1}{2R} (L/2)^2 + d; & |x| \ge L/2.
-% \end{align}
-
-% A Compound Refractive Lens is a pile of $N$ identical lenses. If we neglect the beam propagation in the inter-lens space, the effect of the $N$ lenses is identical of a single lens with profile $x_N(z)=N z(x)$. If one is interested in assessing the effect of the inter-lens space (e.g. for studying the adiabatic focusing \cite{Schroer_adiabatic}) the CRL must be calculated as $N$ independent lenses, applying the free-space propagator in between two consecutive lenses. For a transfocator (a transfocator is a pile of CRLs) the same concept apply: it is possible to compute the accumulated lens profile and use it as a single lens, or calculate lens by lens (or CRL by CRL) if the effect of inter-lens or inter-CRL spaces are to be taken into account.
 
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
@@ -810,9 +600,6 @@ The principal role of the slit placed at this plane is control the beam coherent
 The intensity distribution at the sample plane is display in Figs.~\ref{fig:sim_results}(a)-(d), for results using WOFRY1D, COMSYL, SRW-ME and HYBRID codes, respectively.  Beam dimensions are obtained by calculating FWHM from the intensity distribution at one direction, resulting by integrating the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
 The results for case 1 shows an horizontal profile mostly triangular with shoulders that evidence small diffraction fringes. The fringes are more resolved in the vertical direction. Case 2  presents in horizontal a soft Gaussian-like profile, but in vertical important symmetric shoulders are remarked. Case 3 shows a smooth Gaussian profile in horizontal and a small shoulder with fringes in vertical. Case 4 shows a conventional smooth profile in horizontal but an original three-lobe plateau in vertical. This variety of profile distribution demonstrates how relevant the diffraction effects are, which modulate the beam shape in a non-trivial way.  
 
-
-
-
 \begin{table}[]
     \label{table:comparison}
     \caption{Comparison of sizes (FWHM, in \SI{}{\micro\meter}) calculated with different methods for the cases defined in Table~\ref{table:2Dusercases}.
@@ -865,10 +652,7 @@ Hybrid ray-tracing for the four cases defined in Table~\ref{table:2Dusercases} a
 1h (hybrid \SI{16.5}{\micro\meter} Wofry1D \SI{8.5}{\micro\meter}),
 2v (\SI{71.2}{\micro\meter} Wofry1D \SI{32.4}{\micro\meter}). They will be discussed in the next section.
 
-% It was used to determine the minimum number of electrons that produce accurate results. The SRW-ME simulations for the cases analyzed converge with only a few thousands electrons, that can be run in less than one hour in a node with 28 CPUs totalizing 256 GB. The reason is that the beam after the slit has a relatively high CF. 
-
 The agreement between the results of WOFRY1D in Fig.~\ref{fig:sim_results}(a) with SRW-ME [Fig.~\ref{fig:sim_results}(a)] is striking. All intensity distributions reproduce exactly the same features, and the differences in FWHM values are less than 12\%, a value that is compatible with the errors of the simulations. 
-% (discussed in section~\ref{sec:discussion}).
 This results validates the 1D CMD method proposed here, whose requirements in computer power are extremely low (it runs very fast in an averaged laptop). 
 
 The numeric value for sizes calculated with the different methods (Table~\ref{table:comparison}) depends not only on the code itself, but also on the particular specific parameters in each method (number of pixels for sampling wavefronts, propagation parameters, etc.). To estimate the calculation error in the final size numbers, we vary randomly these specific parameters in a reasonable range (e.g., 10\%). The evaluation of the mean size and the dispersion (standard deviation) of the sizes obtained give an good estimation of the error in this parameter. This exercise would take a considerable computational effort using 2D methods, but it can be easily done with WOFRY1D. We run 200 cases with 10\% random variation in the values in number of pixels and magnification factor in drift spaces. The obtained sizes (horizontal $\times$ vertical) are  
@@ -882,8 +666,7 @@ There is excellent agreement for partial coherence. For full coherence, the WOFR
 
 \begin{table}[]
     \label{table:absorption}
-    \caption{Comparison of beam intensity attenuation in percent by the slit, lens-1 and lens-2 for the partial coherent beam, 
-    % coherent beam (first coherent mode in Wofry1D, filament beam in SRW, zero emittance in Hybrid) and for the partial coherent beam,
+    \caption{Comparison of beam intensity attenuation in percent by the slit, lens-1 and lens-2 for the partial coherent beam,
     for the four cases studied.
     The Wofry1D data shown here comes after combining the horizontal and vertical wavefronts using the outer product. 
     Each profile corresponds to the intensity integrated along its perpendicular direction. 
@@ -897,14 +680,12 @@ case & \multicolumn{3}{c|}{slit} & \multicolumn{3}{c|}{lens-1} & \multicolumn{3}
      & \rot{Wofry1D} & \rot{SRW} & \rot{Hybrid}
 \\
 \hline
-%    &          &      &        &          &      &         &          &       &         \\
-%1      &   87.0   & 96.6 & 96.7   & 7.6      & 7.4  & 5.2     & 48.3     & 51.3  & 53.0   \\
 1       &   97.6   & 97.6 & 97.2   & 7.9      & 7.6  & 5.2     & 50.7     & 51.1  & 52.6   \\
-% 2c    &   87.0   & 96.6 & 96.7   & 6.7      & 6.4  & 4.3     & 3.8      & 3.7   & 3.3    \\
+& 4.3     & 3.8      & 3.7   & 3.3    \\
 2       &   97.6   & 97.6 & 97.2   & 7.0      & 6.6  & 4.3     & 3.9      & 3.7   & 3.3    \\
-% 3c    &   55.9   & 86.0 & 85.6   & 5.4      & 6.11 & 4.7     & 17.1     & 22.7  & 26.6   \\
+& 4.7     & 17.1     & 22.7  & 26.6   \\
 3       &   89.5   & 90.2 & 88.6   & 6.3      & 6.1  & 4.6     & 23.4     & 21.8  & 25.2   \\
-% 4c    &   55.9   & 86.0 & 85.6   & 6.8      & 7.73 & 6.4     & 3.6      & 3.6   & 3.6    \\
+& 6.4     & 3.6      & 3.6   & 3.6    \\
 4       &   89.5   & 90.2 & 88.6   & 8.0      & 7.7  & 6.2     & 3.8      & 3.6  & 3.6   \\
 \end{tabular}
 \end{table}
@@ -931,9 +712,6 @@ The simulation of the full CMD with COMSYL required about 1h with 28 cores. The 
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 
-% Our discussion follows a hierarchical approach, as discussed in \citeasnoun{hierarchical}, with the idea of balancing accuracy and computational effort, to subsequently select and use the most advantageous method for the analyzed problem. 
-% This multi-method analysis will also help to validate the new 1D CMD method introduced in this work. The results of the Wofry1D results are compared with other well-known simulation packages. 
-
 The comparison of the results obtained with WOFRY1D with the other three methods permitted to validate our new method.
 There is a good matching of the beam sizes (FWHM values) for all methods (see Table~\ref{table:comparison}), and also in the shape of intensity distributions, in particular for the wave optics methods [Figs.~\ref{fig:sim_results}(a)-(c)]. 
 A remarkable agreement is found, as well, between WOFRY1D and SRW-ME for the functions that describe partial coherence (CDS, DoC and CL) (see Figs.~\ref{fig:plot_2D_spectral_density_36m} and \ref{fig:plot_DoC_at_36m}).
@@ -943,91 +721,6 @@ A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamlin
 
 
 
-
-% \subsection{Hybrid ray-tracing}
-
-% The simulation results for the four cases studied using the hybrid method indicate that, although this method does not reproduce exactly the intensity distibution given by full partial coherent optics, the numerical values are approaching the good ones, but with two exceptions: the case 
-% 1h (hybrid \SI{16.5}{\micro\meter} Wofry1D \SI{8.5}{\micro\meter}) and the case 
-% 2v (\SI{71.2}{\micro\meter} Wofry1D \SI{32.4}{\micro\meter}). 
-% We remark that these thee cases have in common that the $f_1$ value in use is close to $f_1$~=~\SI{40}{\meter} that corresponds to the singularity in the analytical (geometrical optics) calculations, when the lens-1 focuses on lens-2. A detailed study with hybrid was performed to calculate the FWHM for all possible values of $f_1$ (as done in Fig.~\ref{fig:focalSizes}. The result (Fig.~\ref{fig:focalSizes_hybrid}) confirms that there is good agreement everywhere except in the region close to $f_1$~=~\SI{40}{\micro\meter}.
-% We thus conclude that the hybrid ray-tracing is a valid method to obtain good values of focal sizes in most cases, excepts for the case that lens-1 focus is close to the position of lens-2 ($f_1 \approx $~\SI{40}{\meter}).
-
-
-% \begin{figure}
-%     \centering
-
-%     \includegraphics[width=0.95\textwidth]{figures/sizes_h_hybrid.eps}
-%     \includegraphics[width=0.95\textwidth]{figures/sizes_v_hybrid.eps}
-        
-%     \caption{Focal sizes obtained by hybrid ray-tracing method, for two slit aperture cases, compared with values from Wofry1D  (from Fig.~\ref{fig:focalSizes}).}
-%     \label{fig:focalSizes_hybrid}
-% \end{figure}
-
-% \subsection{Further simulations}
-
-
-
-% We have also calculated the beam evolution in the neighbourhood of the sample position for the four cases studied (see Fig.~\ref{fig:caustic}). From these plots one can obtain the position of the best focus and the depth of focus. The depth of focus (measured as the distance where the peak value is reduced by 15\%) is larger than two meters (except for the cases 1v, 3v). \todo{redo these plots and compare with SRW... otherwise supress?}
-
-% In some cases there is a mismatch between the position of the best focus and its expected position (the sample position, at the zero abscissas). This effect, certainly due to an error in setting $f_2$, may have several origins. 
-
-% For pairing two transfocators, the algorithm chosen to calculate the $f_2$ value consist in analyzing the wavefront at the lens-2 position, find a corrector refractive object that would transform the incoming wavefront in a converging wavefront (see section \ref{sec:refractorCorrector}), and fit the radius at the center. We then get the $R_2$ and therefore the $f_2$ value. In addition, to obtain smooth $(f_1,f_2)$ curves in Fig.~\ref{fig:f1f2map} we have used a Gaussian slit (see section \ref{sec:gaussianslit}). It smears out the diffraction fringes, because in an ideallized system where a point source is focused at the sample position, the recorded intensity would correspond to the diffraction pattern of the slit, that can be considered as an "object" placed in the beam (see e.g. \cite{paganin_book}). The use of a Gaussian object implies that its diffraction pattern is a Gaussian with no diffraction fringes. 
-
-% For cases 1h, 1v, 3v (see  Fig.~\ref{fig:caustic}), there is a good agreement between the focal position obtained from the maximum of intensity on-axis (plotted at the top of the image) and our expected position (the zero in the plots). In some other cases (2v, 3h, 4h) the agreement is acceptable, taking into account that the observed depth of focus is of the order of meters. A small correction in $f_2$ would bring the best focus to its ideal position. This correction is necessary because we used a Gaussian slit for calculating $f_2$, thus neglecting some oscillations around the $(f_1,f_2)$ curves. There are two pathological cases where the algorithm used to calculate $f_2$ did not succeed: the cases 2h and 4v.
-% The error in $f_2$  for case 2h is also due to the oscillations in the $(f_1,f_2)$ and can be corrected, as shown in Fig.~\ref{fig:causticcorrection}a. However, case 4v cannot be corrected because we would need a divergent lens to bring the focus of $f_1$ to the sample position. Setting $R_2=f_2=\infty$ would reduce the beam size at the sample position (Fig.~\ref{fig:causticcorrection}b), but cannot get the best focus there. However, an ad-hoc defined refractive corrector in the place of lens-2 would do the job (Fig.~\ref{fig:causticcorrection}d).  
-
- 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% \begin{figure}\label{fig:caustic}
-% \centering
-
-% \includegraphics[width=0.99\textwidth]{figures/fig_caustic.pdf}
-
-% \caption{Evolution of the beam size in the around the sample position for the cases listed in Table~\ref{table:2Dusercases}. The top and side graphs correspond to the profiles passing by (0,0).
-% }
-% \end{figure}
-
-
-
-% \begin{figure}\label{fig:causticcorrection}
-% \centering
-% \includegraphics[width=0.99\textwidth]{figures/fig_caustic_correction.pdf}
-
-% \caption{Evolution of the beam size in the around the sample position for the ``pathological" case 2h and 4v shown in Fig.~\ref{fig:caustic}. Top row: using corrected lens-2 with $R_2$=\SI{410}{\micro\meter} ($f_2=$\SI{29.4}{\meter}) for case 2h and $R_2=f_2=\infty$ for case 4v. Bottom: using a free-form refractive corrector instead of lens-2.
-% }
-% \end{figure}
-
-
-% \subsection{Errors in optical surfaces}
-
-% % \todo{Rafael, please re-read}
-% The performance of X-ray optics in the new generation synchrotron beamlines is limited by the quality of the optical surfaces \cite{lengeler1999,Yabashi}. Finish errors can be divided in three families: i) height errors, associated with surface finishing (high spatial frequency), ii) figure errors, associated with deviations from ideal profile (e.g. bending, gravity sag, thermal deformations), and iii) slope errors or waviness, associated to medium spatial frequencies \cite{srio1992, signorato1997}. Finish errors in x-ray lenses can be measured by different techniques (eg. grating interferometry, x-ray speckle tracking or ptychography) and readily included in the simulations \cite{Celestre:mo5214}. Some profiles measured at ESRF using x-ray speckle tracking \cite{berujon2020} with height error RMS of the order of \SI{1}{\micro\meter} are used to verify that the focal spot produced by lenses with realistic errors is not degraded with respect to the ideal lens surface. 
-
-% Usually the optics of new generation synchrotron beamlines is limited by the quality of the optical surface. Typically are due to surface finish (slope errors and height errors) and shape errors, often due to heat load. 
-% \todo{Rafael, would you please work next paragraph. I checked that your error file (profile 1 in DABAM2D) does not produce relevant changes, thus the idea is to "mention" the errors without presenting a full study.} Surface errors in lens surfaces can be experimentally measured by different techniques (e.g. speckle tracking, ptychography) and included in the simulations. Some profiles measured at ESRF \cite{???} with height error RMS of the order of \SI{1}{\micro\meter}  are used to verify that the focal spot produced by lenses with realistic errors is not degraded with respect to the ideal lens surface. 
-
-% The effect of finish errors in the white double-mirror system is also analyzed using a measured mirror meridional profile of \SI{2.5}{\nano\meter} height error RMS and \SI{140}{\nano\radian} RMS slope error. 
-
-% % \todo{Philipp, please re-read}
-% The heat load affect several elements of the beamline. For the beamline under consideration, the affected elements (white beam mirrors, and double-crystal monochromators) are not presented in our simulations. Finite element analysis of mirrors and crystals done for other EBS beamlines \cite{Brumund} show that the deformation height profile can be decomposed it two parts: an average bending that is possible to correct by a small readjustment of the focal length of the optical elements downstream the heated element, and a ``residual error" which remain after removing the averaged bending radius, and could only be corrected using adaptive optics. Wofry1D simulations using FEA-generated deformations at the first crystal of a monochromator placed just after the coherent slit showed no significant degradation of the focal spot, both in size and shape. This is mainly due to the low power transmitted by the coherent slit. We checked that the focused beam is almost unchanged when using a profile from FEA analysis with curvature of about \SI{1}{\kilo\meter} and residual slope errors of \SI{30}{\nano\radian}. 
-
-
-
-% The deformation profile calculated by FEA \todo{I USED FILE: SRC\_Si\_3.0mrad\_08000eV\_mo\_Si111\_Size1\_nodalOut.out} is is loaded in a ``mirror-like" element in Wofry, as described \cite{srioLBL}. For case 1, a small degradation in the horizontal direction is found (passing from \SI{8.09}{\micro\meter} to \SI{10.21}{\micro\meter} for the first coherent mode). It is accompanied by a loss of symmetry. A large deformation in the vertical spot is observed, but a spot close to the ideal is found when a best circle is subtracted from the profile. It is then possible to correct this added curvature. Indeed, by adjusting $f_2$ \todo{I will calculate this} it is possible to compensate the effects introduced by the crystal bending due to heat load.
-
-
-% finding focus https://www.optikos.com/finding-focus/
-
-% \subsection{Practical considerations} Simulations like those presented here could be very beneficial for beamline operation, for its optimization and quick setting.  Complicated  relationships exist between the beam parameters requested by users (beam size and coherent fraction) and the beamline configuration (undulator, slit and transfocator setting). Quick simulations as done by Wofry1D could be a helpful instrument for the beamline staff to get the desired configurations. The plots shown here (e.g., $CF$ vs slit size in Fig.~\ref{fig:cf_vs_aperture}, trajectories in Fig.~\ref{fig:f1f2map}, or final size in Fig.~\ref{fig:focalSizes} could be simulated on-line and compared with results presented as look-up tables with similar aspect. We are also considering the design of a digital twin that mimics the real transfocator systems to assist beamline setting. For that, the fast simulation using the CMD method developed in Wofry1D will be an integrated component.  
-
-% Some practical consequences can be directly deduced from the results shown here. For example, looking at Fig.~\ref{fig:focalSizes} one can observe that the same focal size can be obtained with different configurations. To get a similar size, it is better to prefer a large $f_1$ to avoid over-illuminating the lens-2 and increase transmission of lens-1. The transfocator design is simplified if we restrict the horizontal focal distance t to be smaller than the vertical $f_h>f_v$. Here, $f_v$ can be obtained with lenses focusing in 2D and $f_h$ by adding 1D lenses focusing in the horizontal plane. 
-
-% % https://www.optikos.com/finding-focus/
-% In this work we configured the transfocator to have the resulting focal position on the sample plane, an "in-focus" setup. It could also be possible to work off-focus to vary the beam size at the sample plane. The in-focus setup will generally produce the sharpest image of very small details in the image. Moreover, it will reduce the artifacts produced by the surface finish errors. Also, a larger depth of focus is obtained at this position (see e.g. Fig.~\ref{fig:causticcorrection}).
 
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
@@ -1039,8 +732,6 @@ A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamlin
 
 We have studied a particular case of focusing a partial coherent beam (as produced by the low emittance storage ring EBS-ESRF) by a system of two transfocators (or lenses). We have verified that four simulation codes typically used to simulate synchrotron beamlines agree in the results of beam size and flux. The hybrid ray-tracing method (ShadowOUI) fails to determine fine structures in the beam intensity profiles. The three codes using physical optics (SRW-ME, COMSYL and WOFRY1D) produce essentiually the same results. Partial coherence calculations using 2D wavefronts are expensive from the computation point of view, either because many thousands of wavefronts are propagated (in SRW-ME) or because the need of diagonalizing an extremely large 4D cross-spectral function. The newly developed coherent mode decomposition of 2D CSFs (i.e. separating 1D modes for the horizontal and vertical direction) is very rapid and can be run interactively in a laptop. Its results for the particular cases simulated here agree very well with full 2D propagation methods. 
 This method is available in the Wofry add-on of the OASYS suite \cite{codeOASYS}. OASYS workspaces for the simulations performed in this paper are available\footnote{{ https://github.com/oasys-esrf-kit/paper-multioptics-resources}}.
-
-% Four cases are calculated and compared using the other methods available in OASYS, like the full 2D coherent mode decomposition using COMSYL \cite{codeCOMSYL}, the OASYS interface for the SRW \cite{codeSRW} code, and hybrid ray-tracing \cite{codeHYBRID}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1087,7 +778,6 @@ Much like Eq.~\ref{eq:Fresnel}, Eq.~\ref{eq:Fresnel_analytical} is a convolution
 Equation~\ref{eq:Fresnel_analytical} can, then, be calculated as:
 \begin{equation}\label{eq:Fresnel_analyticalConv}
 \begin{split}
-% &\frac{\exp{(ikL)}}{\sqrt{m_xm_y}}\exp{\bigg\{i\frac{k}{2L}\bigg[\bigg(\frac{m_x-1}{m_x}\bigg)x'^2 +\bigg(\frac{m_y-1}{m_y}\bigg)y'^2\bigg]\bigg\}}\cdot\\
 &E_\omega(\textbf{r}') =\exp{(ikL)}\cdot\\
 &\cdot\exp\bigg\{ \frac{ik}{2}\bigg[ \frac{(x'-x_0)^2}{R_x+L} + \frac{(y'-y_0)^2}{R_y+L} \bigg] \bigg\}\sqrt{\frac{R_xR_y}{(R_x+L)(R_y+L)}}\cdot\\
 &\cdot\mathcal{F}^{-1}\bigg\{\mathcal{F}\{F_\omega(\textbf{r})\}\exp\bigg[-i\pi\lambda L\bigg(\frac{R_x}{R_x+L}f_x^2 +\frac{R_y}{R_y+L}f_y^2\bigg)\bigg]\bigg\},
@@ -1109,7 +799,6 @@ E_\omega(\textbf{r}') = \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\q
 \frac{k\exp{(ikL)}}{2\pi i L}\exp{\bigg[i\frac{k}{2L}(x'^2 + y'^2)\bigg]}\cdot \qquad\qquad\qquad\qquad\qquad\enspace &\\
 \cdot\int\limits_{\Sigma}{F_\omega(\textbf{r})\exp{\bigg[-i \frac{2\pi}{\lambda L}\big( x'x + y'y \big) +}} \qquad\qquad\qquad\quad&\\
 \hfill+i\frac{k}{2L}(x^2 + y^2) - i \frac{k}{2 q}\big(x^2+y^2) \bigg]~\mathrm{d}\textbf{s},&
-%&\cdot\int\limits_{\Sigma}{\check E_\omega(\textbf{r})\exp{\bigg[-i\frac{k}{2q}(x^2 + y^2) + i \frac{k}{2 L}\big(-2x'x +x^2 + -2y'y+y^2 \big)\bigg]}~\mathrm{d}\textbf{s}},
 \end{split}
 \end{equation}
 where $q$ is the distance from the input plane to the beam waist. When the wavefront is propagated to the the image plane, that is, $L=q$, the integral in Eq.~\ref{eq:FocusingFresnel} assumes the formalism of a Fourier transform with $f_x=x'\big/\lambda q$ and $f_y=y'\big/\lambda q$. 
@@ -1152,7 +841,6 @@ Equation~\ref{eq:ZoomFresnel} is a convolution between $F_\omega(\textbf{r})$ an
 \end{split}
 \end{equation}
 Note that when $m_x=1$ and $m_y=1$ we recover Eq.~\ref{eq:Fresnel} and Eq.~\ref{eq:FresnelConv}. A 1D version of this ``zoom'' propagator is also available in WOFRY.
-%This implementation, as any implementation based on two FFTs, conserves the number of points in the array, which means that the magnification factors $m_x$ and $m_y$ are applied to the ranges of the input plane. 
 
 For the cases where accuracy should be privileged over execution time, a 1D paraxial version of the Rayleigh-Sommerfeld integral where $\cos(\theta)=1$ is also implemented in WOFRY. Similarly to the direct numerical calculation of the Fresnel diffraction integral, the 1D version of Eq.~\ref{eq:Huygens-Fresnel} is implemented as a Riemann summation \cite{srioLBL}. 
 
@@ -1201,17 +889,6 @@ The convergence of the SRW-ME method is based on the \textit{finesse} with which
 To illustrate the effect of the number of macro-electrons on the beam profile we choose the previously studied cases 1 and 3 from section~\ref{sec:complete-beamline} - due to their CF, cases 2 and 4 are expected to have the same convergence as 1 and 3, respectively. Both systems 1 \& 3 (and 2 \& 4) have the same X-ray source and are illuminated up until the slits (36~m downstream U18) by the same beam, differing mainly by the coherent fraction selected for the rest of the beamline with case 1 having a higher CF than case 3 - refer to Table~\ref{table:2Dusercases} for the complete simulation parameters. The results for a selected number of \textit{me's} are shown in Figs.~\ref{fig:me_c1} and \ref{fig:me_c3}. The 1 \textit{me} simulation represents the filament-beam source, where the electron beam emittance is negligible and the fully spatial coherence is assumed - this is often called a ``single electron simulation". On the other extreme, an exaggerated value of 100k $me's$ is chosen as a way of guaranteeing convergence by brutal-force. Two criteria are used to evaluate the convergence of the simulations: the beam shape and peak intensity stabilisation. The profile cuts in  Fig.~\ref{fig:me_c1}(a)-(b) and Fig.~\ref{fig:me_c3}(a)-(b) show that the profile shape starts to converge to that of a 100k $me's$ after $\sim$500 macroelectrons for case 1 and $\sim$1k macroelectrons for case 3. Beyond that, it is necessary to resort to the relative error standard deviation and the peak intensity stabilisation. Fig.~\ref{fig:me_c1}(c)-(d) and Fig.~\ref{fig:me_c3}(c)-(d) show that for both cases, the convergence happens between 2k and 5k $me's$. Further increase in the number of macro electrons does not translate in improvements in the simulations (see simulations for 10k $me's$ onward), but increase greatly the cost of the calculation as shown in Fig.~\ref{fig:me_t}. For the work presented here a good compromise between accuracy and efficiency of the calculations is reached at 5k $me's$. Other factors contributing to the total elapsed simulation time and overall parallel performance of SRW-ME method are presented in \S3.3 from \cite{codeSRW_MEscan}, but these do not impact the SRW-ME convergence.
 
 It is important to note that this large scan procedure is merely illustrative. Usually an experienced optical designer starts with a good guess of the necessary number of $me's$ based on the characteristics of the source (degree of coherence) and optical system (transmission and expected degree of coherence at the observation plane). This choice usually includes considerations of time and resources consumption. If there are signs that the choice may be too low, further attempts with higher $me's$ should be done. If the simulation looks fine from the first guess, reducing the number of $me's$ is also interesting as very often it is necessary to repeat the simulations (eg. testing different configurations, different energies, tolerancing or even different observation planes). At the time of writing, the authors are unaware of any widespread metric within the SRW's community capable of giving the exact number of \textit{me's} necessary for the convergence of the SRW-ME method other than the $me's$ scan. We welcome the discussion on SRW-ME convergence and we encourage the reader to reach out if they employ any interesting and reproducible convergence metric that is less time (and resource) consuming.
-
-% \begin{table}[]
-% \label{table:me_t}
-% \caption{Time}
-% \resizebox{\textwidth}{!}{
-% \begin{tabular}{cccccccc}
-%  & 500 & 1k & 2k & 5k & 10k & 25k & 100k \\ \hline
-% case 1: & 5min & 9min & 15min & 39min & 1h20min & 3h21min & 13h15min \\
-% case 3: & 9min & 17min & 30min & 1h15min & 2h35min & 6h30min & 35h39min
-% \end{tabular}}
-% \end{table}
 
 \begin{figure}
     \centering
