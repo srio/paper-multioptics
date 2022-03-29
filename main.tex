@@ -323,7 +323,7 @@ Coherent mode decomposition consists in calculating $\Lambda_i$ and $\Phi_i$ in 
 
 \begin{equation}\label{eq:fredholm_equation}
 \int W(\textbf{r}_1,\textbf{r}_2;\omega)
-\Phi_i(\textbf{r}_1;\omega)~\text{d}\textbf{r}_1  = \Lambda_i(\omega) \Phi_i(\inred{\textbf{r}_2},\omega)
+\Phi_i(\textbf{r}_1;\omega)~\text{d}\textbf{r}_1  = \Lambda_i(\omega) \Phi_i(\textbf{r}_2,\omega)
 \end{equation}
 The eigenvalue in equation~(\ref{eq:fredholm_equation}) can be written: 
 \begin{equation}
@@ -600,7 +600,7 @@ It is worth mentioning that the modulus of the DoC (and therefore the CL) is obt
     c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
     \includegraphics[width=0.90\textwidth]{figures/doubleslit_DoC.pdf}
     % \end{multicols}
-    \caption{Simulation of beam propagation after a double-slit at 7~keV:  a) pattern intensity $\mathcal{I}(x)$ at $z$=\SI{46}{\meter} versus the separation $s$ between the slits. b) Intensity profile $\mathcal{I}(x;z=36~\text{m})$ for slit separation $s$=\SI{29.3}{\micro\meter} c) Modulus of the degree of coherence calculated from the profiles of Fig.~\ref{fig:plot_DoC_at_36m}a and b, compared with the value obtained from the visibility extracted from a). 
+    \caption{Simulation of beam propagation after a double-slit at 7~keV:  a) pattern intensity $\mathcal{I}(x)$ at $z$=\SI{46}{\meter} versus the separation $s$ between the slits. b) Intensity profile $\mathcal{I}(x;z=46~\text{m})$ for slit separation $s$=\SI{29.3}{\micro\meter} c) Modulus of the degree of coherence calculated from the profiles of Fig.~\ref{fig:plot_DoC_at_36m} (top row), compared with the value obtained from the visibility extracted from a). 
     }
 \end{figure}
 
@@ -738,7 +738,7 @@ The simulation of the full CMD with COMSYL required about 1h with 28 cores. The 
 
 The simulations presented, motivated by the ID18 project, use a simplified optical layout. They are used to validate the WOFRY1D tool before proceeding with further analyses. 
 
-A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamline also including other optical elements not considered here and multiple transfocator configurations. It is important to match correctly the two transfocators to guarantee that the focal point is located at the sample plane. Heat load deformation must be controlled at the white beam mirrors and also at the monochromator. For that, the deformations calculated by finite element methods are used in WOFRY1 for assessing the optical impact, as we did in \cite{srioLBL}. It is mandatory to study the effect of mirror slope errors and surface errors at the lenses (as described in \cite{Celestre:mo5214}). These results will be described elsewhere.
+A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamline also including other optical elements not considered here and multiple transfocator configurations. It is important to match correctly the two transfocators to guarantee that the focal point is located at the sample plane. Heat load deformation must be controlled at the white beam mirrors and also at the monochromator. For that, the deformations calculated by finite element methods are used in WOFRY1 for assessing the optical impact, as we did in \cite{srioLBL}. It is mandatory to study the effect of mirror slope errors and surface errors at the lenses [as described in \cite{Celestre:mo5214}]. These results will be described elsewhere.
 
 
 
@@ -751,7 +751,7 @@ A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamlin
 % -----------------------------------------------------------------
 
 We presented in section~\ref{sec:part_coh} the theory of partially coherence optics applied to undulator radiation and its implementation in two different solution: i) Monte-Carlo multi-electron simulations as implemented in SRW-ME and ii) coherent mode decomposition as implemented in COMSYL and in the new package WOFRY1D.
-The key point of WOFRY1D is that it only needs scarce computer resources.
+The key point of WOFRY1D is that it needs very scarce computer resources.
 The factorization of the CSD in two direction (horizontal and vertical) is possible in many cases of major interest when the undulator is tuned close to odd-harmonic resonances, and when the horizontal and vertical emittances of the storage ring are not the same (i.e. non-round beams, as for the low emittance storage ring  EBS-ESRF). 
 Section~\ref{sec:propagation} summarizes the propagation of wavefronts along empty drift spaces and thin objects, which include the elements used in our simulations: slits and X-ray lenses. 
 
