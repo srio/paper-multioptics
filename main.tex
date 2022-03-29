@@ -257,7 +257,9 @@ Under some conditions, quasi-homogeneous sources have the property that the cros
 \subsubsection{Coherent modes, coherent fraction and coherent length\\}
 % -----------------------------------------------------------------
 
-The CSD in equation~(\ref{eq:CSD_2D}) is used to define the spectral density\footnote{Which is sometimes loosely called intensity. The spectral density and the intensity functions are equivalent for the \remove{quasi-monochromatic} \inred{stationary} case. The same holds for the CSD and the mutual optical intensity (MOI) \cite{mandel_wolf}.} as:
+The CSD in equation~(\ref{eq:CSD_2D}) is used to define the spectral density\footnote{Which is sometimes loosely called intensity. The spectral density and the intensity functions are equivalent for the 
+% quasi-monochromatic
+stationary case. The same holds for the CSD and the mutual optical intensity (MOI) \cite{mandel_wolf}.} as:
 \begin{equation}\label{eq:intensity}
     \mathcal{I}(\textbf{r};\omega)=W(\textbf{r},\textbf{r};\omega),
 \end{equation}
@@ -297,13 +299,15 @@ From these arguments, it is now natural to rigorously define coherent fraction (
 \begin{equation}
 \text{CF}=\eta_0=\frac{\Lambda_0(\omega)}{\sum\limits_{n=0}^\infty{\Lambda_n(\omega)}}. \label{eq:CF2D}
 \end{equation}
-\remove{When using evaluating the CF of a particular optical setup, it is relevant to consider that if there is spatial filtering or any sort of beam clipping the modes $\Phi$ do not propagate retaining their orthogonality and their occupation $\eta$. In this case, a reapplication of the CMD to the cropped modes (rediagonalisation) is imperative to recalculate the new $\text{CF}_\text{2D}$.}
 
-The transverse coherence length (CL) is related to the width of a cut of the modulus of DoC. There is no unanimous accepted way of defining the CL. because there is a practical importance of such parameter for daily beamline operations, it is sometimes important to get quantitative values as discussed in \S{\ref{sec:results36m}}. Importantly, the blindly application of the van-Cittert-Zernike theorem may lead to errors, as discussed in cf. §4.1 of \cite{geloni2008}, because this theorem applies to incoherent sources (this is illustrated in §\ref{sec:results36m}). 
+% When using evaluating the CF of a particular optical setup, it is relevant to consider that if there is spatial filtering or any sort of beam clipping the modes $\Phi$ do not propagate retaining their orthogonality and their occupation $\eta$. In this case, a reapplication of the CMD to the cropped modes (rediagonalisation) is imperative to recalculate the new $\text{CF}_\text{2D}$.
+
+The transverse coherence length (CL) is related to the width of a cut of the modulus of DoC. There is no unanimous accepted way of defining the CL, a parameter of practical importance for daily beamline operations, Quantitative values are discussed in \S{\ref{sec:results36m}}. Importantly, the blindly application of the van Cittert-Zernike theorem may lead to errors, as discussed in cf. §4.1 of \cite{geloni2008}, because this theorem applies to incoherent sources. 
 
 
 The interest of the coherent mode decomposition method in optical design of X-ray beamlines is manyfold: 
-i) the possibility of propagating a partially-coherent beam along a beamline by just propagating coherent modes that behave like coherent wavefronts (as opposed to propagating a few thousand wavefronts in multi-electron Monte-Carlo);
+i) the possibility of propagating a partially-coherent beam along a beamline by just propagating coherent modes; 
+% that behave like coherent wavefronts (as opposed to propagating a few thousand wavefronts in multi-electron Monte-Carlo);
 ii) the ability to compute the CSD and therefore all the related coherence parameters from the propagated modes;
 iii) the use of the coherent fraction (a scalar parameter) as a well-defined measure of how coherent is the beam at any position of the beamline;
 iv) the numerical storage of the $N_m$ modes that depend on two spatial variables is more economic than the storage of the CSD, a complex function of many variables;
@@ -475,7 +479,7 @@ used to compute the complex transmission  with equation~(\ref{eq:complexTransmis
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 
-The optical system under consideration is based on the future ID18 beamline at ESRF. This will be a long beamline (200~m) for applications exploiting the beam coherence. The source considered is an undulator with period 18 mm and 138 periods (length close to 2.5 m).  
+The optical system under consideration is based on the future ID18 beamline at ESRF. This will be a long beamline (\SI{200}{\meter}) for applications exploiting the beam coherence. The source considered is an undulator with period 18 mm and 138 periods (length close to 2.5 m).  
 We analyze a focusing system with two transfocators, at 65 and 170 m from the source. They contain sets of 2D and 1D lenses that will permit modifying independently the focal lengths for the horizontal and vertical directions. The use of two transfocators allows a great flexibility in the beam transport \cite{Vaughan:kv5084}. The first one can be used to modify the divergence of the beam, even to collimate it, to guarantee a full illumination at the second transfocator.  
 
 The two transfocators in use are idealized as two real beryllium lenses of variable curvature radius $R_1$ and $R_2$ that correspond to focal distances $f_1$ and $f_2$ ($f=R/2\delta$), with $\delta=$~6.96 10$^{-6}$ for Be at \SI{7}{keV}. 
@@ -561,29 +565,29 @@ The spectral density calculated with the different codes is shown in Fig.~\ref{f
 The CSD can be calculated using wave optics codes. 
 Figure~\ref{fig:plot_CSD_at_source} shows the horizontal and vertical $W_{1D}$ at the source plane calculated with SRW-ME and WOFRY1D.
 % A comparison of the horizontal and vertical cuts of the modulus of the CSD at the source position obtained with SRW-ME is compared with the CDSs calculated with WOFRY1D with good agreement.
-Again, an excellent agreement is found, with the similar FWHM of the profiles crossing the (0,0) (9 $\mu$m for both codes in H and 12 $\mu$m in V).
+Again, an excellent agreement is found, with the similar FWHM of the profiles crossing the (0,0) (\SI{9}{\micro\meter} for both codes in H and \SI{12}{\micro\meter} in V).
 
 \begin{figure}
     \label{fig:plot_CSD_at_source}
     \includegraphics[width=0.95\textwidth]{figures/plot_CSD_at_source.png}
-    \caption{Cross Spectral Density at source plane ($z$=0) calculated by WOFRY1D and SRW-ME.
+    \caption{Cross-spectral density at source plane ($z$=0) calculated by WOFRY1D and SRW-ME for the horizontal (top row) and vertical (bottom row) directions.
     The profiles correspond to the lines passing through (0,0).
     }
 \end{figure}
 
-Figure~\ref{fig:plot_DoC_at_36m} shows the horizontal and vertical DoC at the slit plane expressed in the new coordinates $(\bar{x},\Delta_x)$= $(x_1+x_2)/2, x_2-x_1)$ (for horizontal, similarly with $y$ for vertical). The interest of using these coordinates is to redress the plot of the CSD that lies on a diagonal (see Fig. ~\ref{fig:plot_CSD_at_source}) and obtain the ``coherent length" (CL) as a ``width" of the modulus of the DoC versus $\Delta_x$ at $\bar{x}=0$. If using the FWHM, we obtain horizontal CL of 76~$\mu$m with WOFRY1D and 80~$\mu$m with SRW-ME, and vertical CL of
-444~$\mu$m with WOFRY1D and 402~$\mu$m with SRW-ME. A naive application of the van Cittert-Zernike theorem for a source with Gaussian intensity profile permits to calculate the coherence length (the FWHM of the Fourier Transform of the source intensity profile) as CL=0.88$\lambda z/S$, with $z$ the distance source-observation plane, and $S$ the source FWHM. In our case ($z=36~m$, source FWHM 70.6 $\mu$m (H) and 15.0~$\mu$, (V) and $\lambda$=1.77~$\times$~10$^{-10}$~m) it gives CL=79~$\mu$m in H and CL=374~$\mu$m in V. The (rough) agreement of the values from the van Cittert-Zernike theorem (corresponding to a fully incoherent source) with our numerical values (for the partial coherent beam) is justified by the fact that $z$ is large enough to lie in the $z$-range where the CL is linear [see discussion and Fig.~17 in \cite{geloni2008}].
+Figure~\ref{fig:plot_DoC_at_36m} shows the horizontal and vertical DoC at the slit plane expressed in the new coordinates $(\bar{x},\Delta_x)$= $(x_1+x_2)/2, x_2-x_1)$ (for horizontal, similarly with $y$ for vertical). The interest of using these coordinates is to redress the plot of the CSD that lies on a diagonal (as shown in Fig. ~\ref{fig:plot_CSD_at_source}) and obtain the ``coherent length" (CL) as a ``width" of the modulus of the DoC versus $\Delta_x$ at $\bar{x}=0$. If using the FWHM, we obtain horizontal CL of \SI{76}{\micro\meter} with WOFRY1D and \SI{80}{\micro\meter} with SRW-ME, and vertical CL of
+\SI{444}{\micro\meter} with WOFRY1D and \SI{402}{\micro\meter} with SRW-ME. A naive application of the van Cittert-Zernike theorem for a source with Gaussian intensity profile permits to calculate the coherence length (the FWHM of the Fourier Transform of the source intensity profile) as CL=0.88$\lambda z/S$, with $z$ the distance source-observation plane, and $S$ the source FWHM. In our case ($z=\SI{36}{\meter}$, source FWHM \SI{70.6}{\micro\meter} (H) and \SI{15.0}{\micro\meter} (V), and $\lambda$=1.77~$\times$~10$^{-10}$~m) it gives CL=\SI{79}{\micro\meter} (H) and CL=\SI{374}{\micro\meter} (V). The (rough) agreement of the values from the van Cittert-Zernike theorem (corresponding to a fully incoherent source) with our numerical values (for the partial coherent beam) is justified by the fact that $z$ is large enough to lie in the $z$-range where the CL is linear [see discussion and Fig.~17 in \cite{geloni2008}].
 
 
 \begin{figure}
     \label{fig:plot_DoC_at_36m}
     \includegraphics[width=0.95\textwidth]{figures/plot_DoC_at_36m.png}
-    \caption{Modulus of the spectral degree of coherence at the slit plane ($z$=\SI{36}{\meter}) calculated by WOFRY1D and SRW-ME.
+    \caption{Modulus of the spectral degree of coherence at the slit plane ($z$=\SI{36}{\meter}) calculated by WOFRY1D and SRW-ME for the horizontal (top row) and vertical (bottom row) directions.
     The profiles correspond to the lines passing through (0,0).
     }
 \end{figure}
 
-It is worth mentioning that the modulus of the DoC (and therefore the CL) is obtained experimentally by measuring the interference of the two beams originated by a double-slit \cite{ThompsonWolf1957}. Examples of this type of experiment with synchrotron radiation are in \cite{Chang2000, Paterson2001, Leitenberger2003, Tran2005}. We performed simulations with WOFRY1D placing a two slits of 2.5~$\mu$m with horizontal separation $s$ in the plane at $z$=\SI{36}{\meter}, and propagating the resulting two beams to $z$=\SI{46}{\meter}. The results are in Fig.~\ref{fig:doubleslit}a, where it can be appreciated that the visibility of the fringes decrease when increasing $s$. For a given $s$, the intensity profile (e.g. Fig.~\ref{fig:doubleslit}) is used to compute the visibility $\mathcal{V}=\langle \mathcal{I}_{\text{max}}-\mathcal{I}_{\text{min}} \rangle/\langle \mathcal{I}_{\text{max}}+\mathcal{I}_{\text{min}}\rangle$ which is equal to the modulus of the DoC. We then obtained the visibility $\mathcal{V}$ versus the slit separation $s$ that gives (as expected) the same values as the modulus of DoC versus $x_2-x_1$ in Fig.~\ref{fig:plot_2D_spectral_density_36m} (see Fig.~\ref{fig:doubleslit}c). 
+It is worth mentioning that the modulus of the DoC (and therefore the CL) is obtained experimentally by measuring the interference of the two beams originated by a double-slit \cite{ThompsonWolf1957}. Examples of this type of experiment with synchrotron radiation are in \cite{Chang2000, Paterson2001, Leitenberger2003, Tran2005}. We performed simulations with WOFRY1D placing a two slits of \SI{2.5}{\micro\meter} with horizontal separation $s$ in the plane at $z$=\SI{36}{\meter}, and propagating the resulting two beams to $z$=\SI{46}{\meter}. The results are in Fig.~\ref{fig:doubleslit}a, where it can be appreciated that the visibility of the fringes decrease when increasing $s$. For a given $s$, the intensity profile (e.g. Fig.~\ref{fig:doubleslit}b) is used to compute the visibility $\mathcal{V}=\langle \mathcal{I}_{\text{max}}-\mathcal{I}_{\text{min}} \rangle/\langle \mathcal{I}_{\text{max}}+\mathcal{I}_{\text{min}}\rangle$ which is equal to the modulus of the DoC. We then obtained the visibility $\mathcal{V}$ versus the slit separation $s$ that gives (as expected) the same values as the modulus of DoC versus $x_2-x_1$ in Fig.~\ref{fig:plot_DoC_at_36m} (see Fig.~\ref{fig:doubleslit}c). 
 
 
 \begin{figure}
@@ -596,24 +600,19 @@ It is worth mentioning that the modulus of the DoC (and therefore the CL) is obt
     c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
     \includegraphics[width=0.90\textwidth]{figures/doubleslit_DoC.pdf}
     % \end{multicols}
-    \caption{Simulation of beam propagation after a double-slit at 7~keV:  a) pattern intensity $\mathcal{I}(x)$ at $z$=46~m versus the separation $s$ between the slits. b) Intensity profile $\mathcal{I}(x;z=36~\text{m})$ for slit separation $s$=\SI{29.3}{\micro\meter} c) Modulus of the degree of coherence calculated from the profiles of Fig.~\ref{fig:plot_DoC_at_36m}a and b, compared with the value obtained from the visibility extracted from a). 
+    \caption{Simulation of beam propagation after a double-slit at 7~keV:  a) pattern intensity $\mathcal{I}(x)$ at $z$=\SI{46}{\meter} versus the separation $s$ between the slits. b) Intensity profile $\mathcal{I}(x;z=36~\text{m})$ for slit separation $s$=\SI{29.3}{\micro\meter} c) Modulus of the degree of coherence calculated from the profiles of Fig.~\ref{fig:plot_DoC_at_36m}a and b, compared with the value obtained from the visibility extracted from a). 
     }
 \end{figure}
 
 
-The principal role of the slit placed at this plane is control the beam coherent fraction. Closing the slit will increase the CF, with an obvious decrease in integrated intensity. The slit gap necessary to get a ``good" coherence is somehow related to the CL, but quantitative values are better calculated using the CF vesus the slit gap. Within the CMD theory, this requires to calculate coherent modes after the slit, what can be easily done with WOFRY1D (see Fig.~\ref{fig:CFvsGap}). From the CF vs slit gap plot, one can pick the gap values to match the desired CF (we selected 90\% or 70\% values of CF to select slit gaps in Table~\ref{table:2Dusercases}), and at the same time estimate the loses in flux.
+The principal role of the slit is to control the beam coherent fraction. Closing the slit will increase the CF, with an obvious decrease in integrated intensity. The slit gap necessary to get a ``good" coherence is somehow related to the CL, but quantitative values are better calculated using the CF vesus the slit gap. Within the CMD theory, this requires to calculate coherent modes after the slit, what can be easily done with WOFRY1D (see Fig.~\ref{fig:CFvsGap}). From the CF vs slit gap plot, one can pick the gap values to match the desired CF (we selected 90\% or 70\% values of CF to select slit gaps in Table~\ref{table:2Dusercases}), and at the same time estimate the loses in flux.
 
 \begin{figure}
     \label{fig:CFvsGap}
     \includegraphics[width=0.95\textwidth]{figures/CFvsGap.pdf}
-    \caption{Coherent fraction (blue) and integrated intensity (green) versus gap aperture for the horizontal (solid) and vertical (dotted) directions calculated by WOFRY1D at 7 keV.
+    \caption{Coherent fraction (blue) and normalized integrated intensity (green) versus gap aperture for the horizontal (solid) and vertical (dotted) directions calculated by WOFRY1D at 7 keV.
     }
 \end{figure}
-
-\subsection{Image at sample position}
-
-The intensity distribution at the sample plane is display in Figs.~\ref{fig:sim_results}(a)-(d), for results using WOFRY1D, COMSYL, SRW-ME and HYBRID codes, respectively.  Beam dimensions are obtained by calculating FWHM from the intensity distribution at one direction, resulting from integration along the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
-The results for case 1 shows an horizontal profile mostly triangular with shoulders that evidence small diffraction fringes. The fringes are more resolved in the vertical direction. Case 2  presents in horizontal a soft Gaussian-like profile, but in vertical important symmetric shoulders are remarked. Case 3 shows a smooth Gaussian profile in horizontal and a small shoulder with fringes in vertical. Case 4 shows a conventional smooth profile in horizontal but an original three-lobe plateau in vertical. This variety of profile distribution demonstrates how relevant the diffraction effects are, which modulate the beam shape in a non-trivial way.  
 
 \begin{table}[]
     \label{table:comparison}
@@ -644,6 +643,8 @@ The results for case 1 shows an horizontal profile mostly triangular with should
 
 
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \onecolumn
@@ -658,6 +659,11 @@ The results for case 1 shows an horizontal profile mostly triangular with should
 \newpage
 \twocolumn
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Image at sample position}
+
+The intensity distribution at the sample plane is display in Figs.~\ref{fig:sim_results}(a)-(d), for results using WOFRY1D, COMSYL, SRW-ME and HYBRID codes, respectively.  Beam dimensions are obtained by calculating FWHM from the intensity distribution at one direction, resulting from integration along the other direction. They are displayed in the plots, and summarized in Table~\ref{table:comparison}.
+The results for case 1 shows an horizontal profile mostly triangular with shoulders that evidence small diffraction fringes. The fringes are more resolved in the vertical direction. Case 2  presents in horizontal a soft Gaussian-like profile, but in vertical important symmetric shoulders are remarked. Case 3 shows a smooth Gaussian profile in horizontal and a small shoulder with fringes in vertical. Case 4 shows a conventional smooth profile in horizontal but an original three-lobe plateau in vertical. This variety of profile distribution demonstrates how relevant the diffraction effects are, which modulate the beam shape in a non-trivial way.  
 
 The WOFRY1D results are shown in Fig.~\ref{fig:sim_results}a. The 1D intensity profile for each direction is obtained from the summation of several modes. High modes have very low eigenvalues. It is sufficient to consider only 10 modes for accounting more that 99\% of the spectral density. The 2D intensity distribution shown in Fig.~\ref{fig:sim_results}a is obtained combining the calculated horizontal and vertical 1D profiles via the outer product. 
 We can observe in the intensity distributions the same structures due to the diffraction effects than those observed with the other calculation methods.
@@ -744,18 +750,21 @@ A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamlin
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 
-We presented in section~\ref{sec:part_coh} the theory of partial coherence applied to undulator radiation and its implementation in two different solution: i) Monte-Carlo multi-electron simulations as implemented in SRW-ME and ii) coherent mode decomposition as implemented in COMSYL and in the new package WOFRY1D. The key point of WOFRY1D is that it only needs scarce computer resources. We showed that the factorization of the CSD in two direction (horizontal and vertical) is possible in many cases of major interest, in particular when the used radiation is close to the undulator odd-harmonic resonances, and when the horizontal and vertical emittances of the storage ring are not the same (i.e. non-round beams, as for the low emittance storage ring  EBS-ESRF). 
-The propagation of wavefronts along empty drift spaces and thin objects (including the elements, like slits and X-ray lenses) is summarized in section~\ref{sec:propagation}. 
+We presented in section~\ref{sec:part_coh} the theory of partially coherence optics applied to undulator radiation and its implementation in two different solution: i) Monte-Carlo multi-electron simulations as implemented in SRW-ME and ii) coherent mode decomposition as implemented in COMSYL and in the new package WOFRY1D.
+The key point of WOFRY1D is that it only needs scarce computer resources.
+The factorization of the CSD in two direction (horizontal and vertical) is possible in many cases of major interest when the undulator is tuned close to odd-harmonic resonances, and when the horizontal and vertical emittances of the storage ring are not the same (i.e. non-round beams, as for the low emittance storage ring  EBS-ESRF). 
+Section~\ref{sec:propagation} summarizes the propagation of wavefronts along empty drift spaces and thin objects, which include the elements used in our simulations: slits and X-ray lenses. 
 
 % software packages 
 % The comparison of the results obtained with WOFRY1D with the other three methods permitted to validate our new method.
 
-We studied a particular case of focusing a partial coherent beam produced by an undulator in EBS-ESRF by a system of two transfocators (implemented as single real lenses). This case interests the new ID18 beamline being constructed at the ESRF. 
-
+We studied a particular case of focusing a partial coherent beam produced by an undulator in EBS-ESRF by a system of two transfocators (implemented as single real lenses). This case interests the new ID18 beamline being constructed at the ESRF. The combined effect of beam diffraction at the slit and global focusing by the two lenses produces images with a variety of intensity profiles (see Fig.~\ref{fig:sim_results}). 
 % We have verified that simulations with the new WOFRY1D code are consistent with the other three simulation codes typically used to simulate synchrotron beamlines. The results shown were consistent among all methods used. 
-We showed that the results from HYBRID ray-tracing can be used in a first simulation phase for getting beam sizes and flux. 
-A remarkable agreement is found between WOFRY1D and SRW-ME for the functions that describe partial coherence (CDS, DoC and CL) (see Figs.~\ref{fig:plot_2D_spectral_density_36m} and \ref{fig:plot_DoC_at_36m}).
-We used WOFRY1D to discuss the coherent fraction versus slit gap and to verify that the modulus of the DoC is consistent with the results of a (simulated) experiment of two-beam interference. 
+We included HYBRID ray-tracing results as this method can be used in a first simulation phase, and produces approximated values of beam sizes and flux.
+
+We have verified that simulations with the new WOFRY1D code are consistent with the other three simulation codes typically used to simulate synchrotron beamlines.
+A remarkable agreement is found between WOFRY1D and SRW-ME for the functions that describe partial coherence (CDS, DoC and CL) (see Figs.~\ref{fig:plot_CSD_at_source} and \ref{fig:plot_DoC_at_36m}).
+We further used WOFRY1D to discuss the coherent fraction versus slit gap (Fig.~\ref{fig:CFvsGap}) and to verify that the modulus of the DoC is consistent with the results of a (simulated) experiment of two-beam interference (Fig.~\ref{fig:doubleslit}). 
 
 
 % There is a good matching of the beam sizes (FWHM values) for all methods (see Table~\ref{table:comparison}), and also in the shape of intensity distributions, in particular for the wave optics methods [Figs.~\ref{fig:sim_results}(a)-(c)]. 
@@ -763,9 +772,9 @@ We used WOFRY1D to discuss the coherent fraction versus slit gap and to verify t
 
 %  The hybrid ray-tracing method (HYBRID) fails to determine fine structures in the beam intensity profiles. The three codes using physical optics (SRW-ME, COMSYL and WOFRY1D) produce essentiually the same results. 
  
-Partial coherence calculations using 2D wavefronts are expensive from the computation point of view, either because many thousands of wavefronts are propagated (in SRW-ME) or because the need of diagonalizing an extremely large 4D cross-spectral function. The newly developed coherent mode decomposition is very rapid and can be run interactively in a laptop. It opens new avenues for intensive simulations of experiments with partial coherence, in particular for imaging applications or beamline optimization, where thousands of runs are necessary. 
+Partial coherence calculations using 2D wavefronts are expensive from the computation point of view, either because many thousands of wavefronts are propagated (like in SRW-ME) or because the need of diagonalizing an extremely large 4D cross-spectral function (like in COMSYL). The newly developed coherent mode decomposition uses 1D wavefronts and is very rapid and light. It can run interactively in a laptop. It opens new avenues for intensive simulations of experiments using partially coherent beams, in particular for imaging applications or beamline optimization, where thousands of runs are necessary. It can also serve as simulation engine for systems exploiting machine learning or for digital twins of beamline instruments. 
  
-This package is available in the WOFRY add-on of the OASYS suite \cite{codeOASYS}. OASYS workspaces for the simulations performed in this paper are available\footnote{{ https://github.com/oasys-esrf-kit/paper-multioptics-resources}}.
+The software tools developed here are available in the WOFRY add-on of the OASYS suite \cite{codeOASYS}. The OASYS workspaces and scripts for the simulations performed in this work are also available\footnote{{ https://github.com/oasys-esrf-kit/paper-multioptics-resources}}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -789,7 +798,7 @@ This package is available in the WOFRY add-on of the OASYS suite \cite{codeOASYS
    &=\exp{(ikL)}\mathcal{F}^{-1}\big\{\mathcal{F}\{E_\omega(\textbf{r})\}\exp\big[-i\pi\lambda L\big(f_x^2+f_y^2\big)\big]\},
 \end{split}
 \end{equation}
-where $\mathcal{F}\{\bullet\}$ is the two-dimensional Fourier transform (FT) and $\mathcal{F}^{-1}\{\bullet\}$ denotes inverse FT. This second approach is efficiently implemented in SRW using only two fast Fourier transforms (FFTs) because the kernel $h(\textbf{r}')$ has an analytical Fourier transform. Downsides to the FFT-based implementation include the heavy sampling needed to avoid aliasing and also necessary in order to resolve small features in the propagated wavefront $ E_\omega(\textbf{r}')$, since the application of equation~(\ref{eq:FresnelConv}) limits the range and sampling in the output plane to those of the input plane $ E_\omega(\textbf{r})$ \cite{Kelly2014}. The interest in having a direct- and a reciprocal-space implementation of equation~(\ref{eq:Fresnel}) is summarised in Fig.~1 from \cite{Li2015}.
+where $\mathcal{F}\{\bullet\}$ is the two-dimensional Fourier transform (FT) and $\mathcal{F}^{-1}\{\bullet\}$ denotes inverse FT. This second approach is efficiently implemented in SRW using only two fast Fourier transforms (FFTs) because the kernel $h(\textbf{r}')$ has an analytical Fourier transform. Downsides to the FFT-based implementation include the heavy sampling needed to avoid aliasing and also necessary in order to resolve small features in the propagated wavefront $ E_\omega(\textbf{r}')$, since the application of equation~(\ref{eq:FresnelConv}) limits the range and sampling in the output plane to those of the input plane $ E_\omega(\textbf{r})$ \cite{Kelly2014}. The interest in having a direct- and a reciprocal-space implementation of equation~(\ref{eq:Fresnel}) is summarised in Fig.~1 from \cite{LiJacobsen}.
 
 A second family of propagators is obtained by the analytical treatment of the quadratic radiation phase term in equation~(\ref{eq:Fresnel}), which allows for considerable economy of memory and CPU resources as compared to the standard Fresnel free-space propagator \cite{ChubarCelestre}. Without losing generality, we assume that the electric field $E_\omega(\textbf{r})$ has a quadratic phase term defined by the wavefront curvature radii $(R_x, R_y)$ centred at $(x_0,y_0)$:
  \begin{equation}\label{eq:E_analytical}
@@ -867,7 +876,7 @@ with:
 \begin{equation}\label{eq:E}
 E_\omega(\textbf{r}) = F_\omega(\textbf{r}) \exp{\bigg\{i \frac{k}{2 L}\big[(1-m_x)x^2+(1-m_y)y^2 \big]\bigg\}}.
 \end{equation}
-Equation~\ref{eq:ZoomFresnel} is a convolution between $F_\omega(\textbf{r})$ and a kernel with reduced scaled $\hat{\textbf{r}}=(\hat{x},\hat{y})=\big(x'\big/m_x, y'\big/m_y\big)$. This kernel has analytical Fourier transform and the application of the convolution theorem with two FFTs is possible:
+Equation~(\ref{eq:ZoomFresnel}) is a convolution between $F_\omega(\textbf{r})$ and a kernel with reduced scaled $\hat{\textbf{r}}=(\hat{x},\hat{y})=\big(x'\big/m_x, y'\big/m_y\big)$. This kernel has analytical Fourier transform and the application of the convolution theorem with two FFTs is possible:
 \begin{equation}\label{eq:ZoomFresnelConv}
 \begin{split}
 &E_\omega(\textbf{r}') =\\
@@ -887,7 +896,7 @@ For the cases where accuracy should be privileged over execution time, a 1D para
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 
-Consider an arbitrary-shaped scattering volume as shown in Fig.~\ref{fig:projection}(a). Suppose that such scatterer is completely confined within a region $z_0\leq z\leq z_1$ and outside that there is vacuum. Let this sample be illuminated by a plane-wave moving along the positive direction of the optical axis ($z-$axis). In the absence of the scatterer, the gradient between the $z=z_0$ and $z=z_1$ planes is very well defined and parallel to the optical axis, as shown in Fig.~\ref{fig:projection}(b-$\mathrm{i}$). It follows [§2.2 in  \cite{paganin_book}] that if the scatterer is sufficiently weak as to minimally disturb the path that the wave-field would have taken in its absence, cf. Fig.~\ref{fig:projection}(b-$\mathrm{ii}$), the transmission of a wave-field through this sample is given by:
+Consider an arbitrary-shaped scattering volume as shown in Fig.~\ref{fig:projection}a. Suppose that such scatterer is completely confined within a region $z_0\leq z\leq z_1$ and outside that there is vacuum. Let this sample be illuminated by a plane-wave moving along the positive direction of the optical axis ($z-$axis). In the absence of the scatterer, the gradient between the $z=z_0$ and $z=z_1$ planes is very well defined and parallel to the optical axis, as shown in Fig.~\ref{fig:projection}b-$\mathrm{i}$. It follows [§2.2 in  \cite{paganin_book}] that if the scatterer is sufficiently weak as to minimally disturb the path that the wave-field would have taken in its absence, cf. Fig.~\ref{fig:projection}b-$\mathrm{ii}$, the transmission of a wave-field through this sample is given by:
 \begin{equation}\label{eq:transmission_n}
     E_\omega(x,y,z_1)\approx\exp\Bigg\{-\frac{ik}{2}\int\limits_{z=z_0}^{z=z_1}{\big[1-n_\omega^2(x,y,z)\big]~\mathrm{d}z}\Bigg\}E_\omega(x,y,z_0).
 \end{equation}{}
@@ -898,7 +907,9 @@ Equation~(\ref{eq:transmission_n}) shows that the effect of a weak scatterer can
 \end{align}{}
 $\Delta_z$ is the projected thickness along the $z-$axis and it depends on the transverse coordinates $(x,y)$, which can be dropped out for a more concise representation. It is clear the similarity between equation~(\ref{eq:trans_el}) and (\ref{eq:transmission}).
 
-For the cases where the projection approximation may not be adequate to correctly represent the scattering volume in question, multi-slicing techniques\footnote{This technique was first described in the context of the scattering of electrons by atoms and crystals \cite{Cowley1957}.} (MS) can be used for describing the wave-field propagation inside an arbitrary-shaped scattering volume (see discussion in \S2.7 in \cite{paganin_book}, \cite{Li2017} and \cite{Munro2019}). Consider the scatterer depicted in Fig.~\ref{fig:projection}(a). If its presence considerably disturbs the path that the wave-field would have taken in its absence, cf. Fig.~\ref{fig:projection}(b-$\mathrm{iii}$), it is possible to section the sample into a number $N$ of parallel slabs until the projection approximation is valid between two adjacent slices - Fig.~\ref{fig:projection}(b-$\mathrm{iv}$). The projected thickness $\Delta_z$ to be used in equation~(\ref{eq:transmission}) is the one in  between slices, which are $\Delta_S=(z_1 - z_0)\big/N$ apart from each other. Each slice represented as a thin element in projection approximation is separated by vacuum. The propagation of a wave-field propagation through this sample is done step-wise, where each step is composed of a multiplication by a complex transmission element in projection approximation and a free-space propagation over a distance $\Delta_S$. The output field from this operation is again multiplied by complex transmission element in projection approximation followed by a free-space propagation from the plane $\psi_j$ to the  $\psi_{j+1}$ - refer to Fig.~\ref{fig:projection}(b-$\mathrm{iv}$). This operation is done recursively $N$ times until the wave-field emerges from the sample.
+For the cases where the projection approximation may not be adequate to correctly represent the scattering volume in question, multi-slicing techniques\footnote{This technique was first described in the context of the scattering of electrons by atoms and crystals \cite{Cowley1957}.}
+% (MS)
+can be used for describing the wave-field propagation inside an arbitrary-shaped scattering volume (see discussion in \S2.7 in \cite{paganin_book}, \cite{Li2017} and \cite{Munro2019}). Consider the scatterer depicted in Fig.~\ref{fig:projection}a. If its presence considerably disturbs the path that the wave-field would have taken in its absence, cf. Fig.~\ref{fig:projection}b-$\mathrm{iii}$, it is possible to section the sample into a number $N$ of parallel slabs until the projection approximation is valid between two adjacent slices - Fig.~\ref{fig:projection}b-$\mathrm{iv}$. The projected thickness $\Delta_z$ to be used in equation~(\ref{eq:transmission}) is the one in  between slices, which are $\Delta_S=(z_1 - z_0)\big/N$ apart from each other. Each slice represented as a thin element in projection approximation is separated by vacuum. The propagation of a wave-field propagation through this sample is done step-wise, where each step is composed of a multiplication by a complex transmission element in projection approximation and a free-space propagation over a distance $\Delta_S$. The output field from this operation is again multiplied by complex transmission element in projection approximation followed by a free-space propagation from the plane $\psi_j$ to the  $\psi_{j+1}$ - refer to Fig.~\ref{fig:projection}b-$\mathrm{iv}$. This operation is done recursively $N$ times until the wave-field emerges from the sample.
 
 \onecolumn
 \begin{figure}[]
@@ -919,9 +930,9 @@ For the cases where the projection approximation may not be adequate to correctl
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 
-The convergence of the SRW-ME method is based on the \textit{finesse} with which the distribution $f(\mathcal{S})$ in equation~(\ref{eq:SR}) is sampled. While an exquisitely large number of \textit{me's} will lead to a more accurate simulation, the resulting calculation would be very long and impossible to be performed on personal computers within reasonable time even if performed in parallel. The number of \textit{me's} depends on overall beamline degree of coherence at the observation plane, which is impacted by the source coherent fraction and beamline overall transmission (eg. slits, creation of secondary sources or any other spatial filtering scheme). Special attention to the number of macro-electrons should be given if the simulation accounts for vibrations in the beamline elements or broad-band radiation (eg. pink beam or radiation filtered by multi-layer monochromators).
+The convergence of the SRW-ME method is based on the \textit{finesse} with which the distribution $f(\mathcal{S})$ in equation~(\ref{eq:SR}) is sampled. While an exquisitely large number of \textit{me's} will lead to a more accurate simulation, the resulting calculation would be very long and impossible to be performed on personal computers within reasonable time even if performed in parallel. The number of \textit{me's} depends on overall beamline degree of coherence at the observation plane, which is impacted by the source coherent fraction and beamline overall transmission (e.g. slits, creation of secondary sources or any other spatial filtering scheme). Special attention to the number of macro-electrons should be given if the simulation accounts for vibrations in the beamline elements or broad-band radiation (e.g. pink beam or radiation filtered by multi-layer monochromators).
 
-To illustrate the effect of the number of macro-electrons on the beam profile we choose the previously studied cases 1 and 3 from section~\ref{sec:complete-beamline} - due to their CF, cases 2 and 4 are expected to have the same convergence as 1 and 3, respectively. Both systems 1 \& 3 (and 2 \& 4) have the same X-ray source and are illuminated up until the slits (36~m downstream U18) by the same beam, differing mainly by the coherent fraction selected for the rest of the beamline with case 1 having a higher CF than case 3 - refer to Table~\ref{table:2Dusercases} for the complete simulation parameters. The results for a selected number of \textit{me's} are shown in Figs.~\ref{fig:me_c1} and \ref{fig:me_c3}. The 1 \textit{me} simulation represents the filament-beam source, where the electron beam emittance is negligible and the fully spatial coherence is assumed - this is often called a ``single electron simulation". On the other extreme, an exaggerated value of 100k $me's$ is chosen as a way of guaranteeing convergence by brutal-force. Two criteria are used to evaluate the convergence of the simulations: the beam shape and peak intensity stabilisation. The profile cuts in  Fig.~\ref{fig:me_c1}(a)-(b) and Fig.~\ref{fig:me_c3}(a)-(b) show that the profile shape starts to converge to that of a 100k $me's$ after $\sim$500 macroelectrons for case 1 and $\sim$1k macroelectrons for case 3. Beyond that, it is necessary to resort to the relative error standard deviation and the peak intensity stabilisation. Fig.~\ref{fig:me_c1}(c)-(d) and Fig.~\ref{fig:me_c3}(c)-(d) show that for both cases, the convergence happens between 2k and 5k $me's$. Further increase in the number of macro electrons does not translate in improvements in the simulations (see simulations for 10k $me's$ onward), but increase greatly the cost of the calculation as shown in Fig.~\ref{fig:me_t}. For the work presented here a good compromise between accuracy and efficiency of the calculations is reached at 5k $me's$. Other factors contributing to the total elapsed simulation time and overall parallel performance of SRW-ME method are presented in \S3.3 from \cite{codeSRW_MEscan}, but these do not impact the SRW-ME convergence.
+To illustrate the effect of the number of macro-electrons on the beam profile we choose the previously studied cases 1 and 3 from section~\ref{sec:complete-beamline} - due to their CF, cases 2 and 4 are expected to have the same convergence as 1 and 3, respectively. Both systems 1 \& 3 (and 2 \& 4) have the same X-ray source and are illuminated up until the slits (\SI{36}{\meter} downstream U18) by the same beam, differing mainly by the coherent fraction selected for the rest of the beamline with case 1 having a higher CF than case 3 - refer to Table~\ref{table:2Dusercases} for the complete simulation parameters. The results for a selected number of \textit{me's} are shown in Figs.~\ref{fig:me_c1} and \ref{fig:me_c3}. The 1 \textit{me} simulation represents the filament-beam source, where the electron beam emittance is negligible and the fully spatial coherence is assumed - this is often called a ``single electron simulation". On the other extreme, an exaggerated value of 100k $me's$ is chosen as a way of guaranteeing convergence by brutal-force. Two criteria are used to evaluate the convergence of the simulations: the beam shape and peak intensity stabilisation. The profile cuts in  Fig.~\ref{fig:me_c1}a-b and Fig.~\ref{fig:me_c3}a-b show that the profile shape starts to converge to that of a 100k $me's$ after $\sim$500 macroelectrons for case 1 and $\sim$1k macroelectrons for case 3. Beyond that, it is necessary to resort to the relative error standard deviation and the peak intensity stabilisation. Fig.~\ref{fig:me_c1}c-d and Fig.~\ref{fig:me_c3}c-d show that for both cases, the convergence happens between 2k and 5k $me's$. Further increase in the number of macro electrons does not translate in improvements in the simulations (see simulations for 10k $me's$ onward), but increase greatly the cost of the calculation as shown in Fig.~\ref{fig:me_t}. For the work presented here a good compromise between accuracy and efficiency of the calculations is reached at 5k $me's$. Other factors contributing to the total elapsed simulation time and overall parallel performance of SRW-ME method are presented in \S3.3 from \cite{codeSRW_MEscan}, but these do not impact the SRW-ME convergence.
 
 It is important to note that this large scan procedure is merely illustrative. Usually an experienced optical designer starts with a good guess of the necessary number of $me's$ based on the characteristics of the source (degree of coherence) and optical system (transmission and expected degree of coherence at the observation plane). This choice usually includes considerations of time and resources consumption. If there are signs that the choice may be too low, further attempts with higher $me's$ should be done. If the simulation looks fine from the first guess, reducing the number of $me's$ is also interesting as very often it is necessary to repeat the simulations (eg. testing different configurations, different energies, tolerancing or even different observation planes). At the time of writing, the authors are unaware of any widespread metric within the SRW's community capable of giving the exact number of \textit{me's} necessary for the convergence of the SRW-ME method other than the $me's$ scan. We welcome the discussion on SRW-ME convergence and we encourage the reader to reach out if they employ any interesting and reproducible convergence metric that is less time (and resource) consuming.
 
@@ -959,9 +970,10 @@ It is important to note that this large scan procedure is merely illustrative. U
  \newpage
 \ack{\textbf{Acknowledgements}}
 
-R.C. thanks G. Geloni (EU X-FEL) for the discussion on statistical optics applied to UR in low-emittance storage rings; O. Chubar (NSLS-II/BNL) for the clarifications on selected wavefront propagators; and S. Lordano for sharing information on beamline design for the Sirius light source.
+% R.C. thanks 
+G. Geloni (EU X-FEL) is acknowledged for the discussion on statistical optics applied to UR in low-emittance storage rings; O. Chubar (NSLS-II/BNL) for the clarifications on selected wavefront propagators; S. Lordano for sharing information on beamline design for the Sirius light source; and J.P. Guigay for discussions about DoC and CL.
 
-\ack{\textbf{Funding information}}
+% \ack{\textbf{Funding information}}
 
 This project has received funding from the European Union’s Horizon 2020 Research and Innovation programme under grant agreements N$^{\circ}$ 823852 (Photon and Neutron Open Science Cloud -- PaNOSC) and N$^{\circ}$ 101007417 (NFFA-Europe Pilot Joint Activities -- NEP).
 
