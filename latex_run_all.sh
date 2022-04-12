@@ -1,4 +1,4 @@
-rm template.pdf
+rm main.pdf template.pdf
 #rm figures/fig1.pdf
 #rm figures/fig2.pdf
 #rm figures/fig4.pdf
@@ -7,6 +7,7 @@ rm template.pdf
 #./fig2.sh
 #./fig4.sh
 
+cp main.tex template.tex
 pdflatex template.tex
 bibtex template
 sleep 1.0

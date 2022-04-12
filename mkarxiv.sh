@@ -4,39 +4,47 @@
 # please be sure that you run pdflatex main.tex in the main directory
 # before running the script, so main.bbl and the *pdf files are created
 
-cd /users/srio/Documents/paper-transfocators
+
+#
+# after running the script, do (bu hand):
+#
+# \documentclass[preprint]{iucr}
+# remove all "figures/"
+# remove all "\twocolumns"
+# change width in doubleslit figure
+#    a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
+#    \includegraphics[width=0.490\textwidth]{doubleslit_scan.pdf}    etc
+#
+
+
+cd /users/srio/Documents/paper-multioptics
 rm -rf ARXIV
 mkdir ARXIV
 cd ARXIV
-cp ../template.tex .
-cp ../iucr.bib .
+cp ../template.tex ./template.tex
+#cp ../iucr.bib .
 cp ../iucr.cls .
 cp ../iucr.bst .
 
+cp ../template.bbl ./template.bbl
 
 mkdir figures
 cd figures
 
-cp ../../figures/oneTF_UndSource_RectSlit_R200um.eps  .
-cp ../../figures/cf_vs_aperture.eps  .
-cp ../../figures/oneTF_UndSource_RectSlit_R200um_PartialCoherence_h.eps  .
-cp ../../figures/oneTF_UndSource_RectSlit_R200um_PartialCoherence_v.eps  .
-cp ../../figures/oneTF_ShadowHybrid_R200um.eps  .
-cp ../../figures/f1f2_h.eps  .
-cp ../../figures/f1f2_v.eps  .
-cp ../../figures/sizes_h.eps  .
-cp ../../figures/sizes_v.eps  .
-cp ../../figures/fig_wofry.pdf  .
-cp ../../figures/fig_srw.pdf  .
-cp ../../figures/fig_comsyl.pdf  .
-cp ../../figures/fig_hybrid.pdf  .
-cp ../../figures/sizes_h_hybrid.eps  .
-cp ../../figures/sizes_v_hybrid.eps  .
-cp ../../figures/fig_caustic.pdf  .
-cp ../../figures/fig_caustic_correction.pdf  .
-cp ../../figures/c1.pdf  .
-cp ../../figures/c3.pdf  .
-cp ../../figures/srw_time.pdf  .
+cp ../../figures/coordinates.pdf .
+cp ../../figures/beamline.pdf .
+cp ../../figures/plot_2D_spectral_density_36m.pdf .
+cp ../../figures/plot_CSD_at_source.pdf .
+cp ../../figures/plot_DoC_at_36m.pdf .
+cp ../../figures/doubleslit_scan.pdf .
+cp ../../figures/doubleslit_profile.pdf .
+cp ../../figures/doubleslit_DoC.pdf .
+cp ../../figures/CFvsGap.pdf .
+cp ../../figures/fig_sim_results.pdf .
+cp ../../figures/projection_approx.pdf .
+cp ../../figures/c1.pdf .
+cp ../../figures/c3.pdf .
+cp ../../figures/srw_time.pdf .
 
 
 cd ..
@@ -72,7 +80,7 @@ cd ..
 
 
 pdflatex template.tex
-bibtex template
+#bibtex template
 sleep 1.0
 pdflatex template.tex
 pdflatex template.tex
