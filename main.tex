@@ -1,3 +1,10 @@
+%------------------------------------------------------------------------------
+% Template file for the submission of papers to IUCr journals in LaTeX2e
+% using the iucr document class
+% Copyright 1999-2013 International Union of Crystallography
+% Version 1.6 (28 March 2013)
+%------------------------------------------------------------------------------
+
 %\documentclass[preprint]{iucr}              % DO NOT DELETE THIS LINE
 \documentclass{iucr}              % DO NOT DELETE THIS LINE
 
@@ -13,12 +20,12 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage{multirow}
-\usepackage{enumitem}
-\usepackage[normalem]{ulem}
+% \usepackage{enumitem}
+% \usepackage[normalem]{ulem}
 
-% srio..........
-\usepackage{multicol}
-\usepackage{graphicx}
+% % srio..........
+% \usepackage{multicol}
+% \usepackage{graphicx}
 
 
 \newcommand{\todo}[1]{{\color{red}[TODO: "#1'']}}
@@ -40,12 +47,25 @@
 \newcommand*\rot{\multicolumn{1}{R{90}{1em}}
 %
 }
-\journalcode{S}
+
+ %-------------------------------------------------------------------------
+ % Information about journal to which submitted
+ %-------------------------------------------------------------------------
+ \journalcode{X}              % Indicate the journal to which submitted
+                              %   A - Acta Crystallographica Section A
+                              %   B - Acta Crystallographica Section B
+                              %   C - Acta Crystallographica Section C
+                              %   D - Acta Crystallographica Section D
+                              %   E - Acta Crystallographica Section E
+                              %   F - Acta Crystallographica Section F
+                              %   J - Journal of Applied Crystallography
+                              %   M - IUCrJ
+                              %   S - Journal of Synchrotron Radiation
+
 
 
 \begin{document}                  % DO NOT DELETE THIS LINE
 
-% \title{Focusing partially-coherent X-ray beams with lenses. Multi-optics simulations}
 \title{A fast and light tool for partially-coherent beamline simulations in fourth generation storage rings based on coherent mode decomposition}
 
 \cauthor[]{\jsrblue{Manuel}}{\jsrblue{Sanchez del Rio}}{srio@esrf.eu}{address if different from \aff}
@@ -91,6 +111,7 @@ However, the diffraction effects produced by the interaction of the beam with th
 In this paper we propose a new method for dealing with partial coherence of undulator beams. The key point is to reduce the dimensionality of the problem to deal with one-dimensional (1D) wavefront cuts (i.e. separating horizontal and vertical directions). A full treatment of CMD with two-dimensional (2D) wavefronts was implemented a few years ago in the COMSYL package \cite{codeCOMSYL}. This method requires the use of high-performance computer (HPC) resources that are not always at a hand. The problem is to manipulate and diagonalize a huge stack representing the CSD, that is a 4D entity when using 2D wavefronts. Since then, different techniques have been applied to deal with the magnitude of the problem, for example using Single-Value-Decomposition for diagonalization \cite{SVDHanXu}, or analytical treatment of the quadratic phase \cite{ChubarCMD2022}, but none of them got rid of using HPC. In this paper we demonstrate that whenever this proposed 1D simplification can be used, like in many cases of practical interest, the results are comparable to the other 2D methods but require much less resources, thus allowing simulations in a common laptop. 
 
 The new code, referred to here as WOFRY1D, is benchmarked against other existing codes that are available in OASYS simulation ecosystem \cite{codeOASYS}. The optical system studied here derives from the project for the new ID18 beamline at the upgraded EBS-ESRF storage ring. We have compared results for different set-ups implementing two refractive systems (transfocators), plus a slit placed upstream from the transfocators. The beam properties simulated by four different transfocator configuratiuons are studied in detail using four packages available in OASYS: i) the novel 1D CMD, implemented in the code WOFRY1D, ii) full CMD in 2D with COMSYL \cite{codeCOMSYL}, iii) SRW-ME: multi-electron simulations in SRW \cite{codeSRW}, and iv) HYBRID ray-tracing as described by \citeasnoun{codeHYBRID} and implemented in ShadowOUI \cite{codeSHADOWOUI}.
+
 
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
@@ -166,7 +187,6 @@ In terms of intensity:
 \label{eq:SR}
 \end{equation}
 The electric field $E_\omega(\textbf{r};\mathcal{S})$ is the emission by a single electron with trajectory defined by the undulator magnetic field and electron initial conditions $\mathcal{S}$
-% \remove{with $s=s_0$} 
 at the observation point $\textbf{r}$ [see equation~(\ref{eq:undulator})]. The first term in equation~(\ref{eq:SR}) is a sum at $\textbf{r}$ of the intensity of every electron emission weighted by its probability $f$, which describes temporally incoherent synchrotron radiation (SR). The second term stands for the enhancement of the intensity due to coherent superposition of the emission of the $N_e$ electrons, modelling temporally coherent SR. It follows that: $\text{I}_\text{~bunch} = \text{I}_\text{~iSR}+\text{I}_\text{~cSR}$.
 For emitted wavelengths $\lambda$ shorter than the electron bunch length ($\sigma_z > \lambda$), the power associated with the term $\text{I}_\text{~cSR}$ vanishes quickly \cite{CSR,Wiedemann2015}. Considering typical undulator radiation emission, i.e. X-ray energy ranges from a few hundred electron-volts to a few hundred keV, and typical electron bunch lengths in storage rings ($\sigma_{T}>30$~ps), $\text{I}_\text{~cSR}$ can be neglected when considering standard monochromatisation schemes in beamlines\footnote{\citeasnoun{geloni2008} provide a counter-example in Ref[15] ibid.}.
 
@@ -212,7 +232,7 @@ expresses the correlation of the emitted radiation between any two spatial point
 % -----------------------------------------------------------------
 
 \citeasnoun{geloni2008} show that although synchrotron radiation emission (a random process obeying Gaussian statistics) is not intrinsically stationary nor homogeneous, second order coherence theory of scalar fields as presented by \citeasnoun{mandel_wolf} can be applied when the following conditions are observed:
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}%[label=(\roman*)]
 \item radiation frequency $\omega$ is ``sufficiently high";
 \item $e$-bunch time-length $\sigma_{T}$ ``sufficiently large" so that $\omega\sigma_{T}\gg1$;
 \item radiation bandwidth $\Delta_\omega$ is not ``too narrow" ($\Delta_\omega\gg1\big/\sigma_{T}$).
@@ -220,7 +240,7 @@ expresses the correlation of the emitted radiation between any two spatial point
 Basically excluding infra-red downwards, condition (i) holds for soft- to hard X-rays, which are upwards in frequency; condition (ii) is satisfied by storage rings, where typically $\sigma_{T}>30$~ps, but not at free-electron lasers, where $\sigma_{T}<0.1$~ps due to micro-bunching effects; and finally, condition (iii) is generally met by standard monochromatisation schemes. This set of conditions, related to the longitudinal electron-beam direction, ensures that synchrotron radiation emission is a quasi-stationary (or a wide-sense stationary) process. 
 
 In the (2D) transverse direction, when the intensity slowly varies compared to the coherence length we consider undulator radiation to be quasi-homogeneous. Conditions for such are implicitly met when: 
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}%[label=(\roman*)]
 \setcounter{enumi}{3}
 \item $N_\text{x}\gg1$ and $D_\text{x}\gg1$ (or equivalently $\varepsilon_x\big/\lambdabar\gg1$);
 \item $N_\text{y}\gg1$ and/or $D_\text{y}\gg1$,
@@ -230,16 +250,13 @@ with:
     N_\text{x,y}=\frac{\sigma^2_\text{x,y}}{\lambdabar L_u}, \quad D_\text{x,y}=\frac{\sigma'^2_\text{x,y}}{\lambdabar/L_u}
 \end{equation}
 where $\sigma_\text{x,y}$ and $\sigma'_\text{x,y}$ represent the electron beam transverse sizes and divergences, $L_u$ is the undulator length (number of periods $N_u$ times the magnetic period $\lambda_u$) and $\lambdabar=\lambda/2\pi$.
-% We remind the reader that the electron beam transverse sizes and divergences are both proportional to the square root of the the electron beam emittance $\varepsilon_\text{x,y}$.
-% (Quasi-) homogeneous
-Under some conditions, quasi-homogeneous sources have the property that the cross-spectral density [equation~(\ref{eq:CSD_2D})] can be factorised as a product of a horizontal and a vertical cross-spectral densities (a result that will be explored in more details in \S\ref{sec:WOFRY1D}). For 3$^{\text{rd}}$ generation synchrotron light sources, conditions (iv) and (v) are met for the wavelengths already restricted by (i) and as noted by \citeasnoun{geloni2008}, the conditions (i)-(v) are practically non-restrictive under cases of practical interest. As the horizontal emittance reduces, as it is the case of 4$^{\text{th}}$ generation light sources, we slowly approach a region where quasi-homogeneity breaks down.
+Under these conditions, quasi-homogeneous sources have the property that the cross-spectral density [equation~(\ref{eq:CSD_2D})] can be factorised as a product of a horizontal and a vertical cross-spectral densities (a result that will be explored in more details in \S\ref{sec:WOFRY1D}). For 3$^{\text{rd}}$ generation synchrotron light sources, conditions (iv) and (v) are met for the wavelengths already restricted by (i) and as noted by \citeasnoun{geloni2008}, the conditions (i)-(v) are practically non-restrictive under cases of practical interest. As the horizontal emittance reduces, as it is the case of 4$^{\text{th}}$ generation light sources, we slowly approach a region where quasi-homogeneity breaks down.
 
 % -----------------------------------------------------------------
 \subsubsection{Coherent modes, coherent fraction and coherent length\\}
 % -----------------------------------------------------------------
 
 The CSD in equation~(\ref{eq:CSD_2D}) is used to define the spectral density\footnote{Spectral density is sometimes loosely called intensity. The spectral density and the intensity functions are equivalent for the 
-% quasi-monochromatic
 stationary case. The same holds for the CSD and the mutual optical intensity (MOI) \cite{mandel_wolf}.} as:
 \begin{equation}\label{eq:intensity}
     \mathcal{I}(\textbf{r};\omega)=W(\textbf{r},\textbf{r};\omega),
@@ -258,7 +275,7 @@ W(\textbf{r}_1,\textbf{r}_2;\omega) = \sum_{n=0}^{\infty} \Lambda_n(\omega) \Phi
 where $\Lambda_n$ (eigenvalues) are the intensity weights and the $\Phi_n$ are the coherent modes (eigenfunctions). 
 Some important characteristics of this coherent mode decomposition are: 
 
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}%[label=(\roman*)]
 \item the modes $\Phi_n$ are orthonormal in the integral sense;
 \item the decomposition maximize the CSD making the truncation optimal:
 \end{enumerate}
@@ -266,7 +283,7 @@ Some important characteristics of this coherent mode decomposition are:
 \Lambda(\omega) \in {R}
 :~0\leq \Lambda_{i+1}(\omega)<\Lambda_i(\omega);~\forall~i \in {N};
 \end{equation*}
-\begin{enumerate}[label=(\roman*)]
+\begin{enumerate}%[label=(\roman*)]
 \setcounter{enumi}{2}
 \item the eigenvalues $\Lambda_n$ are a measure of the intensity of the corresponding mode $\Phi_{n}$; 
 \item we define the occupation $\eta$ of the i-th mode as its normalized intensity: 
@@ -280,8 +297,6 @@ From these arguments, it is now natural to rigorously define coherent fraction (
 \begin{equation}
 \text{CF}=\eta_0=\frac{\Lambda_0(\omega)}{\sum\limits_{n=0}^\infty{\Lambda_n(\omega)}}. \label{eq:CF2D}
 \end{equation}
-
-% When using evaluating the CF of a particular optical setup, it is relevant to consider that if there is spatial filtering or any sort of beam clipping the modes $\Phi$ do not propagate retaining their orthogonality and their occupation $\eta$. In this case, a reapplication of the CMD to the cropped modes (rediagonalisation) is imperative to recalculate the new $\text{CF}_\text{2D}$.
 
 The transverse coherence length (CL) is related to the width of a cut of the modulus of DoC. There is no unanimous accepted way of defining the CL, a parameter of practical importance for daily beamline operations. Quantitative values of CL are discussed in \S{\ref{sec:results36m}}. Importantly, the blindly application of the van Cittert-Zernike theorem may lead to errors, as discussed in cf. §4.1 of \cite{geloni2008}, because this theorem was originally derived for incoherent sources. 
 
@@ -358,8 +373,6 @@ The factorisation in equation~(\ref{eq:CSD_2D_bis}) has been discussed by \citea
 harmonics \cite{Bazarov2012,tanaka2014,nash2021}. 
 The cartesian factorisation in equation~(\ref{eq:CSD_2D_bis}) is supposed to work well when the electron beam parameteres in horizontal are different from the vertical ones. The cartesian separation does not work for rotationally symmetric sources (round beams). However, the Wigner function in this case (and therefore the CSD, being related by a Fourier transform) can be treated as 1D problem, as suggested by \citeasnoun{Agarwal2000} and developed by \citeasnoun{Gasbarro2014}. It would be interesting for future 4$^\text{th}$ generation sources that will create round beams to develop a CMD tool using polar coordinates, also including wave propagators like those discussed in \cite{LiJacobsen}. 
 
-% The CSD and the Wigner distribution being related by a Fourier transform - cf. \S III in \cite{Bazarov2012}}.
-
 
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
@@ -418,16 +431,6 @@ A generic aperture (slit, pin-hole and beam-stop) is represented by a binary opa
       1-T, &\text{elsewhere},
         \end{cases}
 \end{equation}
-% \begin{equation}\label{eq:Slit}
-% \mathrm{T}_{\text{BL}}(\textbf{r}) =
-% \left\{
-% \begin{matrix}
-% T,  & \mbox{~~if~~}  \textbf{r}~\text{inside}~ \textbf{A}
-% \\ 
-% 1 - T, & \mbox{~~elsewhere}
-% \end{matrix}
-% \right.
-% \end{equation}
 When the element is a slit, then $T=1$. If it is a beamstop, then $T=0$. $\textbf{A}$ is the region defined by the object boundary. 
 
 Absorption filters, test patterns, X-ray refractive lenses, refractive correctors (free-form refractive optics), zone plates and transmission gratings are usually well represented by this thin-element approximation in projection approximation with:
@@ -556,14 +559,12 @@ It is worth mentioning that the modulus of the DoC (and therefore the CL) is obt
 
 \begin{figure}
     \label{fig:doubleslit}
-    % \begin{multicols}{2}
     a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
     \includegraphics[width=0.90\textwidth]{figures/doubleslit_scan.pdf}
     b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
     \includegraphics[width=0.90\textwidth]{figures/doubleslit_profile.pdf}
     c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
     \includegraphics[width=0.90\textwidth]{figures/doubleslit_DoC.pdf}
-    % \end{multicols}
     \caption{Simulation of beam propagation after a double-slit at 7~keV:  a) pattern intensity $\mathcal{I}(x)$ at $z$~=~\SI{46}{\meter} versus the separation $s_A$ between the slits. b) Intensity profile $\mathcal{I}(x;z=46~\text{m})$ for slit separation $s$~=~\SI{29.3}{\micro\meter} c) Modulus of the degree of coherence calculated from the profiles of Fig.~\ref{fig:plot_DoC_at_36m} (top row), compared with the value obtained from the visibility extracted from a). 
     }
 \end{figure}
@@ -607,8 +608,6 @@ The principal role of the slit is to control the beam coherent fraction. Closing
 
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 \onecolumn
@@ -619,8 +618,6 @@ The principal role of the slit is to control the beam coherent fraction. Closing
     \caption{Calculations of the intensity distribution at the sample plane for the cases listed in Table~\ref{table:2Dusercases}.}
 \end{figure}
 
-
-% \newpage
 \twocolumn
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -632,7 +629,6 @@ The results for case 1 shows an horizontal profile mostly triangular with should
 The WOFRY1D results are shown in Fig.~\ref{fig:sim_results}a. The 1D intensity profile for each direction is obtained from the summation of several modes. High modes have very low eigenvalues. It is sufficient to consider only 10 modes for accounting more that 99\% of the spectral density. The 2D intensity distribution shown in Fig.~\ref{fig:sim_results}a is obtained combining the calculated horizontal and vertical 1D profiles via the outer product. 
 We can observe in the intensity distributions the same structures due to the diffraction effects than those observed with the other calculation methods.
 The beam profiles calculated obtained with COMSYL and propagated with WOFRY are shown in Fig.~\ref{fig:sim_results}b. 
-% are a bit noisy, and could be improved by increasing the source sampling and further optimizing the propagation parameters. 
 SRW-ME results are in Fig.~\ref{fig:sim_results}c. The good convergence of the values displayed is guarantee by a convergence analysis described in Appendix~\ref{appendix:srw}
 Hybrid ray-tracing for the four cases defined in Table~\ref{table:2Dusercases} are in  Fig.~\ref{fig:sim_results}d. The obtained intensity distributions are less structured than those calculated with the other wave-optics methods (e.g. the three-lobe plateau in case 4-vertical is not reproduced). However, the FWHM values are in consonance with full wave-optics calculations for most cases (with the exception of two particular cases:
 1h (HYBRID \SI{16.5}{\micro\meter} WOFRY1D \SI{8.5}{\micro\meter}),
@@ -702,8 +698,6 @@ The simulations presented, motivated by the ID18 project, use a simplified optic
 A systematic and exhaustive study is done using WOFRY1D for the new ID18 beamline also including other optical elements not considered here and multiple transfocator configurations. It is important to match correctly the two transfocators to guarantee that the focal point is located at the sample plane. Heat load deformation must be controlled at the white beam mirrors and also at the monochromator. For that, the deformations calculated by finite element methods are used in WOFRY1D for assessing the optical impact, as we did in \cite{srioLBL}. It is mandatory to study the effect of mirror slope errors and surface errors at the lenses [as described in \cite{Celestre:mo5214}]. These results will be described elsewhere.
 
 
-
-
 % -----------------------------------------------------------------
 % -----------------------------------------------------------------
 \section{Summary and conclusions}
@@ -753,9 +747,7 @@ where $\mathcal{F}\{\bullet\}$ is the two-dimensional Fourier transform (FT) and
 
 A second family of propagators is obtained by the analytical treatment of the quadratic radiation phase term in equation~(\ref{eq:Fresnel}), which allows for considerable economy of memory and CPU resources as compared to the standard Fresnel free-space propagator \cite{ChubarCelestre}. Without losing generality, we assume that the electric field $E_\omega(\textbf{r})$ has a quadratic phase term defined by the wavefront curvature radii $(R_x, R_y)$ centred at $(x_0,y_0)$:
  \begin{equation}\label{eq:E_analytical}
-% \begin{split}
     E_\omega(\textbf{r}) = F_\omega(\textbf{r})\exp\bigg\{ \frac{ik}{2}\bigg[ \frac{(x-x_0)^2}{R_x} + \frac{(y-y_0)^2}{R_y} \bigg]\bigg\}.
-% \end{split}
 \end{equation}
 Plugging equation~(\ref{eq:E_analytical}) into equation~(\ref{eq:Fresnel}) and collecting terms:
 \begin{equation}\label{eq:Fresnel_analytical}
