@@ -1,0 +1,14 @@
+1 coordinates.pdf .
+2 beamline.pdf .
+3 plot_2D_spectral_density_36m.pdf .
+4 plot_CSD_at_source.pdf .
+5 plot_DoC_at_36m.pdf .
+6a doubleslit_scan.pdf .
+6b doubleslit_profile.pdf .
+6c doubleslit_DoC.pdf .
+7 CFvsGap.pdf .
+8 fig_sim_results.pdf .
+9 projection_approx.pdf .
+10 c1.pdf .
+11 c3.pdf .
+12 srw_time.pdf .
