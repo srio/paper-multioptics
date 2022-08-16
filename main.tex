@@ -6,8 +6,8 @@
 %------------------------------------------------------------------------------
 
 
-% \documentclass[preprint]{iucr}
-\documentclass{iucr}
+\documentclass[preprint]{iucr}
+% \documentclass{iucr}
 
 \usepackage{siunitx}
 \usepackage{color}
@@ -129,7 +129,7 @@ Results are compared against multiple optics packages implementing a variety of 
 % -----------------------------------------------------------------
 
 The migration to fourth-generation storage rings has significantly improved \inred{the} brilliance and coherence of X-ray synchrotron sources. The transverse coherent fraction of the new sources is increased by at least one order of magnitude with respect \inred{to} the 3$^{\text{rd}}$ generation sources (typically from 10$^{-3}$ to 10$^{-2}$ at 10 keV). This has a beneficial impact\footnote{At 3$^{\text{rd}}$ generation light sources very restrictive pinholes and slits were used for spatial filtering with a dramatic loss of flux when improving and tuning the coherent fraction of the beam. Due to the increased coherent fraction at 4$^{\text{th}}$ generation sources, much less restrictive filtering is necessary, with higher photon transmission as a consequence.} for many applications requiring coherent beams, such as X-ray photon correlation spectroscopy, coherent diffraction imaging, propagation-based phase-contrast imaging, and ptychography \cite{paganin_book}.
-However, the diffraction effects produced by the interaction of the beam with the edges and distortions of the optical elements strongly affect the quality of the beam. Diffraction patterns show higher visibility due to the increased coherent fraction in new sources, and its accurate \inred{modelling} is fundamental for the design and optimization of beamlines. The physical models for the limiting cases of full incoherence (usually simulated by geometrical ray-tracing) or by propagating a single wavefront (valid for fully coherent radiation) are not sufficient for a complete understanding of the beam transport \cite{hierarchical}. The coherent fraction of the radiation emitted by new generation storage rings, although much improved \inred{concerning} previous generations, is still of the order of a few per cent at hard X-rays, which means that it is mandatory to account for partial coherence. In the last years\inred{,} several modelling approaches have \inred{been} demonstrated to work for beamlines using undulator radiation. Starting from incoherent beams, \citeasnoun{codeHYBRID} proposed some correction algorithms to include diffraction effects that happen with coherent radiation. More accurate methodologies exploit the well-known propagation of coherent wavefronts. The partial coherence is treated by propagating a set of wavefronts that all together describe the undulator radiation. Two approaches are possible. One consists in calculating the wavefronts emitted by electrons entering the undulator with different initial conditions, sampled by Monte Carlo from the electron beam emittance (multi-electron in SRW) \cite{codeSRW_ME}. A second method, the coherent mode decomposition (CMD), assigns these wavefronts to the coherent modes, which are the eigenfunctions of the cross-spectral density (CSD), and can be numerically calculated for the undulator source \cite{glass2017}.  
+However, the diffraction effects produced by the interaction of the beam with the edges and distortions of the optical elements strongly affect the quality of the beam. Diffraction patterns show higher visibility due to the increased coherent fraction in new sources, and its accurate \inred{modelling} is fundamental for the design and optimization of beamlines. The physical models for the limiting cases of full incoherence (usually simulated by geometrical ray-tracing) or by propagating a single wavefront (valid for fully coherent radiation) are not sufficient for a complete understanding of the beam transport \cite{hierarchical}. The coherent fraction of the radiation emitted by new generation storage rings, although much improved with respect to previous generations, is still of the order of a few per cent at hard X-rays, which means that it is mandatory to account for partial coherence. In the last years\inred{,} several modelling approaches have \inred{been} demonstrated to work for beamlines using undulator radiation. Starting from incoherent beams, \citeasnoun{codeHYBRID} proposed some correction algorithms to include diffraction effects that happen with coherent radiation. More accurate methodologies exploit the well-known propagation of coherent wavefronts. The partial coherence is treated by propagating a set of wavefronts that all together describe the undulator radiation. Two approaches are possible. One consists in calculating the wavefronts emitted by electrons entering the undulator with different initial conditions, sampled by Monte Carlo from the electron beam emittance (multi-electron in SRW) \cite{codeSRW_ME}. A second method, the coherent mode decomposition (CMD), assigns these wavefronts to the coherent modes, which are the eigenfunctions of the cross-spectral density (CSD), and can be numerically calculated for the undulator source \cite{glass2017}.  
 \inred{A full treatment of CMD with two-dimensional (2D) wavefronts was implemented a few years ago in the COMSYL package \cite{codeCOMSYL}. Both methods require the use of high-performance computer (HPC) resources that are not always at a hand.
 The problem in CMD is to manipulate and diagonalize a huge stack representing the CSD with enough precision, which is a 4D entity when using 2D wavefronts. 
 After the release of COMSYL, different techniques have been proposed to deal with the magnitude of the problem. The Single-Value-Decomposition method presents some advantages when used for the diagonalization of the CSD \cite{SVDHanXu}. When the wavefronts are highly convergent or divergent,  sufficient sampling of the electric field phase requires a very fine grid. In these cases, the sampling is dictated by a quadratic phase. A method developed by \citeasnoun{ChubarCMD2022} consists in subtracting the quadratic phase which is analytically propagated, thus reducing the computational effort to limits acceptable by an average laptop.
@@ -174,7 +174,7 @@ We quickly remind that an ultrarelativistic charged particle following a curved 
 \end{split}\label{eq:undulator}
 \end{equation}
 where the subscript $\omega$ indicates the photon frequency, $e$ is the electron charge, $c$ the velocity of light, $\epsilon_0$ the electric constant, $\gamma \approx 1957\mathcal{E}[\mathrm{GeV}]$ is the Lorentz factor with $\mathcal{E}$ being the electron energy in practical units, $\mathbf{\beta}=\dot{\mathbf{r}}\big/c$ is the electron relative velocity and the dot denotes the time derivative.
-Also $\textbf{n}(t)=\textbf{r}-\textbf{r}_{\textbf{e}}(t)\big/|\textbf{r}-\textbf{r}_{\textbf{e}}(t)|$ is the unit vector pointing from the particle to the observation point $\textbf{r}$; the electron trajectory is represented by $\textbf{r}_{\textbf{e}}(t)$, which is completely determined by the 3D distribution of the magnetic field inside the ID and the electron initial conditions prior to entering it. The origin of the vector $\textbf{r}$ is usually at the \inred{centre} of the insertion device/straight section. Figure~\ref{fig:coordinates} serves as a visual aid to equation~(\ref{eq:undulator}) and its parameters. 
+Also $\textbf{n}(t)=\textbf{r}-\textbf{r}_{\textbf{e}}(t)\big/|\textbf{r}-\textbf{r}_{\textbf{e}}(t)|$ is the unit vector pointing from the particle to the observation point $\textbf{r}$; the electron trajectory is represented by $\textbf{r}_{\textbf{e}}(t)$, which is completely determined by the 3D distribution of the magnetic field inside the \inred{insertion device (}ID\inred{)} and the electron initial conditions prior to entering it. The origin of the vector $\textbf{r}$ is usually at the \inred{centre} of the insertion device/straight section. Figure~\ref{fig:coordinates} serves as a visual aid to equation~(\ref{eq:undulator}) and its parameters. 
 
 Equation~\ref{eq:undulator} describes a fully spatially-coherent field and has been conceptualised for a single electron. A common abstraction that derives from it is the "filament beam", where $N_e$ electrons overlap in space following \inred{the} same trajectory $\textbf{r}_{\textbf{e}}(t)$, which is useful to  represent an idealized zero-emittance storage ring. In this case, a multiplicative factor $N_e$ is applied to equation~(\ref{eq:undulator}). Much like the single electron emission, the filament beam also radiates a fully transverse coherent wavefront.
 
@@ -187,7 +187,7 @@ Several codes are available in the synchrotron community to calculate the undula
     \includegraphics[width=0.79\textwidth]{figures/coordinates.pdf}
     \caption{Spontaneous emission of relativistic electrons and propagation of wavefronts along the beamline.}
 \end{figure}
-\newpage
+
 
 \whencolumns{}{\twocolumn}
 
@@ -268,15 +268,15 @@ expresses the correlation of the emitted radiation between any two spatial point
 \subsubsection{Validity of CSD usage for emission in storage rings\\}\label{sec:validity}
 % -----------------------------------------------------------------
 
-\citeasnoun{geloni2008} show that although synchrotron radiation emission (a random process obeying Gaussian statistics) is not intrinsically stationary nor homogeneous, \inred{the} second\inred{-}order coherence theory of scalar fields as presented by \citeasnoun{mandel_wolf} can be applied when the following conditions are observed:
+\citeasnoun{geloni2008} show\footnote{\inred{During the review of this manuscript, the authors came across the work from  \citeasnoun{Trebushinin2022}, which also covers the theoretical background of undulator statistical properties.}} that although synchrotron radiation emission (a random process obeying Gaussian statistics) is not intrinsically stationary nor homogeneous, \inred{the} second\inred{-}order coherence theory of scalar fields as presented by \citeasnoun{mandel_wolf} can be applied when the following conditions are observed:
 \begin{enumerate}%[label=(\roman*)]
 \item radiation frequency $\omega$ is ``sufficiently high";
 \item $e$-bunch time-length $\sigma_{T}$ ``sufficiently large" so that $\omega\sigma_{T}\gg1$;
 \item radiation bandwidth $\Delta_\omega$ is not ``too narrow" ($\Delta_\omega\gg1\big/\sigma_{T}$).
 \end{enumerate}
-\inred{E}xcluding infra-red downwards, condition (1) holds for soft- \inred{until} hard X-rays, which are upwards in frequency; condition (2) is satisfied by storage rings, where typically $\sigma_{T}>30$~ps, but not at free-electron lasers, where $\sigma_{T}<0.1$~ps due to micro-bunching effects; and finally, condition (3) is generally met by standard monochromati\inred{z}ation schemes. This set of conditions, related to the longitudinal electron-beam direction, ensures that synchrotron radiation emission is a quasi-stationary (or a wide-sense stationary) process. 
+\inred{E}xcluding infra-red downwards, condition (1) holds for soft- \inred{until passed the} hard X-rays, which are upwards in frequency; condition (2) is satisfied by storage rings, where typically $\sigma_{T}>30$~ps, but not at free-electron lasers, where $\sigma_{T}<0.1$~ps due to micro-bunching effects; and finally, condition (3) is generally met by standard monochromati\inred{z}ation schemes. This set of conditions, related to the longitudinal electron-beam direction, ensures that synchrotron radiation emission is a quasi-stationary (or a wide-sense stationary) process. 
 
-In the (2D) transverse direction, following \cite{geloni2008}, the source is quasi-homogeneous  when i) the intensity slowly varies compared to the coherence length, and ii) the complex degree of coherence depends only on $\Delta\textbf{r}=\textbf{r}_2-\textbf{r}_1$. The following conditions control quasi-homogeneity: 
+In the (2D) transverse direction, following \cite{geloni2008}, the source is quasi-homogeneous  when i) the intensity slowly varies compared to the coherence length, and ii) the complex degree of coherence depends only on $\Delta\textbf{r}=\textbf{r}_2-\textbf{r}_1$. The following conditions \inred{delimit the applicability of} quasi-homogeneity: 
 \begin{enumerate}%[label=(\roman*)]
 \setcounter{enumi}{3}
 \item $N_\text{x}\gg1$ and/or $D_\text{x}\gg1$;
@@ -563,11 +563,6 @@ The first case is selected to obtain a small spot (about \SI{5}{\micro\meter}) a
 
 Calculations are done using the four different methodologies discussed previously, implemented in four different add-ons of the OASYS ecosystem. 
 
-\subsection{Source characteristics and its propagation to the entrance slit}
-\label{sec:results36m}
-
-We first calculated the source and the illumination at the entrance slit plane ($z$=\SI{36}{\meter}).
-The spectral density calculated with the different codes is shown in Fig.~\ref{fig:plot_2D_spectral_density_36m}. The distributions calculated by the different methods are close with differences in full width at half-maximum (FWHM) less than 10\%.
 
 \begin{figure}
     \label{fig:plot_2D_spectral_density_36m}
@@ -576,9 +571,12 @@ The spectral density calculated with the different codes is shown in Fig.~\ref{f
     }
 \end{figure}
 
-The CSD can be calculated using wave optics codes. 
-Figure~\ref{fig:plot_CSD_at_source} shows the horizontal and vertical $W_{1D}$ at the source plane calculated with SRW-ME and WOFRY1D.
-Again, an excellent agreement is found, with the similar FWHM of the profiles crossing the (0,0) (\SI{9}{\micro\meter} for both codes in H and \SI{12}{\micro\meter} in V).
+\subsection{Source characteristics and its propagation to the entrance slit}
+\label{sec:results36m}
+
+We first calculated the source and the illumination at the entrance slit plane ($z$=\SI{36}{\meter}).
+The spectral density calculated with the different codes is shown in Fig.~\ref{fig:plot_2D_spectral_density_36m}. The distributions calculated by the different methods are close with differences in full width at half-maximum (FWHM) less than 10\%.
+
 
 \begin{figure}
     \label{fig:plot_CSD_at_source}
@@ -588,9 +586,9 @@ Again, an excellent agreement is found, with the similar FWHM of the profiles cr
     }
 \end{figure}
 
-Figure~\ref{fig:plot_DoC_at_36m} shows the horizontal and vertical DoC at the slit plane expressed in the new coordinates $(\bar{x},~\Delta_x) = ((x_1+x_2)\big/2,~x_2-x_1)$ (for horizontal, similarly with $y$ for vertical). The interest of using these coordinates is to redress the plot of the CSD that lies on a diagonal (as shown in Fig. ~\ref{fig:plot_CSD_at_source}) and obtain the ``coherent length" (CL) as a ``width" of the modulus of the DoC versus $\Delta_x$ at $\bar{x}=0$. If using the FWHM, we obtain horizontal CL of \SI{76}{\micro\meter} with WOFRY1D and \SI{80}{\micro\meter} with SRW-ME and vertical CL of
-\SI{444}{\micro\meter} with WOFRY1D and \SI{402}{\micro\meter} with SRW-ME. A naive application of the van Cittert-Zernike theorem for a source with a Gaussian intensity profile permits t\inred{he} calculat\inred{ion} \inred{of} the coherence length (the FWHM of the Fourier Transform of the source intensity profile) as CL~=~0.88$\lambda z/S$, with $z$ the distance source-observation plane, and $S$ the source FWHM. In our case ($z=\SI{36}{\meter}$, source FWHM \SI{70.6}{\micro\meter} (H) and \SI{15.0}{\micro\meter} (V), and $\lambda$~=~1.77~$\times$~10$^{-10}$~m) it gives CL~=~\SI{79}{\micro\meter} (H) and CL~=~\SI{374}{\micro\meter} (V). The (rough) agreement of the values from the van Cittert-Zernike theorem (corresponding to a fully incoherent source) with our numerical values (for the partial\inred{ly} coherent beam) is justified by the fact that $z$ is large enough to lie in the $z$-range where the CL is linear [see discussion and Fig.~17 in \cite{geloni2008}].
-
+The CSD can be calculated using wave optics codes. 
+Figure~\ref{fig:plot_CSD_at_source} shows the horizontal and vertical $W_{1D}$ at the source plane calculated with SRW-ME and WOFRY1D.
+Again, an excellent agreement is found, with the similar FWHM of the profiles crossing the (0,0) (\SI{9}{\micro\meter} for both codes in H and \SI{12}{\micro\meter} in V).
 
 \begin{figure}
     \label{fig:plot_DoC_at_36m}
@@ -600,8 +598,8 @@ Figure~\ref{fig:plot_DoC_at_36m} shows the horizontal and vertical DoC at the sl
     }
 \end{figure}
 
-It is worth mentioning that the modulus of the DoC (and therefore the CL) is obtained experimentally by measuring the interference of the two beams originated by a double-slit \cite{ThompsonWolf1957}. Examples of this type of experiment with synchrotron radiation are presented in \cite{Chang2000, Paterson2001, Leitenberger2003, Tran2005}. We performed simulations with WOFRY1D placing two slits of \SI{2.5}{\micro\meter} with horizontal separation $s_A$ in the plane at $z$~=~\SI{36}{\meter}, and propagating the resulting two beams to $z$~=~\SI{46}{\meter}. The results are in Fig.~\ref{fig:doubleslit}a, where it can be appreciated that the visibility of the fringes decrease\inred{s} when increasing $s_A$. For a given $s_A$, the intensity profile (e.g. Fig.~\ref{fig:doubleslit}b) is used to compute the visibility $\mathcal{V}=\langle \mathcal{I}_{\text{max}}-\mathcal{I}_{\text{min}} \rangle\big/\langle \mathcal{I}_{\text{max}}+\mathcal{I}_{\text{min}}\rangle$ which is equal to the modulus of the DoC. We then obtained the visibility $\mathcal{V}$ versus the slit separation $s_A$ that gives (as expected) the same values as the modulus of DoC versus $x_2-x_1$ in Fig.~\ref{fig:plot_DoC_at_36m} (see Fig.~\ref{fig:doubleslit}c). 
-
+Figure~\ref{fig:plot_DoC_at_36m} shows the horizontal and vertical DoC at the slit plane expressed in the new coordinates $(\bar{x},~\Delta_x) = ((x_1+x_2)\big/2,~x_2-x_1)$ (for horizontal, similarly with $y$ for vertical). The interest of using these coordinates is to redress the plot of the CSD that lies on a diagonal (as shown in Fig. ~\ref{fig:plot_CSD_at_source}) and obtain the ``coherent length" (CL) as a ``width" of the modulus of the DoC versus $\Delta_x$ at $\bar{x}=0$. If using the FWHM, we obtain horizontal CL of \SI{76}{\micro\meter} with WOFRY1D and \SI{80}{\micro\meter} with SRW-ME and vertical CL of
+\SI{444}{\micro\meter} with WOFRY1D and \SI{402}{\micro\meter} with SRW-ME. A naive application of the van Cittert-Zernike theorem for a source with a Gaussian intensity profile permits t\inred{he} calculat\inred{ion} \inred{of} the coherence length (the FWHM of the Fourier Transform of the source intensity profile) as CL~=~0.88$\lambda z/S$, with $z$ the distance source-observation plane, and $S$ the source FWHM. In our case ($z=\SI{36}{\meter}$, source FWHM \SI{70.6}{\micro\meter} (H) and \SI{15.0}{\micro\meter} (V), and $\lambda$~=~1.77~$\times$~10$^{-10}$~m) it gives CL~=~\SI{79}{\micro\meter} (H) and CL~=~\SI{374}{\micro\meter} (V). The (rough) agreement of the values from the van Cittert-Zernike theorem (corresponding to a fully incoherent source) with our numerical values (for the partial\inred{ly} coherent beam) is justified by the fact that $z$ is large enough to lie in the $z$-range where the CL is linear [see discussion and Fig.~17 in \cite{geloni2008}].
 
 \begin{figure}
     \label{fig:doubleslit}
@@ -612,7 +610,7 @@ It is worth mentioning that the modulus of the DoC (and therefore the CL) is obt
     \includegraphics[width=0.5\textwidth]{figures/doubleslit_scan.pdf}
     }{
     a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
-    \includegraphics[width=0.90\textwidth]{figures/doubleslit_scan.pdf}
+    \includegraphics[width=0.70\textwidth]{figures/doubleslit_scan.pdf}
     }
     % \includegraphics[width=0.90\textwidth]{figures/doubleslit_scan.pdf}
     
@@ -621,7 +619,7 @@ It is worth mentioning that the modulus of the DoC (and therefore the CL) is obt
     \includegraphics[width=0.5\textwidth]{figures/doubleslit_profile.pdf}
     }{
     b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
-    \includegraphics[width=0.90\textwidth]{figures/doubleslit_profile.pdf}
+    \includegraphics[width=0.70\textwidth]{figures/doubleslit_profile.pdf}
     }
     
     \whencolumns{
@@ -629,12 +627,13 @@ It is worth mentioning that the modulus of the DoC (and therefore the CL) is obt
     \includegraphics[width=0.5\textwidth]{figures/doubleslit_DoC.pdf}
     }{
     c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\newline
-    \includegraphics[width=0.90\textwidth]{figures/doubleslit_DoC.pdf}
+    \includegraphics[width=0.70\textwidth]{figures/doubleslit_DoC.pdf}
     }
     \caption{Simulation of beam propagation after a double-slit at 7~keV:  a) pattern intensity $\mathcal{I}(x)$ at $z$~=~\SI{46}{\meter} versus the separation $s_A$ between the slits. b) Intensity profile $\mathcal{I}(x;z=46~\text{m})$ for slit separation $s$~=~\SI{29.3}{\micro\meter} c) Modulus of the degree of coherence calculated from the profiles of Fig.~\ref{fig:plot_DoC_at_36m} (top row), compared with the value obtained from the visibility extracted from a).
-    \todo{chenge label in c) to WOFRY1D}
     }
 \end{figure}
+
+It is worth mentioning that the modulus of the DoC (and therefore the CL) is obtained experimentally by measuring the interference of the two beams originated by a double-slit \cite{ThompsonWolf1957}. Examples of this type of experiment with synchrotron radiation are presented in \cite{Chang2000, Paterson2001, Leitenberger2003, Tran2005}. We performed simulations with WOFRY1D placing two slits of \SI{2.5}{\micro\meter} with horizontal separation $s_A$ in the plane at $z$~=~\SI{36}{\meter}, and propagating the resulting two beams to $z$~=~\SI{46}{\meter}. The results are in Fig.~\ref{fig:doubleslit}a, where it can be appreciated that the visibility of the fringes decrease\inred{s} when increasing $s_A$. For a given $s_A$, the intensity profile (e.g. Fig.~\ref{fig:doubleslit}b) is used to compute the visibility $\mathcal{V}=\langle \mathcal{I}_{\text{max}}-\mathcal{I}_{\text{min}} \rangle\big/\langle \mathcal{I}_{\text{max}}+\mathcal{I}_{\text{min}}\rangle$ which is equal to the modulus of the DoC. We then obtained the visibility $\mathcal{V}$ versus the slit separation $s_A$ that gives (as expected) the same values as the modulus of DoC versus $x_2-x_1$ in Fig.~\ref{fig:plot_DoC_at_36m} (see Fig.~\ref{fig:doubleslit}c). 
 
 The principal role of the slit is to control the beam coherent fraction. Closing the slit will increase the CF, with an obvious decrease in integrated intensity. The slit aperture necessary to get a ``good" coherence is somehow related to the CL, but quantitative values are better calculated using the CF versus the slit aperture. Within the CMD theory, this requires calculat\inred{ing} coherent modes after the slit, \inred{which} can be easily done with WOFRY1D (see Fig.~\ref{fig:CFvsGap}). From the CF versus slit aperture plot, one can pick the aperture values to match the desired CF (we selected 90\% or 70\% values of CF to select slit apertures in Table~\ref{table:2Dusercases}), and at the same time estimate the los\inred{s}es in flux.
 
@@ -648,10 +647,11 @@ The principal role of the slit is to control the beam coherent fraction. Closing
 \begin{table}[]
     \label{table:comparison}
     \caption{Comparison of sizes (FWHM, in \SI{}{\micro\meter}) calculated with different methods for the cases defined in Table~\ref{table:2Dusercases}.
-    In brackets \inred{are} the values for the fully coherent beam (single electron with SRW, first coherent mode with COMSYL/WOFRY), and zero emittance with HYBRID). 
+    In brackets \inred{are} the values for the fully coherent beam (single electron with SRW, first coherent mode with COMSYL/WOFRY), and zero emittance with HYBRID). \vspace{5mm}
     }
     \centering
-    \begin{tabular}{p{0.05\textwidth}|c|c|c|c|c}
+    \begin{tabular}
+    {p{0.05\textwidth}|c|c|c|c|c}
          case h/v &
          WOFRY1D&
          COMSYL&
@@ -719,6 +719,7 @@ We note a high absorption in lens-2 in cases 1,3; this is \inred{because} lens-2
     for the four cases studied.
     The WOFRY1D data shown here comes after combining the horizontal and vertical wavefronts using the outer product. 
     Each profile corresponds to the intensity integrated along its perpendicular direction. 
+    \vspace{5mm}
     }
     \centering
 \begin{tabular}{l|lll|lll|lll}
@@ -761,7 +762,7 @@ The simulation of the full CMD with COMSYL required about 1h with 28 cores. The 
 
 The simulations presented, motivated by the EBSL1 project, use a simplified optical layout. They are used to validate the WOFRY1D tool before proceeding with further analyses. 
 
-A systematic and exhaustive study is done using WOFRY1D for the new EBSL1 beamline also including other optical elements not considered here and multiple transfocator configurations. It is important to match correctly the two transfocators to guarantee that the focal point is located at the sample plane. Heat load deformation must be controlled at the white beam mirrors and also at the monochromator. For that, the deformations calculated by finite element methods are used in WOFRY1D for assessing the optical impact, as we did in \cite{srioLBL}. It is mandatory to study the effect of mirror slope errors and surface errors at the lenses [as described in \cite{Celestre:mo5214}]. These results will be described elsewhere.
+A systematic and exhaustive study is done using WOFRY1D for the new EBSL1 beamline also including other optical elements not considered here and multiple transfocator configurations. It is important to match correctly the two transfocators to guarantee that the focal point is located at the sample plane. Heat load deformation must be controlled at the white beam mirrors and also at the monochromator. For that, the deformations calculated by finite element methods are used in WOFRY1D for assessing the optical impact, as we did in \cite{srioLBL}. It is \inred{imperative} to study the effect of mirror slope errors and surface errors at the lenses [as described in \cite{Celestre:mo5214}]. These results will be described elsewhere.
 
 
 % -----------------------------------------------------------------
